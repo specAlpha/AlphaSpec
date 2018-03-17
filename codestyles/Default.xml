@@ -1,1 +1,12 @@
-<code_scheme name="Default" />
+<code_scheme name="Default" version="173">
+  <JSON>
+    <option name="KEEP_TRAILING_COMMA" value="true" />
+    <option name="PROPERTY_ALIGNMENT" value="1" />
+    <option name="ARRAY_WRAPPING" value="1" />
+  </JSON>
+  <codeStyleSettings language="JSON">
+    <indentOptions>
+      <option name="TAB_SIZE" value="2" />
+    </indentOptions>
+  </codeStyleSettings>
+</code_scheme>
