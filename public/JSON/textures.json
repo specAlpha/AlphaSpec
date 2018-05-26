@@ -1,0 +1,8 @@
+{
+  "textures": [
+    {
+      "name": "default",
+      "path": "textures/components/default.jpg"
+    }
+  ]
+}
