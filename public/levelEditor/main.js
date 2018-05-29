@@ -1,15 +1,14 @@
 let renderer, camera, scene, axes, objects = [];
 
+Math.radians = function (degrees) {
+    return degrees * Math.PI / 180;
+};
 
+Math.degrees = function (radians) {
+    return radians * 180 / Math.PI;
+}
 $(function () {
-    Math.radians = function (degrees) {
-        return degrees * Math.PI / 180;
-    };
 
-// Converts from radians to degrees.
-    Math.degrees = function (radians) {
-        return radians * 180 / Math.PI;
-    }
 
     camera = new THREE.PerspectiveCamera(45, 1500 / 700, 1, 20000);
 
@@ -96,7 +95,7 @@ $(function () {
         selectedOBJ.rotation.y = Math.radians($(this).val());
     })
 
-   
+
     function edit() {
         selectedOBJ = this.mesh
         $('#posX').val(selectedOBJ.position.x)

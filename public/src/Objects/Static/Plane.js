@@ -1,5 +1,7 @@
 class Plane extends Component {
     constructor(positionVector3, sizeVector3, Euler, textureName) {
+
+        //nie posiadaja kolziji
         super(positionVector3, Euler);
         this.size = sizeVector3;
         this.geometry = new THREE.PlaneGeometry(this.size.x, this.size.y, 10);

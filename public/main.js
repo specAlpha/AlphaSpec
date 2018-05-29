@@ -1,11 +1,23 @@
 // TODO make it work
 
+function OIMOtoThreeVec3(OimoVec) {
+    return new THREE.Vector3(OimoVec.x, OimoVec.y, OimoVec.z)
+
+}
+
+function THREEtoOimoVec(vec) {
+    return new OIMO.Vec3(vec.x, vec.y, vec.z)
+
+}
+
+
 $(function () {
 
     function loadJSON(url) {
         return fetch(url).then(resolve => resolve.json())
 
     }
+
 
     let controls, light;
 
@@ -19,7 +31,7 @@ $(function () {
         0.1,
         10000
     );
-    let plane, cube, ramp, model
+    let floor, cube, ramp, player
 
 
     GM.renderer = new THREE.WebGLRenderer({antialias: true});
@@ -56,27 +68,52 @@ $(function () {
     var axes = new THREE.AxesHelper(1000)
     scene.add(axes)
 
+
+    let userInput = new UserInput();
+    let inputManager
+
+
     $("#root").append(GM.renderer.domElement);
     loadJSON('/JSON/textures.json').then(function (json) {
 
         GM.textureBank.loadTextures(json.textures)
-        ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
 
-        model = new Model(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 1, 0, 'XYZ'), 'models/test.fbx')
+        //bedzie trzeba jakis loader porzadny napisac by tekstury sie wgrały a dopiero potem to leciał bo pozniej sra bugami
 
-        model.addParentContainer(scene)
-        ramp.addParentContainer(scene)
+        setTimeout(function () {
+            ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            cube = new Cube(new THREE.Vector3(-45, 15, -15), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            player = new Player(new THREE.Vector3(20, 0, 20), new THREE.Euler(0, 1, 0, 'XYZ'), 'models/runTest.fbx')
+            floor = new Cube(new THREE.Vector3(0, -1, 0), new THREE.Vector3(400, 2, 400), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            ramp.addParentContainer(scene)
+            player.model.addParentContainer(scene)
+            cube.addParentContainer(scene)
+            inputManager = new InputManager(player, userInput)
+            userInput.initKeyboard()
+            floor.addParentContainer(scene)
+        }, 1000)
+
 
     })
 
     let clock = new THREE.Clock();
 
     function render() {
-        if (model)
-            model.update(clock.getDelta())
+
+        let timeDelta = clock.getDelta();
+        if (player) {
+
+            inputManager.update()
+            player.update(timeDelta)
+
+        }
+        GM.physics.world.step(timeDelta)
+
+
         GM.renderer.render(scene, camera);
         requestAnimationFrame(render);
     }
+
 
     render();
 })

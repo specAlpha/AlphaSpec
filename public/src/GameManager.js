@@ -1,6 +1,7 @@
 GM = {
-    textureBank:new TextureBank(),
+    textureBank: new TextureBank(),
     renderer: new THREE.WebGLRenderer(),
+    physics: new Physics(),
 
 
 }

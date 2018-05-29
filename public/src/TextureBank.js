@@ -6,10 +6,13 @@ class TextureBank {
     createMaterial(textureName, repeatX, repeatY) {
         //TODO Po dodaniu świateł zmienic typ materiału
 
-        let texture = this.textures[textureName]
+        let texture = this.textures[textureName].clone();
+        texture.needsUpdate = true;
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.set(repeatX, repeatY)
+        texture.needsUpdate = true;
+
 
         let material = new THREE.MeshBasicMaterial({
             map: texture,

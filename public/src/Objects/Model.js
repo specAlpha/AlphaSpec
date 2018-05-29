@@ -1,19 +1,25 @@
 class Model extends Component {
-    constructor(positionVector3, sizeVector3, Euler, url) {
+    constructor(positionVector3, Euler, url) {
         super(positionVector3, Euler);
-        this.size = sizeVector3;
         this.mixer;
+
+        this.debuggeometry = new THREE.CylinderGeometry(5, 5, 20, 32);
+        this.debugmaterial = new THREE.MeshNormalMaterial({opacity: 0.5, transparent: true});
+        this.debugmesh = new THREE.Mesh(this.debuggeometry, this.debugmaterial);
+        this.debugmesh.position.y = 10;
+        //  this.container.add(this.debugmesh);
+
         this.loadModel(url)
     }
 
     loadModel(url, callback) {
-        let that = this;
+
         let loader = new THREE.FBXLoader();
-        loader.load(url, function (object) {
+        loader.load(url, (object) => {
 
-            that.mixer = new THREE.AnimationMixer(object);
+            this.mixer = new THREE.AnimationMixer(object);
 
-            that.mixer.clipAction(object.animations[0]).play();
+            this.mixer.clipAction(object.animations[0]).play();
 
             object.traverse(function (child) {
 
@@ -26,9 +32,11 @@ class Model extends Component {
 
             });
 
-            that.mesh = object;
-            that.container.add(that.mesh)
-            that.mesh.scale.set(0.1, 0.1, 0.1);
+            this.mesh = object;
+            this.container.add(this.mesh)
+            this.mesh.scale.set(0.1, 0.1, 0.1);
+            this.mesh.position.y = 1;
+
         });
     }
 
