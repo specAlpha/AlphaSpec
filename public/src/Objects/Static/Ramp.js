@@ -42,12 +42,12 @@ class Ramp extends Component {
             friction: 1,
             restitution: 1,
             rotation: collisionRot,
-            position: new OIMO.Vec3(-this.size.x / 2, this.size.x / 2 - 2, -this.size.z / 2),
+            position: new OIMO.Vec3(-this.size.x / 2, this.size.x / 2 - 1, -this.size.z / 2),
 
         }))
         GM.physics.world.addRigidBody(this.rigidBody);
 
-        this.debuggeometry = new THREE.BoxGeometry(this.size.x * Math.sqrt(2), 1, this.size.z);
+        this.debuggeometry = new THREE.BoxGeometry((this.size.x * Math.sqrt(2)), 1, this.size.z);
 
         this.debugmaterial = new THREE.MeshNormalMaterial({opacity: 0.5, transparent: true});
 

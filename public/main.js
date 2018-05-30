@@ -22,15 +22,10 @@ $(function () {
     let controls, light;
 
 
-    let scene, camera;
+    let scene;
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(
-        45,
-        $(window).width() / $(window).height(),
-        0.1,
-        10000
-    );
+
     let floor, cube, ramp, player
 
 
@@ -41,13 +36,13 @@ $(function () {
 
 
     GM.renderer.setSize($(window).width(), $(window).height());
-    camera.position.set(50, 50, 50)
-    camera.lookAt(scene.position)
+    GM.camera.position.set(50, 50, 50)
+    GM.camera.lookAt(scene.position)
 
 
-    controls = new THREE.OrbitControls(camera);
+    //controls = new THREE.OrbitControls(GM.camera);
 
-    controls.update();
+    //controls.update();
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xa0a0a0);
@@ -83,14 +78,22 @@ $(function () {
         setTimeout(function () {
             ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
             cube = new Cube(new THREE.Vector3(-45, 15, -15), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
-            player = new Player(new THREE.Vector3(20, 0, 20), new THREE.Euler(0, 1, 0, 'XYZ'), 'models/runTest.fbx')
+            player = new Player(new THREE.Vector3(20, 0, 20), new THREE.Euler(0, 0, 0, 'XYZ'), 'models/runTest.fbx')
             floor = new Cube(new THREE.Vector3(0, -1, 0), new THREE.Vector3(400, 2, 400), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
             ramp.addParentContainer(scene)
             player.model.addParentContainer(scene)
             cube.addParentContainer(scene)
-            inputManager = new InputManager(player, userInput)
+
             userInput.initKeyboard()
+            userInput.initMouse()
             floor.addParentContainer(scene)
+
+            loadJSON('/JSON/Keybinds.json').then(function (json) {
+                inputManager = new InputManager(json, player, userInput)
+                userInput.setPointerLock(GM.renderer.domElement)
+                render();
+            })
+
         }, 1000)
 
 
@@ -101,19 +104,20 @@ $(function () {
     function render() {
 
         let timeDelta = clock.getDelta();
+        GM.physics.world.step(timeDelta)
+
         if (player) {
 
             inputManager.update()
             player.update(timeDelta)
 
+
         }
-        GM.physics.world.step(timeDelta)
 
 
-        GM.renderer.render(scene, camera);
+        GM.renderer.render(scene, GM.camera);
         requestAnimationFrame(render);
     }
 
 
-    render();
 })

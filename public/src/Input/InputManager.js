@@ -1,28 +1,51 @@
 class InputManager {
-    constructor(player, userInput) {
+    constructor(keybinds, player, userInput) {
         this.player = player
         this.userInput = userInput;
+        this.keybinds = keybinds.keybinds;
+        this.pressedKeyBinds = {};
+        this.clickedKeyBinds = {};
+        this.initKeybinds()
+        this.mouseMove = true;
+    }
+
+
+    initKeybinds() {
+        for (let bind of this.keybinds) {
+            if (bind.pressed)
+                this.pressedKeyBinds[bind.keycode] = {target: bind.target, action: bind.action};
+            else
+                this.clickedKeyBinds[bind.keycode] = {target: bind.target, action: bind.action};
+        }
+
 
     }
 
 
     update() {
 
-        if (this.userInput.pressed.includes(87)) {
-            this.player.moveVec.x += 10;
+        for (let key of this.userInput.pressed) {
+            let bind = this.pressedKeyBinds[key] || false;
+            if (bind) {
+                this[bind.target][bind.action]();
+
+            }
         }
-        if (this.userInput.pressed.includes(83)) {
-            this.player.moveVec.x -= 10;
+        for (let key of this.userInput.clicked) {
+            let bind = this.clickedKeyBinds[key] || false;
+            if (bind) {
+                this[bind.target][bind.action]();
+
+            }
         }
-        if (this.userInput.pressed.includes(68)) {
-            this.player.moveVec.z += 10;
+
+        if (this.mouseMove) {
+
+            this.player.controlCamera(this.userInput.mouse.movement)
+
         }
-        if (this.userInput.pressed.includes(65)) {
-            this.player.moveVec.z -= 10;
-        }
-        if (this.userInput.clicked.includes(32)) {
-            this.player.jump();
-        }
+        this.userInput.mouse.movement = {x: 0, y: 0}
+
 
         this.userInput.removeClicked();
     }

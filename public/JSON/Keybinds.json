@@ -1,0 +1,34 @@
+{
+  "keybinds": [
+    {
+      "target":  "player",
+      "keycode": 87,
+      "action":  "moveForward",
+      "pressed": true
+    },
+    {
+      "target":  "player",
+      "keycode": 65,
+      "action":  "moveLeft",
+      "pressed": true
+    },
+    {
+      "target":  "player",
+      "keycode": 68,
+      "action":  "moveRight",
+      "pressed": true
+    },
+    {
+      "target":  "player",
+      "keycode": 83,
+      "action":  "moveBackward",
+      "pressed": true
+    },
+    {
+      "target":  "player",
+      "keycode": 32,
+      "action":  "jump",
+      "pressed": false
+    }
+  ]
+}

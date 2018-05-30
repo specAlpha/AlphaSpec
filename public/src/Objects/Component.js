@@ -11,5 +11,23 @@ class Component {
         container.add(this.container)
     }
 
+    addChlidContainer(child) {
+        this.container.add(child)
+    }
+
+    getWorldDirection() {
+        let vector = new THREE.Vector3();
+        this.container.getWorldDirection(vector);
+        return vector;
+    }
+
+    setMatrixAutoUpdate(value) {
+        this.container.matrixAutoUpdate = value;
+    }
+
+    setNewPosition(vector) {
+        this.container.position.copy(vector);
+    }
+
 
 }
