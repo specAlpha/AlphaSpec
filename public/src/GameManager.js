@@ -9,5 +9,6 @@ GM = {
         10000
     ),
     scene: new THREE.Scene(),
+    specialTilesHandler: new SpecialTilesHandler(),
 
 }

@@ -47,6 +47,19 @@ class UserInput {
 
 
         })
+        document.addEventListener('mousedown', function (e) {
+            if (!that.mouse.pressed) {
+                that.mouse.clicked = true;
+                that.mouse.pressed = true;
+            }
+        })
+
+        document.addEventListener('mouseup', function (e) {
+
+            that.mouse.clicked = false;
+            that.mouse.pressed = false;
+
+        })
 
 
     }

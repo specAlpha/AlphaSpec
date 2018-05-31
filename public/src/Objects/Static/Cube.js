@@ -1,5 +1,5 @@
 class Cube extends Component {
-    constructor(positionVector3, sizeVector3, Euler, textureNames) {
+    constructor(positionVector3, sizeVector3, Euler, textureNames, castShadow) {
         super(positionVector3, Euler);
         this.size = sizeVector3;
         this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
@@ -33,6 +33,10 @@ class Cube extends Component {
 
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
+
+        this.mesh.castShadow = true
+        this.mesh.receiveShadow = true
+
         this.container.add(this.mesh)
     }
 

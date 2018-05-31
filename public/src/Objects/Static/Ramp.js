@@ -64,6 +64,8 @@ class Ramp extends Component {
 
 
         this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh.receiveShadow = true
+        this.mesh.castShadow = true
         this.container.add(this.mesh)
     }
 

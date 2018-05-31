@@ -4,7 +4,7 @@ class TextureBank {
     }
 
     createMaterial(textureName, repeatX, repeatY) {
-        //TODO Po dodaniu świateł zmienic typ materiału
+
 
         let texture = this.textures[textureName].clone();
         texture.needsUpdate = true;
@@ -14,11 +14,26 @@ class TextureBank {
         texture.needsUpdate = true;
 
 
-        let material = new THREE.MeshBasicMaterial({
+        let material = new THREE.MeshPhongMaterial({
             map: texture,
-            side: THREE.DoubleSide,
-            opacity: 1
+            side: THREE.FrontSide,
+            opacity: 1,
+            specular: 0xffffff,
+            shininess: 1,
         });
+        return material;
+    }
+
+    createSprite(texturename) {
+
+        let texture = this.textures[texturename].clone();
+        texture.needsUpdate = true;
+        let material = new THREE.SpriteMaterial({
+            map: texture,
+
+
+        });
+
         return material;
     }
 

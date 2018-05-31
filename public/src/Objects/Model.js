@@ -33,6 +33,7 @@ class Model extends Component {
             });
 
             this.mesh = object;
+
             this.container.add(this.mesh)
             this.mesh.scale.set(0.1, 0.1, 0.1);
             this.mesh.position.y = 1;

@@ -44,9 +44,20 @@ class InputManager {
             this.player.controlCamera(this.userInput.mouse.movement)
 
         }
+
+
         this.userInput.mouse.movement = {x: 0, y: 0}
 
 
         this.userInput.removeClicked();
+    }
+
+    postUpdate() {
+        if (this.userInput.mouse.clicked) {
+            this.player.shootRay()
+        }
+
+        this.player.moveCube(this.userInput.mouse.pressed)
+        this.userInput.mouse.clicked = false;
     }
 }

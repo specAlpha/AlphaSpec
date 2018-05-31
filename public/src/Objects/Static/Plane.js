@@ -7,6 +7,8 @@ class Plane extends Component {
         this.geometry = new THREE.PlaneGeometry(this.size.x, this.size.y, 10);
         this.material = GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.y / 10);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh.receiveShadow = true
+        this.mesh.castShadow = true
         this.container.add(this.mesh)
     }
 }

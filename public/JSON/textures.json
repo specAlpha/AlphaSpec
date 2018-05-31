@@ -3,6 +3,10 @@
     {
       "name": "default",
       "path": "textures/components/default.jpg"
+    },
+    {
+      "name": "defaultmotion",
+      "path": "textures/components/defaultmotion.jpg"
     }
   ]
 }

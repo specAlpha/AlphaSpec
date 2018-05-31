@@ -7,7 +7,7 @@ class Player extends Character {
 
         this.rigidBody = new OIMO.RigidBody({
             type: 0,
-            angularDamping: 1,
+            angularDamping: 10,
             linearDamping: 10,
             angularVelocity: new OIMO.Vec3(),
             position: THREEtoOimoVec(positionVector3),
@@ -45,14 +45,12 @@ class Player extends Character {
         this.model.addChlidContainer(this.cameraHelper.container);
         this.model.addChlidContainer(this.crossHairHelper.container);
 
-        let axes = new THREE.AxesHelper(10)
-        this.crossHairHelper.cross.addChlidContainer(axes)
-        //   this.crossHairHelper.setMatrixAutoUpdate(true)
-
-
+        let axes = new THREE.AxesHelper(10);
+        this.crossHairHelper.cross.addChlidContainer(axes);
         this.isCameraBind = false;
-
+        this.debugRaycater = false;
         this.inAir = false;
+        this.bindedCube = null;
         this.bindCamera()
 
     }
@@ -60,9 +58,13 @@ class Player extends Character {
 
     bindCamera() {
         this.isCameraBind = true;
-        //  this.model.setMatrixAutoUpdate(true);
+    }
 
+    updateMatrix() {
 
+        this.crossHairHelper.container.updateMatrixWorld(true)
+        this.crossHairHelper.cross.container.updateMatrixWorld(true)
+        this.model.container.updateMatrixWorld(true)
     }
 
     controlCamera(mouse) {
@@ -73,9 +75,7 @@ class Player extends Character {
     }
 
     handleCamera() {
-        this.crossHairHelper.container.updateMatrixWorld(true)
-        this.crossHairHelper.cross.container.updateMatrixWorld(true)
-        this.model.container.updateMatrixWorld(true)
+        this.updateMatrix()
         let vector = new THREE.Vector3();
         vector.setFromMatrixPosition(this.cameraHelper.container.matrixWorld);
         let vector2 = new THREE.Vector3();
@@ -138,23 +138,25 @@ class Player extends Character {
 
 
             let vect = this.model.container.position.clone();
+            vect.y += 0.5
             vect.add(OIMOtoThreeVec3(this.moveVec.scale(5)))
 
-            this.raycaster.far = 3;
+            this.raycaster.far = 5;
 
             this.raycaster.set(vect, new THREE.Vector3(0, -1, 0));
             let tab = this.raycaster.intersectObjects(objTab, true);
-            if (tab[0] && tab[0].distance < 5.2) {
+
+            if (tab[0] && tab[0].distance < 5) {
                 this.inAir = false;
-                this.rigidBody.setGravityScale(10)
+                this.rigidBody.setGravityScale(1)
             }
             else {
                 this.inAir = true;
-                this.rigidBody.setGravityScale(100)
+                this.rigidBody.setGravityScale(10)
             }
         } else {
             this.inAir = true;
-            this.rigidBody.setGravityScale(100)
+            this.rigidBody.setGravityScale(10)
         }
     }
 
@@ -184,6 +186,46 @@ class Player extends Character {
         vector.applyEuler(new THREE.Euler(0, -Math.PI / 2, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
         this.moveVec.normalize();
+    }
+
+    shootRay() {
+
+        let dir = new THREE.Vector3();
+        dir.setFromMatrixPosition(this.crossHairHelper.cross.container.matrixWorld);
+        dir.sub(GM.camera.position.clone())
+        dir.normalize();
+
+        this.raycaster.far = 60;
+        this.raycaster.set(GM.camera.position.clone(), dir)
+
+        if (this.debugRaycater)
+            GM.scene.add(new THREE.ArrowHelper(this.raycaster.ray.direction, this.raycaster.ray.origin, 60, Math.random() * 0xffffff));
+        let tab = this.raycaster.intersectObjects(GM.specialTilesHandler.getRayCastArray(), true);
+        this.bindedCube = null;
+        if (tab[0] && tab[0].object.accessToClass.isMobile)
+            this.bindedCube = tab[0].object;
+        else if (tab[0] && tab[0].object.accessToClass.emmiter) {
+            tab[0].object.accessToClass.fullFill();
+
+        }
+
+
+    }
+
+    moveCube(isMBPressed) {
+        if (isMBPressed && this.bindedCube) {
+            let vec = new THREE.Vector3();
+            vec.setFromMatrixPosition(this.crossHairHelper.cross.container.matrixWorld);
+            vec.sub(GM.camera.position.clone()).normalize().multiplyScalar(40);
+            let vec2 = GM.camera.position.clone();
+            vec2.add(vec)
+
+            console.log(vec2)
+            this.bindedCube.accessToClass.setPositionRB(THREEtoOimoVec(vec2))
+
+        } else {
+            this.bindedCube = null;
+        }
     }
 
 
