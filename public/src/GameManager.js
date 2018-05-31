@@ -8,5 +8,6 @@ GM = {
         0.1,
         10000
     ),
+    scene: new THREE.Scene(),
 
 }

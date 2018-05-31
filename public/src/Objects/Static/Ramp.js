@@ -31,6 +31,7 @@ class Ramp extends Component {
             rotation: new OIMO.Mat3(),
 
         })
+        this.rigidBody.three = this.container;
 
         let collisionRot = new OIMO.Mat3();
         collisionRot.fromEulerXyz(new OIMO.Vec3(0, Math.PI, Math.PI / 4))

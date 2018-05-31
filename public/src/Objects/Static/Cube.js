@@ -17,7 +17,7 @@ class Cube extends Component {
 
         })
 
-
+        this.rigidBody.three = this.container;
         this.rigidBody.addShape(new OIMO.Shape({
             collisionGroup: 1,
             collisionMask: 1,

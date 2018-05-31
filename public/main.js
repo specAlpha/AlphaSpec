@@ -24,8 +24,7 @@ $(function () {
 
     let scene;
 
-    scene = new THREE.Scene();
-
+    scene = GM.scene;
     let floor, cube, ramp, player
 
 
@@ -44,7 +43,6 @@ $(function () {
 
     //controls.update();
 
-    scene = new THREE.Scene();
     scene.background = new THREE.Color(0xa0a0a0);
     scene.fog = new THREE.Fog(0xa0a0a0, 200, 1000);
 
@@ -76,8 +74,8 @@ $(function () {
         //bedzie trzeba jakis loader porzadny napisac by tekstury sie wgrały a dopiero potem to leciał bo pozniej sra bugami
 
         setTimeout(function () {
-            ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
-            cube = new Cube(new THREE.Vector3(-45, 15, -15), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 10), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            cube = new Cube(new THREE.Vector3(-45, 10, -15), new THREE.Vector3(30, 50, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
             player = new Player(new THREE.Vector3(20, 0, 20), new THREE.Euler(0, 0, 0, 'XYZ'), 'models/runTest.fbx')
             floor = new Cube(new THREE.Vector3(0, -1, 0), new THREE.Vector3(400, 2, 400), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
             ramp.addParentContainer(scene)

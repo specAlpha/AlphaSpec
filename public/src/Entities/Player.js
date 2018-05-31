@@ -16,6 +16,7 @@ class Player extends Character {
             rotation: new OIMO.Mat3(),
 
         })
+        this.rigidBody.three = this.model.container;
 
 
         this.rigidBody.addShape(new OIMO.Shape({
@@ -30,9 +31,11 @@ class Player extends Character {
 
         }))
 
+        this.raycaster = new THREE.Raycaster();
+
+
         this.rigidBody.setRotationFactor(new OIMO.Vec3(0, 0, 0))
         GM.physics.world.addRigidBody(this.rigidBody);
-        this.rigidBody.setGravityScale(10)
 
 
         this.cameraHelper = new Component(new THREE.Vector3(-5, 20, -15), new THREE.Euler(0, 0, 0));
@@ -44,12 +47,12 @@ class Player extends Character {
 
         let axes = new THREE.AxesHelper(10)
         this.crossHairHelper.cross.addChlidContainer(axes)
-        this.crossHairHelper.setMatrixAutoUpdate(true)
+        //   this.crossHairHelper.setMatrixAutoUpdate(true)
 
 
         this.isCameraBind = false;
 
-
+        this.inAir = false;
         this.bindCamera()
 
     }
@@ -57,7 +60,7 @@ class Player extends Character {
 
     bindCamera() {
         this.isCameraBind = true;
-        this.model.setMatrixAutoUpdate(true);
+        //  this.model.setMatrixAutoUpdate(true);
 
 
     }
@@ -95,32 +98,62 @@ class Player extends Character {
     }
 
     wholeMoveHandler() {
-        this.checkIfGravityNeedsToBeScaled();
+
+        this.checkIfGravityNeedsToBeScaled()
         this.move();
         if (this.triggerjump) {
             this.triggerjump = false;
             this.rigidBody.addLinearVelocity(new OIMO.Vec3(0, 350, 0))
         }
 
+
         let posVect = OIMOtoThreeVec3(this.rigidBody.getPosition());
+
         this.model.container.position.set(posVect.x, posVect.y, posVect.z)
     }
 
     move() {
-        this.moveVec.scaleEq(7)
+        this.moveVec.scaleEq(10)
         this.rigidBody.addLinearVelocity(this.moveVec)
         this.moveVec.x = 0; //reset vectora
         this.moveVec.z = 0; //reset vectora
+        this.moveVec.y = 0; //reset vectora
     }
 
     jump() {
-        this.triggerjump = true;
+        if (!this.inAir)
+            this.triggerjump = true;
     }
 
     checkIfGravityNeedsToBeScaled() {
-        if (this.rigidBody.getNumContectLinks() > 0) {
-            this.rigidBody.setGravityScale(10)
+        let contactList = this.rigidBody.getContactLinkList()
+        if (contactList) {
+            let objTab = []
+            objTab.push(contactList.getOther().three);
+            let next = contactList.getNext()
+            while (next) {
+                objTab.push(next.getOther().three);
+                next = next.getNext()
+            }
+
+
+            let vect = this.model.container.position.clone();
+            vect.add(OIMOtoThreeVec3(this.moveVec.scale(5)))
+
+            this.raycaster.far = 3;
+
+            this.raycaster.set(vect, new THREE.Vector3(0, -1, 0));
+            let tab = this.raycaster.intersectObjects(objTab, true);
+            if (tab[0] && tab[0].distance < 5.2) {
+                this.inAir = false;
+                this.rigidBody.setGravityScale(10)
+            }
+            else {
+                this.inAir = true;
+                this.rigidBody.setGravityScale(100)
+            }
         } else {
+            this.inAir = true;
             this.rigidBody.setGravityScale(100)
         }
     }
