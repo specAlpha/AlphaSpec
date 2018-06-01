@@ -15,7 +15,8 @@ class SpecialTilesHandler {
 
     addSpecialTile(tile) {
         this.specialTiles.push(tile)
-        this.rayCastArray.push(tile.container)
+        if (tile.emmiter)
+            this.rayCastArray.push(tile.container)
     }
 
     updateMobileCubes() {
@@ -39,5 +40,9 @@ class SpecialTilesHandler {
         return this.rayCastArray;
     }
 
+    removeMobileCube(cube) {
+        this.mobileCubes.splice(this.mobileCubes.indexOf(cube), 1)
+        this.rayCastArray.splice(this.rayCastArray.indexOf(cube.container), 1)
+    }
 
 }

@@ -1,6 +1,6 @@
 class MobileCubeSpawner extends SpecialTile {
     constructor(positionVector3, Euler, id, eventsArr) {
-        super(positionVector3, Euler, id, eventsArr, false);
+        super(positionVector3, Euler, id, eventsArr, false, true);
 
         this.cube = null;
 

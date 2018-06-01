@@ -1,6 +1,6 @@
 class Button extends SpecialTile {
     constructor(positionVector3, Euler, id, eventsArr) {
-        super(positionVector3, Euler, id, eventsArr, true);
+        super(positionVector3, Euler, id, eventsArr, true, false);
 
         this.geometries[0] = new THREE.BoxGeometry(5, 2, 5);
         this.materials[0] = GM.textureBank.createMaterial('default', 1, 1);
@@ -9,16 +9,9 @@ class Button extends SpecialTile {
         this.materials[1] = GM.textureBank.createMaterial('defaultmotion', 1, 1);
         this.meshes[1] = new THREE.Mesh(this.geometries[1], this.materials[1]);
         this.meshes[1].position.y = -1.5;
-
+        this.activeRaycaster = true;
         this.addMeshesToConainer()
     }
 
-    fullFill() {
-        for (let event of this.events) {
-            event.fullfilled = true;
-        }
-
-
-    }
 
 }

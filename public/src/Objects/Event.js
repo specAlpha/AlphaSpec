@@ -4,6 +4,7 @@ class Event {
         this.wires = [];
         this.emmiter = null;
         this.receiver = null;
+        this.needsToBeSend = false; // send only if emmits from raycaster
     }
 
     setEmmiter(emmiter) {

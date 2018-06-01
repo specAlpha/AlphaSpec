@@ -70,7 +70,7 @@ $(function () {
 
 
     let userInput = new UserInput();
-    let inputManager, kostka, spawner, button, event;
+    let inputManager, kostka, spawner, button, event, pressurePlate, doors, event2;
 
 
     $("#root").append(GM.renderer.domElement);
@@ -81,16 +81,21 @@ $(function () {
         //bedzie trzeba jakis loader porzadny napisac by tekstury sie wgrały a dopiero potem to leciał bo pozniej sra bugami
 
         setTimeout(function () {
-            ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 10), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            ramp = new Ramp(new THREE.Vector3(0, 0, 0), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
             cube = new Cube(new THREE.Vector3(-45, 15, -15), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            cube.addParentContainer(scene)
+            cube = new Cube(new THREE.Vector3(-45, 15, 55), new THREE.Vector3(30, 30, 30), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
+            cube.addParentContainer(scene)
             player = new Player(new THREE.Vector3(20, 0, 20), new THREE.Euler(0, 0, 0, 'XYZ'), 'models/runTest.fbx')
             floor = new Cube(new THREE.Vector3(0, -1, 0), new THREE.Vector3(400, 2, 400), new THREE.Euler(0, 3.14, 0, 'XYZ'), 'default')
-
+            GM.assignPlayers(player, null)
             ramp.addParentContainer(scene)
             player.model.addParentContainer(scene)
-            cube.addParentContainer(scene)
+            event2 = new Event();
+            pressurePlate = new PressurePlate(new THREE.Vector3(50, 0, 0), new THREE.Euler(0, 0, 0, 'XYZ'), '#12', [event2])
             event = new Event();
 
+            doors = new Doors(new THREE.Vector3(-120, 0, 5), new THREE.Euler(0, 0, 0, 'XYZ'), '#13', [event2]);
             userInput.initKeyboard()
             userInput.initMouse()
             floor.addParentContainer(scene)
@@ -98,8 +103,12 @@ $(function () {
             spawner.addParentContainer(scene)
             button = new Button(new THREE.Vector3(-45, 15, 1.5), new THREE.Euler(0, -Math.PI / 2, Math.PI / 2, 'XYZ'), '#11', [event]);
             button.addParentContainer(scene)
+            pressurePlate.addParentContainer(scene)
+            doors.addParentContainer(scene)
             GM.specialTilesHandler.addSpecialTile(spawner);
+            GM.specialTilesHandler.addSpecialTile(pressurePlate);
             GM.specialTilesHandler.addSpecialTile(button);
+            GM.specialTilesHandler.addSpecialTile(doors);
             loadJSON('/JSON/Keybinds.json').then(function (json) {
                 inputManager = new InputManager(json, player, userInput)
                 userInput.setPointerLock(GM.renderer.domElement)

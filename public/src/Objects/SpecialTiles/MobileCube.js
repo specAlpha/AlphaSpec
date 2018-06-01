@@ -3,6 +3,7 @@ class MobileCube extends Component {
         super(positionVector3, new THREE.Euler(0, 0, 0));
         this.geometry = new THREE.BoxGeometry(10, 10, 10);
         this.isMobile = true;
+
         this.material = GM.textureBank.createMaterial('defaultmotion', 1, 1);
         this.rigidBody = new OIMO.RigidBody({
             type: 0,
@@ -22,7 +23,7 @@ class MobileCube extends Component {
             collisionMask: 1,
             density: 100,
             geometry: new OIMO.BoxGeometry(new OIMO.Vec3(5, 5, 5)),
-            friction: 1,
+            friction: 20,
             restitution: 0,
             rotation: new OIMO.Mat3(),
             position: new OIMO.Vec3(),
@@ -35,6 +36,9 @@ class MobileCube extends Component {
         this.mesh.accessToClass = this;
         this.mesh.receiveShadow = true
         this.mesh.castShadow = true
+        this.pressurePlate = null;
+        this.boundingBox = new THREE.Box3().setFromObject(this.mesh);
+        this.boundingBoxVect = new THREE.Vector3();
         this.container.add(this.mesh)
     }
 
@@ -43,6 +47,13 @@ class MobileCube extends Component {
         let rotation = OIMOtoThreeQuat(this.rigidBody.getOrientation());
         this.container.setRotationFromQuaternion(rotation);
         this.container.position.set(posVect.x, posVect.y, posVect.z)
+        this.container.updateMatrixWorld();
+        this.boundingBox.translate(this.boundingBoxVect)
+        let dir = new THREE.Vector3();
+        dir.setFromMatrixPosition(this.mesh.matrixWorld);
+        this.boundingBoxVect.copy(dir).negate();
+        this.boundingBox.translate(dir)
+
     }
 
     setPositionRB(oimoVector) {
@@ -53,7 +64,11 @@ class MobileCube extends Component {
 
     destroy() {
         GM.scene.remove(this.container)
+        GM.specialTilesHandler.removeMobileCube(this)
         GM.physics.world.removeRigidBody(this.rigidBody);
+        if (this.pressurePlate) {
+            this.pressurePlate.bindedCube = null;
+        }
     }
 
 

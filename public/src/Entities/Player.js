@@ -62,8 +62,7 @@ class Player extends Character {
 
     updateMatrix() {
 
-        this.crossHairHelper.container.updateMatrixWorld(true)
-        this.crossHairHelper.cross.container.updateMatrixWorld(true)
+
         this.model.container.updateMatrixWorld(true)
     }
 
@@ -139,12 +138,21 @@ class Player extends Character {
 
             let vect = this.model.container.position.clone();
             vect.y += 0.5
-            vect.add(OIMOtoThreeVec3(this.moveVec.scale(5)))
+            let vec2 = OIMOtoThreeVec3(this.moveVec.scale(5))
+            vect.add(vec2)
 
             this.raycaster.far = 5;
 
             this.raycaster.set(vect, new THREE.Vector3(0, -1, 0));
             let tab = this.raycaster.intersectObjects(objTab, true);
+            if (!tab[0]) {
+                vect = this.model.container.position.clone();
+                vect.y += 0.5
+                vec2 = OIMOtoThreeVec3(this.moveVec.scale(5)).negate()
+                vect.add(vec2)
+                this.raycaster.set(vect, new THREE.Vector3(0, -1, 0));
+                tab = this.raycaster.intersectObjects(objTab, true);
+            }
 
             if (tab[0] && tab[0].distance < 5) {
                 this.inAir = false;
@@ -204,7 +212,7 @@ class Player extends Character {
         this.bindedCube = null;
         if (tab[0] && tab[0].object.accessToClass.isMobile)
             this.bindedCube = tab[0].object;
-        else if (tab[0] && tab[0].object.accessToClass.emmiter) {
+        else if (tab[0] && tab[0].object.accessToClass.activeRaycaster) {
             tab[0].object.accessToClass.fullFill();
 
         }
@@ -220,7 +228,7 @@ class Player extends Character {
             let vec2 = GM.camera.position.clone();
             vec2.add(vec)
 
-            console.log(vec2)
+
             this.bindedCube.accessToClass.setPositionRB(THREEtoOimoVec(vec2))
 
         } else {

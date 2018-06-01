@@ -1,9 +1,10 @@
 class SpecialTile extends Component {
-    constructor(positionVector3, Euler, id, eventsArr, isEmmiter) {
+    constructor(positionVector3, Euler, id, eventsArr, isEmmiter, updatable) {
         super(positionVector3, Euler);
         this.id = id;
         this.events = eventsArr;
         this.emmiter = isEmmiter; //emmits events or receive events
+        this.needsUpdate = updatable;
         this.geometries = [];
         this.materials = [];
         this.meshes = [];
@@ -13,8 +14,7 @@ class SpecialTile extends Component {
 
     addMeshesToConainer() {
         for (let mesh of this.meshes) {
-            if (this.emmiter)
-                mesh.accessToClass = this;
+            mesh.accessToClass = this;
             mesh.receiveShadow = true
             mesh.castShadow = true
             this.container.add(mesh)
@@ -22,7 +22,7 @@ class SpecialTile extends Component {
     }
 
     update() {
-        if (this.emmiter)
+        if (!this.needsUpdate)
             return
     }
 
@@ -38,6 +38,22 @@ class SpecialTile extends Component {
             check = event.fullfilled;
         }
         return check
+    }
+
+    fullFill() {
+
+        if (this.emmiter)
+            for (let event of this.events) {
+                event.fullfilled = true;
+            }
+
+    }
+
+    cancel() {
+        if (this.emmiter)
+            for (let event of this.events) {
+                event.fullfilled = false;
+            }
     }
 
 }
