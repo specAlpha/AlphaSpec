@@ -1,16 +1,16 @@
 class Cube extends Component {
-    constructor(positionVector3, sizeVector3, Euler, textureNames, castShadow) {
+    constructor(positionVector3, sizeVector3, Euler, textureName) {
         super(positionVector3, Euler);
         this.size = sizeVector3;
         this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
 
-        this.material = GM.textureBank.createMaterial(textureNames, this.size.x / 10, this.size.z / 10);
+        this.material = GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.z / 10);
         this.rigidBody = new OIMO.RigidBody({
             type: 1,
             angularDamping: 1,
             linearDamping: 1,
             angularVelocity: new OIMO.Vec3(),
-            position: new OIMO.Vec3(),
+            position: THREEtoOimoVec(positionVector3),
             linearVelocity: new OIMO.Vec3(),
             autoSleep: true,
             rotation: new OIMO.Mat3(),
@@ -26,7 +26,7 @@ class Cube extends Component {
             friction: 1,
             restitution: 1,
             rotation: new OIMO.Mat3(),
-            position: THREEtoOimoVec(positionVector3),
+            position: new OIMO.Vec3(),
 
         }))
         GM.physics.world.addRigidBody(this.rigidBody);

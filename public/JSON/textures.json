@@ -8,5 +8,11 @@
       "name": "defaultmotion",
       "path": "textures/components/defaultmotion.jpg"
     }
+  ],
+  "images":   [
+    {
+      "name": "test",
+      "path": "textures/test.jpg"
+    }
   ]
 }

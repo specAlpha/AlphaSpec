@@ -25,15 +25,15 @@ class SpecialTilesHandler {
         }
     }
 
-    updateSpecialTiles() {
+    updateSpecialTiles(deltaTime) {
         for (let tile of this.specialTiles) {
-            tile.update();
+            tile.update(deltaTime);
         }
     }
 
-    update() {
+    update(deltaTime) {
         this.updateMobileCubes();
-        this.updateSpecialTiles()
+        this.updateSpecialTiles(deltaTime)
     }
 
     getRayCastArray() {

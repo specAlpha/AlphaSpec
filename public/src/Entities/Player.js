@@ -50,7 +50,9 @@ class Player extends Character {
         this.isCameraBind = false;
         this.debugRaycater = false;
         this.inAir = false;
+        this.rotation = new THREE.Vector3(0, 0, 1);
         this.bindedCube = null;
+        this.model.addChlidContainer(GM.UI.plane.container)
         this.bindCamera()
 
     }
@@ -69,6 +71,10 @@ class Player extends Character {
     controlCamera(mouse) {
 
         this.model.container.rotation.y -= mouse.x * 0.002;
+
+        this.rotation = new THREE.Vector3(0, 0, 1);
+        this.rotation.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.model.container.rotation.y);
+
         this.crossHairHelper.container.rotation.x += mouse.y * 0.002;
         this.crossHairHelper.container.rotation.x = Math.min(1.2, Math.max(-.4, this.crossHairHelper.container.rotation.x));
     }
@@ -169,28 +175,28 @@ class Player extends Character {
     }
 
     moveForward() {
-        let vector = THREEtoOimoVec(this.model.getWorldDirection())
+        let vector = THREEtoOimoVec(this.rotation)
         this.moveVec.addEq(vector)
         this.moveVec.normalize();
 
     }
 
     moveBackward() {
-        let vector = this.model.getWorldDirection();
+        let vector = this.rotation;
         vector.applyEuler(new THREE.Euler(0, Math.PI, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
         this.moveVec.normalize();
     }
 
     moveLeft() {
-        let vector = this.model.getWorldDirection();
+        let vector = this.rotation;
         vector.applyEuler(new THREE.Euler(0, Math.PI / 2, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
         this.moveVec.normalize();
     }
 
     moveRight() {
-        let vector = this.model.getWorldDirection();
+        let vector = this.rotation;
         vector.applyEuler(new THREE.Euler(0, -Math.PI / 2, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
         this.moveVec.normalize();

@@ -27,16 +27,27 @@ class SpecialTile extends Component {
     }
 
     resetEvents() {
-        for (let event of this.events) {
-            event.fullfilled = false;
-        }
+        for (let eventArr of this.events)
+
+            for (let event of eventArr)
+                event.fullfilled = false;
+
     }
 
+
     checkEvents() {
-        let check = true;
-        for (let event of this.events) {
-            check = event.fullfilled;
+        let check
+        for (let eventArr of this.events) {
+            check = true;
+            for (let event of eventArr) {
+                check = event.fullfilled;
+                if (!check)
+                    break;
+            }
+            if (check)
+                break
         }
+
         return check
     }
 

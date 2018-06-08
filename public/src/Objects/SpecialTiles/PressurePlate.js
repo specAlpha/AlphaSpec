@@ -10,7 +10,7 @@ class PressurePlate extends SpecialTile {
         this.meshes[1] = new THREE.Mesh(this.geometries[1], this.materials[1]);
         this.meshes[1].position.y = 2.5;
         this.boundingBox = new THREE.Box3().setFromObject(this.meshes[1]);
-        this.boundingBox.expandByVector(new THREE.Vector3(0, 3, 0));
+        this.boundingBox.expandByVector(new THREE.Vector3(0, 1, 0));
         this.addMeshesToConainer()
         this.container.updateMatrixWorld();
         let dir = new THREE.Vector3();
@@ -63,7 +63,7 @@ class PressurePlate extends SpecialTile {
     }
 
     update() {
-        console.log(this.bindedCube)
+
         if (!(this.bindedCube && this.bindedCubeVect.distanceTo(this.bindedCube.container.position.clone()) < 2)) {
             if (this.bindedCube)
                 this.bindedCube.pressurePlate = null;
@@ -102,7 +102,7 @@ class PressurePlate extends SpecialTile {
             this.meshes[1].position.y = .5;
             this.fullfilled = true;
             this.fullFill()
-            console.log('intersect')
+
             return true;
 
 
