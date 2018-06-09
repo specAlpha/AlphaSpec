@@ -1,13 +1,11 @@
 class Model extends Component {
-    constructor(positionVector3, Euler, url) {
+    constructor(positionVector3, Euler) {
         super(positionVector3, Euler);
         this.mixer;
 
         this.debuggeometry = new THREE.CylinderGeometry(5, 5, 20, 32);
         this.debugmaterial = new THREE.MeshNormalMaterial({
-            opacity: 0, transparent: true, polygonOffset: true,
-            polygonOffsetFactor: 1,
-            polygonOffsetUnits: 1,
+            opacity: 0, transparent: true,
         });
         this.debugmesh = new THREE.Mesh(this.debuggeometry, this.debugmaterial);
         this.debugmesh.position.y = 10;
@@ -22,40 +20,36 @@ class Model extends Component {
         this.boundingBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3())
         this.boundingBoxVect = new THREE.Vector3();
         this.boundingBox.setFromObject(this.debugmesh);
+        this.currentAnimation = '';
 
-
-        this.loadModel(url)
     }
 
-    loadModel(url, callback) {
+    loadModel(id) {
 
-        let loader = new THREE.FBXLoader();
-        loader.load(url, (object) => {
+        let object = GM.modelBank.getModel(id)
 
-            this.mixer = new THREE.AnimationMixer(object);
+        this.mixer = new THREE.AnimationMixer(object);
+        this.setAnimation('Idle')
 
-            this.mixer.clipAction(object.animations[0]).play();
+        object.traverse(function (child) {
 
-            object.traverse(function (child) {
+            if (child.isMesh) {
 
-                if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
 
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-
-                }
-
-            });
-
-            this.mesh = object;
-
-            this.container.add(this.mesh)
-
-            this.mesh.scale.set(0.1, 0.1, 0.1);
-            this.mesh.position.y = 1;
-
+            }
 
         });
+
+        this.mesh = object;
+
+        this.container.add(this.mesh)
+
+        this.mesh.scale.set(0.1, 0.1, 0.1);
+        this.mesh.position.y = 1;
+
+
     }
 
     update(deltaTime) {
@@ -72,6 +66,19 @@ class Model extends Component {
             this.boundingBox.translate(dir)
 
         }
+
+    }
+
+    setAnimation(name) {
+        console.log(this.currentAnimation)
+        if (this.currentAnimation)
+            this.stopAnimation(this.currentAnimation)
+        this.currentAnimation = name;
+        this.mixer.clipAction(name).play()
+    }
+
+    stopAnimation(name) {
+        this.mixer.clipAction(name).stop()
 
     }
 }

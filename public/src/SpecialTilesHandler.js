@@ -23,15 +23,36 @@ class SpecialTilesHandler {
         for (let cube of this.mobileCubes) {
             cube.update();
         }
+        let mob = GM.netHandler.getMobileCube();
+
+        if (mob.id) {
+
+            let cube = this.findMobileCubeByID(mob.id)
+            cube.setPositionRB(new OIMO.Vec3(mob.position.x, mob.position.y, mob.position.z))
+        }
+    }
+
+    findMobileCubeByID(id) {
+        for (let cube of this.mobileCubes) {
+            console.log(cube.id)
+            if (cube.id == id)
+                return cube
+        }
     }
 
     updateSpecialTiles(deltaTime) {
         for (let tile of this.specialTiles) {
             tile.update(deltaTime);
         }
+        let a = GM.netHandler.getEvents();
+
+        for (let id of a) {
+            GM.lvl.findByID(id).fullFill(false)
+        }
     }
 
     update(deltaTime) {
+
         this.updateMobileCubes();
         this.updateSpecialTiles(deltaTime)
     }

@@ -35,7 +35,7 @@ class MobileCubeSpawner extends SpecialTile {
 
         if (this.cube)
             this.cube.destroy();
-        let cube = new MobileCube(this.container.position.clone())
+        let cube = new MobileCube(this.container.position.clone(), this.id)
         cube.addParentContainer(GM.scene);
         GM.specialTilesHandler.addMobileCube(cube)
         this.cube = cube;

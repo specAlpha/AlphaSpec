@@ -77,20 +77,26 @@ class TextureBank {
         for (let img of json.images) {
             imgPromieses.push(this.loadImage(img.path))
         }
-        Promise.all(txtPromieses).then((arr) => {
+        return new Promise(resolve => {
 
-            for (let i = 0; i < json.textures.length; i++) {
-                this.textures[json.textures[i].name] = new THREE.Texture(arr[i])
-            }
+
+            Promise.all(txtPromieses).then((arr) => {
+
+                for (let i = 0; i < json.textures.length; i++) {
+                    this.textures[json.textures[i].name] = new THREE.Texture(arr[i])
+                }
+                return resolve()
+            })
+            Promise.all(imgPromieses).then((arr) => {
+
+                for (let i = 0; i < json.images.length; i++) {
+                    this.images[json.images[i].name] = arr[i]
+                }
+
+
+            })
+
+
         })
-        Promise.all(imgPromieses).then((arr) => {
-
-            for (let i = 0; i < json.images.length; i++) {
-                this.images[json.images[i].name] = arr[i]
-            }
-
-        })
-
-
     }
 }

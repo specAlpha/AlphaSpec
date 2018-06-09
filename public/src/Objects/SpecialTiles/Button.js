@@ -13,5 +13,15 @@ class Button extends SpecialTile {
         this.addMeshesToConainer()
     }
 
+    fullFill(send = true) {
+        if (this.id == 'win') {
+            // TODO emmit win
+        }
+        else {
+            super.fullFill();
+            if (send)
+                GM.netHandler.addEventToSend(this.id)
+        }
+    }
 
 }

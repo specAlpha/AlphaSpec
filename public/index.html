@@ -15,6 +15,13 @@
             overflow: hidden;
         }
 
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
 
     </style>
 
@@ -37,6 +44,7 @@
     <script src="src/Misc/Clock.js"></script>
     <script src="src/Net/Net.js"></script>
     <script src="src/Net/NetHandler.js"></script>
+    <script src="src/ModelBank.js"></script>
 
     <script src="src/SpecialTilesHandler.js"></script>
     <script src="src/Level.js"></script>
@@ -71,6 +79,7 @@
 
 <body>
 <div id="root"></div>
+<img id="crosshair" src="./textures/cross.png" alt="">
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 class MobileCube extends Component {
-    constructor(positionVector3) {
+    constructor(positionVector3, id) {
         super(positionVector3, new THREE.Euler(0, 0, 0));
         this.geometry = new THREE.BoxGeometry(10, 10, 10);
         this.isMobile = true;
-
+        this.id = id;
         this.material = GM.textureBank.createMaterial('defaultmotion', 1, 1);
         this.rigidBody = new OIMO.RigidBody({
             type: 0,

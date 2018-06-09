@@ -1,6 +1,6 @@
 class Player extends Character {
-    constructor(positionVector3, Euler, url) {
-        super(positionVector3, Euler, url)
+    constructor(positionVector3, Euler) {
+        super(positionVector3, Euler)
         this.triggerjump = false;
         this.moveVec = new OIMO.Vec3();
 
@@ -54,6 +54,11 @@ class Player extends Character {
         this.bindedCube = null;
         this.model.addChlidContainer(GM.UI.plane.container)
         this.bindCamera()
+        this.forward = false;
+        this.backward = false;
+        this.left = false;
+        this.right = false;
+
 
     }
 
@@ -94,8 +99,9 @@ class Player extends Character {
 
     update(deltaTime) {
 
-        super.update(deltaTime)
         this.wholeMoveHandler()
+        super.update(deltaTime)
+
 
         if (this.isCameraBind) {
             this.handleCamera();
@@ -106,14 +112,37 @@ class Player extends Character {
 
         this.checkIfGravityNeedsToBeScaled()
         this.move();
+        let animation = 'Idle'
+        if (this.forward) {
+            animation = 'Running'
+        }
+        if (this.right && this.left) {
+            animation = 'Running'
+        }
+        else if (this.right) {
+            animation = 'RightStrafe'
+        } else if (this.left) {
+            animation = 'LeftStrafe'
+        }
+        if (this.backward) {
+            animation = 'RunningBackward'
+        }
+
         if (this.triggerjump) {
             this.triggerjump = false;
+
             this.rigidBody.addLinearVelocity(new OIMO.Vec3(0, 350, 0))
         }
 
-
+        this.forward = false;
+        this.backward = false;
+        this.left = false;
+        this.right = false;
+        if (this.model.currentAnimation != animation) {
+            this.model.setAnimation(animation)
+        }
         let posVect = OIMOtoThreeVec3(this.rigidBody.getPosition());
-
+        GM.netHandler.infoFromPlayer(posVect, this.model.container.rotation.y, animation)
         this.model.container.position.set(posVect.x, posVect.y, posVect.z)
     }
 
@@ -175,6 +204,7 @@ class Player extends Character {
     }
 
     moveForward() {
+        this.forward = true;
         let vector = THREEtoOimoVec(this.rotation)
         this.moveVec.addEq(vector)
         this.moveVec.normalize();
@@ -182,6 +212,7 @@ class Player extends Character {
     }
 
     moveBackward() {
+        this.backward = true;
         let vector = this.rotation;
         vector.applyEuler(new THREE.Euler(0, Math.PI, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
@@ -189,6 +220,7 @@ class Player extends Character {
     }
 
     moveLeft() {
+        this.left = true;
         let vector = this.rotation;
         vector.applyEuler(new THREE.Euler(0, Math.PI / 2, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
@@ -196,6 +228,7 @@ class Player extends Character {
     }
 
     moveRight() {
+        this.right = true;
         let vector = this.rotation;
         vector.applyEuler(new THREE.Euler(0, -Math.PI / 2, 0))
         this.moveVec.addEq(THREEtoOimoVec(vector))
@@ -227,14 +260,14 @@ class Player extends Character {
     }
 
     moveCube(isMBPressed) {
-        if (isMBPressed && this.bindedCube) {
+        if (isMBPressed && this.bindedCube && GM.netHandler.getMobileCube().id != this.bindedCube.accessToClass.id) {
             let vec = new THREE.Vector3();
             vec.setFromMatrixPosition(this.crossHairHelper.cross.container.matrixWorld);
             vec.sub(GM.camera.position.clone()).normalize().multiplyScalar(40);
             let vec2 = GM.camera.position.clone();
             vec2.add(vec)
 
-
+            GM.netHandler.addMobileCube(this.bindedCube.accessToClass.id, vec2)
             this.bindedCube.accessToClass.setPositionRB(THREEtoOimoVec(vec2))
 
         } else {

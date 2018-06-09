@@ -1,0 +1,4 @@
+{
+  "models":     ["xbot", "ybot"],
+  "animations": ["Idle", "Jump", "Running", "RunningBackward", "LeftStrafe", "RightStrafe"]
+}
