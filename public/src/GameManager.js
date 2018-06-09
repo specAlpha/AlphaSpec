@@ -1,4 +1,4 @@
-GM = {
+const GM = {
     textureBank: new TextureBank(),
     renderer: new THREE.WebGLRenderer(),
     physics: new Physics(),
@@ -18,6 +18,8 @@ GM = {
     netHandler: new NetHandler(),
     clock: new Clock(),
     UI: new UI(),
+    lvl: new Level(),
+    eventHandler: new EventHandler()
 
 }
 
@@ -42,6 +44,3 @@ function OIMOtoThreeQuat(quat) {
 
 }
 
-function loadImage(url) {
-
-}

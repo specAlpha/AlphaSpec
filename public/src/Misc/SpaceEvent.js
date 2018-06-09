@@ -6,7 +6,7 @@ class SpaceEvent {
 
 
         this.complete = false;
-       
+
     }
 
     update() {

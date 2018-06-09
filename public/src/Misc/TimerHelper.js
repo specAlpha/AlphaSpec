@@ -16,9 +16,9 @@ class TimerHelper {
                 this.complete = true;
             }
 
-
-            return this.actualNumber;
         }
+        return this.actualNumber;
+
     }
 
     reset() {

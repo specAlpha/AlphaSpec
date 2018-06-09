@@ -14,7 +14,7 @@ class UI {
                 transparent: true
             })
         )
-        this.timerHelper = new TimerHelper(5, 1)
+        this.timerHelper = new TimerHelper(5, 5)
 
     }
 
@@ -27,11 +27,11 @@ class UI {
 
     update(time) {
         if (this.timerHelper.running) {
-            this.timerHelper.update(time)
+
+            this.plane.material.opacity = 5 - this.timerHelper.update(time)
             if (this.timerHelper.complete) {
                 this.timerHelper.reset();
-                this.canvas3d.getContext('2d').clearRect(0, 0, 100, 50)
-                this.texture.needsUpdate = true;
+
             }
         }
 

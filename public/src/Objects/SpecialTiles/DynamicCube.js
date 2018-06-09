@@ -1,6 +1,6 @@
 class DynamicCube extends Cube {
     constructor(positionVector3, sizeVector3, Euler, id, axis, moveTo, eventsArr) {
-        super(positionVector3, sizeVector3, Euler, 'defaultmotion')
+        super(positionVector3, sizeVector3, Euler, 'blue')
         this.id = id;
         this.axis = axis;
         this.moveTo = moveTo
@@ -52,5 +52,16 @@ class DynamicCube extends Cube {
                 break
         }
         return check
+    }
+
+    addEvent(event, type) {
+
+        if (this.events.length < type) {
+            this.events.push([event])
+        }
+        else {
+            this.events[type - 1].push(event)
+        }
+
     }
 }

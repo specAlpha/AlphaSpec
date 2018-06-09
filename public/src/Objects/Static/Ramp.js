@@ -56,7 +56,7 @@ class Ramp extends Component {
         this.debugmesh.position.add(new THREE.Vector3(this.size.x / 2, this.size.x / 2, this.size.z / 2));
         this.debugmesh.setRotationFromEuler(new THREE.Euler(0, Math.PI, -Math.PI / 4));
 
-        this.container.add(this.debugmesh)
+        //   this.container.add(this.debugmesh)
 
 
         this.geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);

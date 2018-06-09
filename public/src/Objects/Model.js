@@ -4,17 +4,21 @@ class Model extends Component {
         this.mixer;
 
         this.debuggeometry = new THREE.CylinderGeometry(5, 5, 20, 32);
-        this.debugmaterial = new THREE.MeshNormalMaterial({opacity: 1, transparent: true});
+        this.debugmaterial = new THREE.MeshNormalMaterial({
+            opacity: 0, transparent: true, polygonOffset: true,
+            polygonOffsetFactor: 1,
+            polygonOffsetUnits: 1,
+        });
         this.debugmesh = new THREE.Mesh(this.debuggeometry, this.debugmaterial);
         this.debugmesh.position.y = 10;
 
         //  this.container.add(this.debugmesh);
 
 
-        this.boundingMaterial = new THREE.MeshNormalMaterial({opacity: 0, transparent: true});
+        this.boundingMaterial = new THREE.MeshNormalMaterial({opacity: 0, transparent: true, depthTest: false});
         this.boundingMesh = new THREE.Mesh(this.debuggeometry, this.boundingMaterial);
         this.container.add(this.boundingMesh);
-        this.boundingMesh.position.y = 10;
+        this.boundingMesh.position.y = 10.1;
         this.boundingBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3())
         this.boundingBoxVect = new THREE.Vector3();
         this.boundingBox.setFromObject(this.debugmesh);

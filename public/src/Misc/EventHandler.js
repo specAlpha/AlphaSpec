@@ -13,7 +13,7 @@ class EventHandler {
         this.events.push(event)
     }
 
-    update() {
+    update(time) {
         for (let event of this.spaceEvents) {
             event.update();
             if (event.complete) {
@@ -21,6 +21,12 @@ class EventHandler {
                 this.spaceEvents.splice(this.spaceEvents.indexOf(event), 1)
             }
         }
+
+        for (let event of this.events) {
+            event.update(time)
+
+        }
+
 
     }
 }

@@ -5,14 +5,15 @@ class TextureBank {
 
     }
 
-    createMaterial(textureName, repeatX, repeatY) {
+    createMaterial(textureName, repeatX, repeatY, noRepeat = false, transparent = false) {
 
 
         let texture = this.textures[textureName].clone();
         texture.needsUpdate = true;
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set(repeatX, repeatY)
+        if (!noRepeat)
+            texture.repeat.set(repeatX, repeatY)
         texture.needsUpdate = true;
 
 
@@ -20,8 +21,11 @@ class TextureBank {
             map: texture,
             side: THREE.FrontSide,
             opacity: 1,
+            transparent: transparent,
             specular: 0xffffff,
             shininess: 1,
+
+
         });
         return material;
     }
@@ -43,6 +47,16 @@ class TextureBank {
         return this.images[name];
     }
 
+    getTexture(name, repeatX, repeatY) {
+        let texture = this.textures[name].clone();
+        texture.needsUpdate = true;
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(repeatX, repeatY)
+        texture.needsUpdate = true;
+        return texture
+    }
+
     loadImage(url) {
         return new Promise(resolve => {
             const image = new Image();
@@ -52,6 +66,7 @@ class TextureBank {
             image.src = url;
         })
     }
+
 
     load(json) {
         let txtPromieses = [];

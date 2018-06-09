@@ -7,6 +7,17 @@
     {
       "name": "defaultmotion",
       "path": "textures/components/defaultmotion.jpg"
+    },
+    {
+      "name": "wireEnabled",
+      "path": "textures/components/enabled.png"
+    },
+    {
+      "name": "blue",
+      "path": "textures/components/defaultBlue.jpg"
+    }, {
+      "name": "wireDisabled",
+      "path": "textures/components/disabled.png"
     }
   ],
   "images":   [

@@ -30,7 +30,7 @@ class SpecialTile extends Component {
         for (let eventArr of this.events)
 
             for (let event of eventArr)
-                event.fullfilled = false;
+                event.reject()
 
     }
 
@@ -55,7 +55,7 @@ class SpecialTile extends Component {
 
         if (this.emmiter)
             for (let event of this.events) {
-                event.fullfilled = true;
+                event.fullfill();
             }
 
     }
@@ -63,8 +63,21 @@ class SpecialTile extends Component {
     cancel() {
         if (this.emmiter)
             for (let event of this.events) {
-                event.fullfilled = false;
+                event.reject()
             }
     }
 
+    addEvent(event, type) {
+        if (this.emmiter) {
+            this.events.push(event)
+        }
+        else {
+            if (this.events.length < type) {
+                this.events.push([event])
+            }
+            else {
+                this.events[type - 1].push(event)
+            }
+        }
+    }
 }
