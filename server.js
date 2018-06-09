@@ -4,13 +4,13 @@ const path = require("path")
 
 
 const express = require("express")
-const PORT = 3000
-//process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
+
 var app = express();
 app.use(express.static('public'))
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-server.listen(3000);
+server.listen(PORT);
 let players = [];
 let packet1 = {
     player: {},
