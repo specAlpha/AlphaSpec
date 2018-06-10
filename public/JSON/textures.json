@@ -26,7 +26,7 @@
   "images":   [
     {
       "name": "test",
-      "path": "textures/test.jpg"
+      "path": "textures/tut4.png"
     }, {
       "name": "crossHair",
       "path": "textures/cross.png"
