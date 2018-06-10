@@ -22,6 +22,14 @@
             transform: translate(-50%, -50%);
         }
 
+        #timer {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+        }
+
 
     </style>
 
@@ -46,10 +54,13 @@
     <script src="src/Net/NetHandler.js"></script>
     <script src="src/ModelBank.js"></script>
 
+
     <script src="src/SpecialTilesHandler.js"></script>
     <script src="src/Level.js"></script>
     <script src="src/Misc/EventHandler.js"></script>
     <script src="src/GameManager.js"></script>
+    <script src="src/AssetsLoader.js"></script>
+    <script src="src/Utils.js"></script>
 
     <script src="src/Input/UserInput.js"></script>
     <script src="src/Input/InputManager.js"></script>
@@ -73,13 +84,14 @@
     <script src="src/Objects/Model.js"></script>
     <script src="src/Misc/Event.js"></script>
     <script src="src/Misc/SpaceEvent.js"></script>
-
+    <script src="src/Objects/SpecialTiles/WinTile.js"></script>
 
 </head>
 
 <body>
 <div id="root"></div>
-<img id="crosshair" src="./textures/cross.png" alt="">
+<div id="timer"></div>
+
 </body>
 
 </html>

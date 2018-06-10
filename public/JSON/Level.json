@@ -67,6 +67,41 @@
       },
       {
         "position": {
+          "x": -145,
+          "y": 5,
+          "z": -115
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "defaultGreen"
+      }, {
+        "position": {
+          "x": -155,
+          "y": 5,
+          "z": -155
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "defaultGreen"
+      },
+      {
+        "position": {
           "x": -45,
           "y": 15,
           "z": 55
@@ -180,6 +215,30 @@
           "z": 0
         },
         "id":       "#4"
+      }, {
+        "position": {
+          "x": -155,
+          "y": 10,
+          "z": -155
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#7"
+      }, {
+        "position": {
+          "x": -145,
+          "y": 10,
+          "z": -115
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#8"
       },
       {
         "position": {
@@ -240,7 +299,20 @@
         "emmiter":  "#5",
         "receiver": "#6",
         "wires":    []
-      }, {
+      },
+      {
+        "type":     1,
+        "emmiter":  "#7",
+        "receiver": "win",
+        "wires":    []
+      },
+      {
+        "type":     1,
+        "emmiter":  "#8",
+        "receiver": "win",
+        "wires":    []
+      },
+      {
         "type":     1,
         "emmiter":  "#4",
         "receiver": "#2",

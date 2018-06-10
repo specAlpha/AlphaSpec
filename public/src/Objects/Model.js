@@ -70,7 +70,7 @@ class Model extends Component {
     }
 
     setAnimation(name) {
-        console.log(this.currentAnimation)
+
         if (this.currentAnimation)
             this.stopAnimation(this.currentAnimation)
         this.currentAnimation = name;

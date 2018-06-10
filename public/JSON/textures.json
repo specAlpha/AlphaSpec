@@ -18,12 +18,18 @@
     }, {
       "name": "wireDisabled",
       "path": "textures/components/disabled.png"
+    }, {
+      "name": "defaultGreen",
+      "path": "textures/components/defaultGreen.jpg"
     }
   ],
   "images":   [
     {
       "name": "test",
       "path": "textures/test.jpg"
+    }, {
+      "name": "crossHair",
+      "path": "textures/cross.png"
     }
   ]
 }

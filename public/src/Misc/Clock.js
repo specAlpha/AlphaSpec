@@ -1,8 +1,7 @@
 class Clock {
     constructor() {
-        this.timer = Date.now();
-        this.threeTimer = new THREE.Clock();
-
+        this.timer = null
+        this.threeTimer = null;
     }
 
     getTimer() {
@@ -14,6 +13,11 @@ class Clock {
 
     getThreeTimer() {
         return this.threeTimer.getDelta();
+    }
+
+    enableClock() {
+        this.timer = Date.now();
+        this.threeTimer = new THREE.Clock();
     }
 
 }

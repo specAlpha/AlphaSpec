@@ -2,12 +2,12 @@ class Level {
     constructor() {
         this.specialTiles = [];
         this.staticTiles = [];
-
+        this.json = null;
 
     }
 
     createLevel(json) {
-
+        this.json = json;
         for (let staticTypes in json.staticBlocks) {
             for (let tile of json.staticBlocks[staticTypes]) {
                 this.createStaticBlock(staticTypes, tile.position, tile.size, tile.rotation, tile.texture)
@@ -18,6 +18,12 @@ class Level {
                 this.createSpecialTile(specialTypes, tile.position, tile.rotation, tile.id, tile.axis, tile.moveTo, tile.size)
             }
         }
+
+        let obj = new WinTile();
+        this.specialTiles.push(obj);
+        GM.specialTilesHandler.addSpecialTile(obj)
+
+
         for (let e of json.events.spaceEvents) {
             this.createSpaceEvent(e.position, e.size, e.image)
         }
@@ -25,10 +31,7 @@ class Level {
             this.createBlockEvent(e.type, e.emmiter, e.receiver, e.wires)
         }
         this.createLights(2000, 16384)
-        if (GM.playerID == 0)
-            this.createPlayer(json.spawn.player1.position, json.spawn.player1.rotation, json.spawn.player2.position, json.spawn.player2.rotation)
-        else
-            this.createPlayer(json.spawn.player2.position, json.spawn.player2.rotation, json.spawn.player1.position, json.spawn.player1.rotation)
+
     }
 
     createStaticBlock(type, pos, size, rot, texture) {
@@ -118,11 +121,23 @@ class Level {
 
         this.player1 = new Player(new THREE.Vector3(pos.x, pos.y, pos.z), new THREE.Euler(rot.x, rot.y, rot.z, 'XYZ'))
         this.player2 = new Character(new THREE.Vector3(pos2.x, pos2.y, pos2.z), new THREE.Euler(rot2.x, rot2.y, rot2.z, 'XYZ'))
-
+        GM.inputManager.setPlayer(this.player1)
         this.player1.model.addParentContainer(GM.scene)
         this.player2.model.addParentContainer(GM.scene)
+        this.player1.model.loadModel(GM.playerID)
+
+        if (GM.playerID == 0)
+            this.player2.model.loadModel(1)
+        else
+            this.player2.model.loadModel(0)
         GM.assignPlayers(this.player1, this.player2)
     }
 
+    spawnPlayers() {
+        if (GM.playerID == 0)
+            this.createPlayer(this.json.spawn.player1.position, this.json.spawn.player1.rotation, this.json.spawn.player2.position, this.json.spawn.player2.rotation)
+        else
+            this.createPlayer(this.json.spawn.player2.position, this.json.spawn.player2.rotation, this.json.spawn.player1.position, this.json.spawn.player1.rotation)
+    }
 
 }

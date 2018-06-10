@@ -15,6 +15,7 @@ class NetHandler {
 
     savePacket(packet) {
         this.lastReceivedPacket = packet;
+
     }
 
     infoFromPlayer(pos, rot, animation) {
@@ -58,7 +59,7 @@ class NetHandler {
     }
 
     getMobileCube() {
-        if (this.lastReceivedPacket.mobileCube)
+        if (this.lastReceivedPacket.mobileCube.id)
             return this.lastReceivedPacket.mobileCube
         else
             return null;

@@ -45,8 +45,7 @@ class Player extends Character {
         this.model.addChlidContainer(this.cameraHelper.container);
         this.model.addChlidContainer(this.crossHairHelper.container);
 
-        let axes = new THREE.AxesHelper(10);
-        this.crossHairHelper.cross.addChlidContainer(axes);
+
         this.isCameraBind = false;
         this.debugRaycater = false;
         this.inAir = false;
@@ -260,7 +259,7 @@ class Player extends Character {
     }
 
     moveCube(isMBPressed) {
-        if (isMBPressed && this.bindedCube && GM.netHandler.getMobileCube().id != this.bindedCube.accessToClass.id) {
+        if (isMBPressed && this.bindedCube && GM.netHandler.getMobileCube() && GM.netHandler.getMobileCube().id != this.bindedCube.accessToClass.id) {
             let vec = new THREE.Vector3();
             vec.setFromMatrixPosition(this.crossHairHelper.cross.container.matrixWorld);
             vec.sub(GM.camera.position.clone()).normalize().multiplyScalar(40);
