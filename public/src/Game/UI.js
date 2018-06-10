@@ -15,6 +15,8 @@ class UI {
             })
         )
         this.timerHelper = new TimerHelper(15, 15)
+        this.loadingBarIn = null;
+        this.loadingBarOut = null;
 
     }
 
@@ -48,6 +50,23 @@ class UI {
         let img = $(GM.textureBank.getImage('crossHair')).clone()
         img.attr('id', 'crosshair').appendTo('body');
 
+    }
+
+    createLoading() {
+
+        this.loadingBarOut = $('<div>').attr('id', 'loadBarOut').appendTo('body');
+        this.loadingBarIn = $('<div>').attr('id', 'loadBarIn').appendTo(this.loadingBarOut);
+    }
+
+    addProgress() {
+
+
+        this.loadingBarIn.css('width', parseInt(this.loadingBarIn.css('width')) + 100 + 'px');
+    }
+
+    removeLoading() {
+        this.loadingBarOut.remove()
+        this.loadingBarIn.remove()
     }
 
 

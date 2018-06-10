@@ -8,6 +8,7 @@ class ModelBank {
         return new Promise(resolve => {
 
             let loader = new THREE.FBXLoader();
+            GM.UI.addProgress();
             loader.load(url, (object) => {
                 if (isAnimation) {
                     object.animations[0].name = name
@@ -15,6 +16,7 @@ class ModelBank {
                 } else {
                     this.models.push(object)
                 }
+
                 resolve(object)
 
             })
@@ -38,6 +40,7 @@ class ModelBank {
             Promise.all([Promise.all(modelPromiseArr), Promise.all(animPromiseArr)]).then(arr => {
 
                 this.combaine()
+
                 resolve()
             })
         })

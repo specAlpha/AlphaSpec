@@ -11,12 +11,13 @@ class AssetsLoader {
                 this.loadJSON('/JSON/Keybinds.json')
             ]).then(([modelsJSON, texturesJSON, lvlJSON, keybdingsJSON]) => {
                 GM.inputManager.loadKeybindings(keybdingsJSON)
-
+                GM.UI.addProgress();
                 Promise.all([
                     GM.modelBank.loadFromJSON(modelsJSON),
                     GM.textureBank.load(texturesJSON),
                 ]).then(() => {
                     GM.lvl.createLevel(lvlJSON);
+
                     resolve()
                 })
 

@@ -30,6 +30,40 @@
             font-size: 60px;
         }
 
+        #loadBarOut {
+            position: absolute;
+            top: 50%;
+            width: 1010px;
+            height: 40px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid whitesmoke;
+        }
+
+        #loadBarOut::after {
+            position: absolute;
+            top: 50%;
+            content: 'Loading';
+            font-size: 30px;
+            height: 40px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        #loadBarIn {
+            position: absolute;
+            top: 50%;
+            height: 30px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: whitesmoke;
+        }
+
+        body {
+            background-color: black;
+        }
+
 
     </style>
 
@@ -44,23 +78,23 @@
 
     <script src="src/Objects/Component.js"></script>
     <script src="src/Objects/Static/Plane.js"></script>
-    <script src="src/TextureBank.js"></script>
+    <script src="src/BanksAndLoaders/TextureBank.js"></script>
     <script src="src/Misc/Physics.js"></script>
-    <script src="src/Misc/UI.js"></script>
-    <script src="src/Misc/AnimationHelper.js"></script>
-    <script src="src/Misc/TimerHelper.js"></script>
+    <script src="src/Game/UI.js"></script>
+    <script src="src/Helpers/AnimationHelper.js"></script>
+    <script src="src/Helpers/TimerHelper.js"></script>
     <script src="src/Misc/Clock.js"></script>
     <script src="src/Net/Net.js"></script>
     <script src="src/Net/NetHandler.js"></script>
-    <script src="src/ModelBank.js"></script>
+    <script src="src/BanksAndLoaders/ModelBank.js"></script>
 
 
-    <script src="src/SpecialTilesHandler.js"></script>
-    <script src="src/Level.js"></script>
-    <script src="src/Misc/EventHandler.js"></script>
-    <script src="src/GameManager.js"></script>
-    <script src="src/AssetsLoader.js"></script>
-    <script src="src/Utils.js"></script>
+    <script src="src/Handlers/SpecialTilesHandler.js"></script>
+    <script src="src/Game/Level.js"></script>
+    <script src="src/Handlers/EventHandler.js"></script>
+    <script src="src/Game/GameManager.js"></script>
+    <script src="src/BanksAndLoaders/AssetsLoader.js"></script>
+    <script src="src/Misc/Utils.js"></script>
 
     <script src="src/Input/UserInput.js"></script>
     <script src="src/Input/InputManager.js"></script>
@@ -82,8 +116,8 @@
     <script src="src/Objects/SpecialTiles/PressurePlate.js"></script>
     <script src="src/Objects/SpecialTiles/DynamicCube.js"></script>
     <script src="src/Objects/Model.js"></script>
-    <script src="src/Misc/Event.js"></script>
-    <script src="src/Misc/SpaceEvent.js"></script>
+    <script src="src/Events/Event.js"></script>
+    <script src="src/Events/SpaceEvent.js"></script>
     <script src="src/Objects/SpecialTiles/WinTile.js"></script>
 
 </head>

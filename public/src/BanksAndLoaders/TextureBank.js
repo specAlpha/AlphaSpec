@@ -87,7 +87,7 @@ class TextureBank {
                     for (let i = 0; i < json.textures.length; i++) {
                         this.textures[json.textures[i].name] = new THREE.Texture(arr[0][i])
                     }
-
+                    GM.UI.addProgress();
                     resolve();
                 }
             );

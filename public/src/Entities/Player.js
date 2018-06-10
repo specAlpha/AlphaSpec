@@ -4,38 +4,8 @@ class Player extends Character {
         this.triggerjump = false;
         this.moveVec = new OIMO.Vec3();
 
-
-        this.rigidBody = new OIMO.RigidBody({
-            type: 0,
-            angularDamping: 10,
-            linearDamping: 10,
-            angularVelocity: new OIMO.Vec3(),
-            position: THREEtoOimoVec(positionVector3),
-            linearVelocity: new OIMO.Vec3(),
-            autoSleep: true,
-            rotation: new OIMO.Mat3(),
-
-        })
-        this.rigidBody.three = this.model.container;
-
-
-        this.rigidBody.addShape(new OIMO.Shape({
-            collisionGroup: 1,
-            collisionMask: 1,
-            density: 100,
-            geometry: new OIMO.CylinderGeometry(5, 10),
-            friction: 0,
-            restitution: 0,
-            rotation: new OIMO.Mat3(),
-            position: new OIMO.Vec3(0, 10, 0),
-
-        }))
-
+        this.rigidBody.setType(1);
         this.raycaster = new THREE.Raycaster();
-
-
-        this.rigidBody.setRotationFactor(new OIMO.Vec3(0, 0, 0))
-        GM.physics.world.addRigidBody(this.rigidBody);
 
 
         this.cameraHelper = new Component(new THREE.Vector3(-5, 20, -15), new THREE.Euler(0, 0, 0));
@@ -259,7 +229,7 @@ class Player extends Character {
     }
 
     moveCube(isMBPressed) {
-        if (isMBPressed && this.bindedCube && (GM.netHandler.getMobileCube() && GM.netHandler.getMobileCube().id != this.bindedCube.accessToClass.id)) {
+        if (isMBPressed && this.bindedCube && !(GM.netHandler.getMobileCube() && GM.netHandler.getMobileCube().id == this.bindedCube.accessToClass.id)) {
             let vec = new THREE.Vector3();
             vec.setFromMatrixPosition(this.crossHairHelper.cross.container.matrixWorld);
             vec.sub(GM.camera.position.clone()).normalize().multiplyScalar(40);

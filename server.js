@@ -14,7 +14,7 @@ server.listen(PORT);
 let rooms = {};
 
 const playedGames = new Nedb({
-    filename: 'data/allCards.db',
+    filename: 'data/playedGames.db',
     autoload: true,
     //corruptAlertThreshold: 1
 });
