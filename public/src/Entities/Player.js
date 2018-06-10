@@ -259,7 +259,7 @@ class Player extends Character {
     }
 
     moveCube(isMBPressed) {
-        if (isMBPressed && this.bindedCube && GM.netHandler.getMobileCube() && GM.netHandler.getMobileCube().id != this.bindedCube.accessToClass.id) {
+        if (isMBPressed && this.bindedCube && (GM.netHandler.getMobileCube() && GM.netHandler.getMobileCube().id != this.bindedCube.accessToClass.id)) {
             let vec = new THREE.Vector3();
             vec.setFromMatrixPosition(this.crossHairHelper.cross.container.matrixWorld);
             vec.sub(GM.camera.position.clone()).normalize().multiplyScalar(40);
