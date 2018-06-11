@@ -2,6 +2,8 @@ const http = require("http");
 
 const path = require("path")
 
+const levelFolder = './public/Levels/';
+const fs = require('fs');
 
 const express = require("express")
 const PORT = 3000;
@@ -11,10 +13,11 @@ app.use(express.static('public'))
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 server.listen(PORT);
-let rooms = {};
+let rooms = [];
+let id = 0;
 
 const playedGames = new Nedb({
-    filename: 'data/allCards.db',
+    filename: 'data/playedGames.db',
     autoload: true,
     //corruptAlertThreshold: 1
 });
@@ -37,11 +40,31 @@ app.get("/*", function (req, res) {
 
 })
 
+function findRoomByID(id) {
+    for (let room of rooms) {
+        if (room.roomID == id)
+            return room
+    }
+    return null;
+
+}
+
+function findroomByClientID(id) {
+    for (let room of rooms) {
+        for (let player of room.players)
+            if (player.client.id == id) {
+                return room
+            }
+    }
+    return null;
+}
+
+
 setInterval(function () {
 
 
-    for (let roomID in rooms) {
-        let room = rooms[roomID]
+    for (let room of rooms) {
+
         if (room.start) {
 
             io.sockets.to(room.players[0].client.id).emit("packet", room.packet2);
@@ -55,91 +78,142 @@ setInterval(function () {
 
 
 io.on('connection', function (client) {
-    client.on('Hello', function (data) {
-        if (rooms[data.roomID]) {
-            if (rooms[data.roomID].players.length < 2) {
-                rooms[data.roomID].players.push({client: client, name: data.name})
-                rooms[data.roomID].start = true;
-                io.sockets.to(client.id).emit("onconnect", {id: 1});
-                io.sockets.to(client.id).emit("gameStart", {});
-                io.sockets.to(rooms[data.roomID].players[0].client.id).emit("gameStart", {});
-            }
-            else {
-                io.sockets.to(client.id).emit("error", {});
+    client.on('createRoom', function (data) {
+        id++;
+        let room = {
+            roomID: id,
+            roomName: data.roomName,
+            players: [{client: client, name: data.name}],
+            start: false,
+            map: data.map,
+            packet1: {
+                player: {},
+                events: [],
+                mobileCube: {}
+            },
+            packet2: {
+                player: {},
+                events: [],
+                mobileCube: {}
+            },
 
+        }
+        io.sockets.to(client.id).emit("createRoom", {id: 0, roomID: room.roomID});
+        rooms.push(room);
+
+
+    })
+
+    client.on("showRooms", function () {
+        let obj = {
+            rooms: []
+        }
+        for (let room of rooms) {
+            if (!room.start) {
+                let a = {roomID: room.roomID, roomName: room.roomName}
+                obj.rooms.push(a);
             }
         }
+        io.sockets.to(client.id).emit("showRooms", obj);
 
-        else {
-            rooms[data.roomID] = {
-                players: [],
-                packet1: {
-                    player: {},
-                    events: [],
-                    mobileCube: {}
-                },
-                packet2: {
-                    player: {},
-                    events: [],
-                    mobileCube: {}
-                },
-                start: false
-            };
-            rooms[data.roomID].players.push({client: client, name: data.name})
-            io.sockets.to(client.id).emit("onconnect", {
-                id: 0
-            });
+    })
+    client.on("showMaps", function () {
+        let obj = {
+            maps: []
         }
-        console.log(rooms)
+
+        fs.readdir(levelFolder, (err, files) => {
+
+            for (let file of files)
+                obj.maps.push(file)
+
+            io.sockets.to(client.id).emit("showMaps", obj);
+
+        })
+
+
+    })
+    client.on('joinRoom', function (data) {
+        let room = findRoomByID(data.roomID)
+        console.log('joining')
+
+        if (room && !room.start) {
+            room.players.push({client: client, name: data.name})
+            room.start = true;
+            io.sockets.to(client.id).emit("joinRoom", {id: 1, roomID: room.roomID});
+            io.sockets.to(room.players[0].client.id).emit("gameStart", {map: room.map});
+            io.sockets.to(room.players[1].client.id).emit("gameStart", {map: room.map});
+        }
+        else
+            io.sockets.to(client.id).emit("error", {});
+
 
     })
 
 
     client.on('packet', function (data) {
-        if (rooms[data.roomID] && rooms[data.roomID].players.length == 2)
-            if (rooms[data.roomID].players[0].client.id == client.id) {
-                rooms[data.roomID].packet1 = data.packet;
-
+        let room = findRoomByID(data.roomID)
+        if (room && room.start)
+            if (room.players[0].client.id == client.id) {
+                room.packet1 = data.packet;
             }
-            else if (rooms[data.roomID].players[1].client.id = client.id) {
-                rooms[data.roomID].packet2 = data.packet;
+            else if (room.players[1].client.id = client.id) {
+                room.packet2 = data.packet;
 
             }
     })
 
 
     client.on('lose', function (data) {
-        let room = rooms[data.roomID]
+        let room = findRoomByID(data.roomID)
         if (!room)
             return
         let obj = {
             status: 'lose',
             timeleft: '0',
             players: [room.players[0].name, room.players[1].name],
-            roomID: data.roomID
+            roomName: room.roomName
         }
         playedGames.insert(obj, function (err, newDoc) {
             console.log("Zapisano rozgrywke:")
             console.log(newDoc)
 
         });
-        delete rooms[data.roomID]
+        rooms.splice(rooms.indexOf(room), 1);
     })
     client.on('win', function (data) {
-        let room = rooms[data.roomID]
+        let room = findRoomByID(data.roomID)
         if (!room)
             return
         let obj = {
             status: 'win',
             timeleft: data.timeLeft,
             players: [room.players[0].name, room.players[1].name],
-            roomID: data.roomID
+            roomName: room.roomName
         }
         playedGames.insert(obj, function (err, newDoc) {
             console.log("Zapisano rozgrywke:")
             console.log(newDoc)
 
         });
-        delete rooms[data.roomID]
+        rooms.splice(rooms.indexOf(room), 1);
     })
-});
+
+    client.on("disconnect", function () {
+        console.log('disconnetc')
+        let room = findroomByClientID(client.id);
+        console.log(room)
+        if (room) {
+            for (let player of room.players) {
+                if (player.client.id != client.id) {
+                    io.sockets.to(player.client.id).emit("disconnected", {});
+                }
+            }
+            rooms.splice(rooms.indexOf(room), 1);
+        }
+    })
+
+
+})
+
+;

@@ -31,7 +31,8 @@ class MobileCube extends Component {
         }))
         GM.physics.world.addRigidBody(this.rigidBody);
 
-
+        this.spawnProtection = new TimerHelper(0.5, 1)
+        this.spawnProtection.running = true;
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.mesh.accessToClass = this;
         this.mesh.receiveShadow = true
@@ -42,7 +43,7 @@ class MobileCube extends Component {
         this.container.add(this.mesh)
     }
 
-    update() {
+    update(time) {
         let posVect = OIMOtoThreeVec3(this.rigidBody.getPosition());
         let rotation = OIMOtoThreeQuat(this.rigidBody.getOrientation());
         this.container.setRotationFromQuaternion(rotation);
@@ -53,13 +54,16 @@ class MobileCube extends Component {
         dir.setFromMatrixPosition(this.mesh.matrixWorld);
         this.boundingBoxVect.copy(dir).negate();
         this.boundingBox.translate(dir)
+        this.spawnProtection.update(time)
+        if (this.spawnProtection.complete)
+            this.spawnProtection.reset();
 
     }
 
     setPositionRB(oimoVector) {
 
-
-        this.rigidBody.setPosition(oimoVector)
+        if (this.spawnProtection.running && !this.spawnProtection.complete)
+            this.rigidBody.setPosition(oimoVector)
     }
 
     destroy() {

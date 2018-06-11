@@ -13,6 +13,8 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+            color: crimson;
+            font-size: 30px;
         }
 
         #crosshair {
@@ -30,7 +32,155 @@
             font-size: 60px;
         }
 
+        #loadBarOut {
+            position: absolute;
+            top: 50%;
+            width: 1010px;
+            height: 40px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid whitesmoke;
+        }
 
+        #loadBarOut::after {
+            position: absolute;
+            top: 50%;
+            content: 'Loading';
+            color: black;
+            font-size: 30px;
+            height: 40px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        #loadBarIn {
+            position: absolute;
+            top: 50%;
+            height: 30px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: whitesmoke;
+        }
+
+        #title {
+            position: absolute;
+            top: 10%;
+
+            font-size: 60px;
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+        }
+
+        #createRoom {
+
+            top: 300px;
+
+            width: 300px;
+            height: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-sizing: border-box;
+            border: 2px solid crimson;
+
+            padding-top: 5px;
+            cursor: pointer;
+        }
+
+        #joinRoom {
+            cursor: pointer;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 30px;
+            top: 400px;
+
+            padding-top: 5px;
+
+            width: 300px;
+            height: 50px;
+            border: 2px solid crimson;
+
+        }
+
+        body {
+            background-color: black;
+        }
+
+        input {
+            background-color: transparent;
+            border: 2px solid crimson;
+            color: crimson;
+            font-size: 30px;
+        }
+
+        #roomName {
+            top: 350px;
+
+        }
+
+        #playerNameLabel {
+            top: 150px;
+
+        }
+
+        #playerName {
+            top: 200px;
+
+        }
+
+        #roomNameLabel {
+            top: 300px;
+
+        }
+
+        #select {
+            background-color: transparent;
+            top: 450px;
+            color: crimson;
+            font-size: 30px;
+            padding: 5px;
+            border: 2px solid crimson;
+
+        }
+
+        #submit {
+            position: absolute;
+            top: 550px;
+            left: 55%;
+            border: 2px solid crimson;
+            transform: translateX(-50%);
+            cursor: pointer;
+            padding: 10px;
+
+        }
+
+        #back {
+
+            border: 2px solid crimson;
+            position: absolute;
+            top: 550px;
+            font-size: 30px;
+            left: 45%;
+            cursor: pointer;
+            padding: 10px;
+            transform: translateX(-50%);
+        }
+
+        .alert {
+            position: absolute;
+            top: 50%;
+            height: 30px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid crimson;
+            padding: 10px;
+
+        }
+
+        .centerX {
+            left: 50%;
+            position: absolute;
+            transform: translateX(-50%);
+        }
     </style>
 
 
@@ -44,23 +194,24 @@
 
     <script src="src/Objects/Component.js"></script>
     <script src="src/Objects/Static/Plane.js"></script>
-    <script src="src/TextureBank.js"></script>
+    <script src="src/BanksAndLoaders/TextureBank.js"></script>
     <script src="src/Misc/Physics.js"></script>
-    <script src="src/Misc/UI.js"></script>
-    <script src="src/Misc/AnimationHelper.js"></script>
-    <script src="src/Misc/TimerHelper.js"></script>
+    <script src="src/Game/UI.js"></script>
+    <script src="src/Helpers/AnimationHelper.js"></script>
+    <script src="src/Helpers/TimerHelper.js"></script>
     <script src="src/Misc/Clock.js"></script>
+    <script src="src/Misc/MainMenu.js"></script>
     <script src="src/Net/Net.js"></script>
     <script src="src/Net/NetHandler.js"></script>
-    <script src="src/ModelBank.js"></script>
+    <script src="src/BanksAndLoaders/ModelBank.js"></script>
 
 
-    <script src="src/SpecialTilesHandler.js"></script>
-    <script src="src/Level.js"></script>
-    <script src="src/Misc/EventHandler.js"></script>
-    <script src="src/GameManager.js"></script>
-    <script src="src/AssetsLoader.js"></script>
-    <script src="src/Utils.js"></script>
+    <script src="src/Handlers/SpecialTilesHandler.js"></script>
+    <script src="src/Game/Level.js"></script>
+    <script src="src/Handlers/EventHandler.js"></script>
+    <script src="src/Game/GameManager.js"></script>
+    <script src="src/BanksAndLoaders/AssetsLoader.js"></script>
+    <script src="src/Misc/Utils.js"></script>
 
     <script src="src/Input/UserInput.js"></script>
     <script src="src/Input/InputManager.js"></script>
@@ -82,8 +233,8 @@
     <script src="src/Objects/SpecialTiles/PressurePlate.js"></script>
     <script src="src/Objects/SpecialTiles/DynamicCube.js"></script>
     <script src="src/Objects/Model.js"></script>
-    <script src="src/Misc/Event.js"></script>
-    <script src="src/Misc/SpaceEvent.js"></script>
+    <script src="src/Events/Event.js"></script>
+    <script src="src/Events/SpaceEvent.js"></script>
     <script src="src/Objects/SpecialTiles/WinTile.js"></script>
 
 </head>

@@ -3,7 +3,7 @@ class UI {
         this.canvas3d = document.createElement('canvas')
         this.canvas3d.width = 1536;
         this.canvas3d.height = 1024;
-        this.timerDiv = $('#timer');
+        this.timerDiv = $('#timer').hide();
 
         this.texture = new THREE.CanvasTexture(this.canvas3d)
         this.plane = new Plane(new THREE.Vector3(-25, 20, 20), new THREE.Vector3(30, 20, 0), new THREE.Euler(0, Math.PI + -Math.PI / 8, 0), '', false,
@@ -15,6 +15,7 @@ class UI {
             })
         )
         this.timerHelper = new TimerHelper(15, 15)
+
 
     }
 
@@ -45,9 +46,15 @@ class UI {
     }
 
     createCrossHair() {
+        this.timerDiv.show();
         let img = $(GM.textureBank.getImage('crossHair')).clone()
         img.attr('id', 'crosshair').appendTo('body');
 
+    }
+
+    removeCrossHair() {
+        this.timerDiv.hide();
+        $('#crosshair').remove()
     }
 
 

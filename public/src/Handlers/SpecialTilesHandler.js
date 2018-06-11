@@ -28,7 +28,8 @@ class SpecialTilesHandler {
         if (mob) {
 
             let cube = this.findMobileCubeByID(mob.id)
-            cube.setPositionRB(new OIMO.Vec3(mob.position.x, mob.position.y, mob.position.z))
+            if (cube)
+                cube.setPositionRB(new OIMO.Vec3(mob.position.x, mob.position.y, mob.position.z))
         }
     }
 

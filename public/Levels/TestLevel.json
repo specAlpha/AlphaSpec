@@ -1,0 +1,363 @@
+{
+  "spawn":        {
+    "player0": {
+      "position": {
+        "x": 10,
+        "y": 0,
+        "z": 10
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "player1": {
+      "position": {
+        "x": 20,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  },
+  "staticBlocks": {
+    "ramp":  [
+      {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "default"
+      }
+    ],
+    "cube":  [
+      {
+        "position": {
+          "x": -45,
+          "y": 15,
+          "z": -15
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "default"
+      },
+      {
+        "position": {
+          "x": -145,
+          "y": 5,
+          "z": -115
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "defaultGreen"
+      }, {
+        "position": {
+          "x": -155,
+          "y": 5,
+          "z": -155
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "defaultGreen"
+      },
+      {
+        "position": {
+          "x": -45,
+          "y": 15,
+          "z": 55
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "default"
+      },
+      {
+        "position": {
+          "x": 0,
+          "y": -1,
+          "z": 0
+        },
+        "size":     {
+          "x": 10000,
+          "y": 2,
+          "z": 10000
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 0,
+          "y": 300,
+          "z": 0
+        },
+        "size":     {
+          "x": 10000,
+          "y": 2,
+          "z": 10000
+        },
+        "rotation": {
+          "x": 0,
+          "y": 3.14,
+          "z": 0
+        },
+        "texture":  "default"
+      }
+    ],
+    "plane": []
+  },
+  "specialTiles": {
+    "button":        [
+      {
+        "position": {
+          "x": -45,
+          "y": 15,
+          "z": 1
+        },
+        "rotation": {
+          "x": 0,
+          "y": -1.57,
+          "z": 1.57
+        },
+        "id":       "#1"
+      }
+    ],
+    "doors":         [
+      {
+        "position": {
+          "x": -120,
+          "y": 0,
+          "z": 5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#2"
+      }
+    ],
+    "spawner":       [
+      {
+        "position": {
+          "x": 50,
+          "y": 60,
+          "z": 5
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#3"
+      }
+    ],
+    "pressurePlate": [
+      {
+        "position": {
+          "x": 50,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#4"
+      }, {
+        "position": {
+          "x": -155,
+          "y": 10,
+          "z": -155
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#7"
+      }, {
+        "position": {
+          "x": -145,
+          "y": 10,
+          "z": -115
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#8"
+      },
+      {
+        "position": {
+          "x": 50,
+          "y": 0,
+          "z": 40
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#5"
+      }
+    ],
+    "dynamicCubes":  [
+      {
+        "position": {
+          "x": 75,
+          "y": 15,
+          "z": 55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "id":       "#6",
+        "axis":     "z",
+        "moveTo":   110
+      }
+    ]
+  },
+  "events":       {
+    "spaceEvents": [
+      {
+        "position": {
+          "x": 30,
+          "y": 5,
+          "z": -80
+        },
+        "size":     {
+          "x": 40,
+          "y": 50,
+          "z": 40
+        },
+        "image":    "test"
+      }
+    ],
+    "blockEvents": [
+      {
+        "type":     1,
+        "emmiter":  "#5",
+        "receiver": "#6",
+        "wires":    []
+      },
+      {
+        "type":     1,
+        "emmiter":  "#7",
+        "receiver": "win",
+        "wires":    []
+      },
+      {
+        "type":     1,
+        "emmiter":  "#8",
+        "receiver": "win",
+        "wires":    []
+      },
+      {
+        "type":     1,
+        "emmiter":  "#4",
+        "receiver": "#2",
+        "wires":    []
+      }, {
+        "type":     1,
+        "emmiter":  "#1",
+        "receiver": "#3",
+        "wires":    [
+          {
+            "position": {
+              "x": -45,
+              "y": 5,
+              "z": 0.1
+            },
+            "size":     {
+              "x": 10,
+              "y": 10,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "position": {
+              "x": -5,
+              "y": 0.1,
+              "z": 5
+            },
+            "size":     {
+              "x": 90,
+              "y": 10,
+              "z": 0
+            },
+            "rotation": {
+              "x": -1.57,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -53,8 +53,8 @@ $(function () {
 
    // new cube
    $('#newCube').on('click', function () {
-      console.log('aaa')
       let geometry = new THREE.BoxGeometry(10, 10, 10);
+      let cube = new Shape("cube");
       let material = new THREE.MeshBasicMaterial({
          map: new THREE.TextureLoader().load('../textures/components/default.jpg'),
          side: THREE.DoubleSide,
