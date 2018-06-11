@@ -3,10 +3,12 @@ class Player extends Character {
         super(positionVector3, Euler)
         this.triggerjump = false;
         this.moveVec = new OIMO.Vec3();
-
-        this.rigidBody.setType(1);
+        this.rigidBody.setLinearDamping(10)
+        this.rigidBody.setAngularDamping(10)
+        this.rigidBody.setAngularDamping(10)
+        this.rigidBody.setType(0);
         this.raycaster = new THREE.Raycaster();
-
+       this.rigidBody.getShapeList().setFriction(0)
 
         this.cameraHelper = new Component(new THREE.Vector3(-5, 20, -15), new THREE.Euler(0, 0, 0));
         this.crossHairHelper = new Component(new THREE.Vector3(0, 0, 0), new THREE.Euler(0, 0, 0));

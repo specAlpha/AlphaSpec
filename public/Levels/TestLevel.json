@@ -1,6 +1,6 @@
 {
   "spawn":        {
-    "player1": {
+    "player0": {
       "position": {
         "x": 10,
         "y": 0,
@@ -12,7 +12,7 @@
         "z": 0
       }
     },
-    "player2": {
+    "player1": {
       "position": {
         "x": 20,
         "y": 0,

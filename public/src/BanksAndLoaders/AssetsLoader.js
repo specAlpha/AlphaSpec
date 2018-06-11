@@ -7,16 +7,15 @@ class AssetsLoader {
             Promise.all([
                 this.loadJSON('/JSON/Models.json'),
                 this.loadJSON('/JSON/textures.json'),
-                this.loadJSON('/JSON/Level.json'),
                 this.loadJSON('/JSON/Keybinds.json')
-            ]).then(([modelsJSON, texturesJSON, lvlJSON, keybdingsJSON]) => {
+            ]).then(([modelsJSON, texturesJSON, keybdingsJSON]) => {
                 GM.inputManager.loadKeybindings(keybdingsJSON)
-                GM.UI.addProgress();
+                GM.mainMenu.addProgress();
                 Promise.all([
                     GM.modelBank.loadFromJSON(modelsJSON),
                     GM.textureBank.load(texturesJSON),
                 ]).then(() => {
-                    GM.lvl.createLevel(lvlJSON);
+
 
                     resolve()
                 })
@@ -29,6 +28,18 @@ class AssetsLoader {
 
     loadJSON(url) {
         return fetch(url).then(resolve => resolve.json())
+
+    }
+
+    loadLevel(name) {
+        return new Promise(resolve => {
+            this.loadJSON('/Levels/' + name).then(function (json) {
+                GM.lvl.createLevel(json);
+                resolve()
+            })
+
+
+        })
 
     }
 }

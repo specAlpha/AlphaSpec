@@ -135,9 +135,9 @@ class Level {
 
     spawnPlayers() {
         if (GM.playerID == 0)
-            this.createPlayer(this.json.spawn.player1.position, this.json.spawn.player1.rotation, this.json.spawn.player2.position, this.json.spawn.player2.rotation)
+            this.createPlayer(this.json.spawn.player0.position, this.json.spawn.player0.rotation, this.json.spawn.player1.position, this.json.spawn.player1.rotation)
         else
-            this.createPlayer(this.json.spawn.player2.position, this.json.spawn.player2.rotation, this.json.spawn.player1.position, this.json.spawn.player1.rotation)
+            this.createPlayer(this.json.spawn.player1.position, this.json.spawn.player1.rotation, this.json.spawn.player0.position, this.json.spawn.player0.rotation)
     }
 
 }

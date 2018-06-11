@@ -3,7 +3,7 @@ class UI {
         this.canvas3d = document.createElement('canvas')
         this.canvas3d.width = 1536;
         this.canvas3d.height = 1024;
-        this.timerDiv = $('#timer');
+        this.timerDiv = $('#timer').hide();
 
         this.texture = new THREE.CanvasTexture(this.canvas3d)
         this.plane = new Plane(new THREE.Vector3(-25, 20, 20), new THREE.Vector3(30, 20, 0), new THREE.Euler(0, Math.PI + -Math.PI / 8, 0), '', false,
@@ -15,8 +15,7 @@ class UI {
             })
         )
         this.timerHelper = new TimerHelper(15, 15)
-        this.loadingBarIn = null;
-        this.loadingBarOut = null;
+
 
     }
 
@@ -47,26 +46,15 @@ class UI {
     }
 
     createCrossHair() {
+        this.timerDiv.show();
         let img = $(GM.textureBank.getImage('crossHair')).clone()
         img.attr('id', 'crosshair').appendTo('body');
 
     }
 
-    createLoading() {
-
-        this.loadingBarOut = $('<div>').attr('id', 'loadBarOut').appendTo('body');
-        this.loadingBarIn = $('<div>').attr('id', 'loadBarIn').appendTo(this.loadingBarOut);
-    }
-
-    addProgress() {
-
-
-        this.loadingBarIn.css('width', parseInt(this.loadingBarIn.css('width')) + 100 + 'px');
-    }
-
-    removeLoading() {
-        this.loadingBarOut.remove()
-        this.loadingBarIn.remove()
+    removeCrossHair() {
+        this.timerDiv.hide();
+        $('#crosshair').remove()
     }
 
 

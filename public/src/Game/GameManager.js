@@ -16,7 +16,7 @@ GM.initCore = function () {
     this.physics = new Physics();
 
     this.specialTilesHandler = new SpecialTilesHandler();
-
+    this.mainMenu = new MainMenu();
     this.net = new Net();
     this.userInput = new UserInput();
     this.inputManager = new InputManager();
@@ -39,27 +39,34 @@ GM.initTHREE = function () {
         1,
         1000
     );
-    this.scene = new THREE.Scene();
+
 
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize($(window).width(), $(window).height());
-    this.scene.background = new THREE.Color(0xa0a0a0);
-    this.scene.fog = new THREE.Fog(this.scene.background, 0.0025, 1000);
+
 
 }
-GM.startGame = function () {
-    $("#root").append(GM.renderer.domElement);
+GM.startGame = function (name) {
+    GM.scene = new THREE.Scene();
+    GM.scene.background = new THREE.Color(0xa0a0a0);
+    GM.scene.fog = new THREE.Fog(this.scene.background, 0.0025, 1000);
+    GM.mainMenu.run = false;
+    GM.mainMenu.mainMenuWrapper.empty();
+    GM.physics = new Physics();
+    GM.assetsLoader.loadLevel(name).then(function () {
 
-    GM.userInput.setPointerLock(GM.renderer.domElement)
-    GM.userInput.initKeyboard()
-    GM.userInput.initMouse()
-    GM.timer.running = true;
-    GM.UI.createCrossHair();
-    GM.lvl.spawnPlayers();
-    GM.clock.enableClock()
-    GM.mainLoop()
+        GM.userInput.setPointerLock(GM.renderer.domElement)
+        GM.userInput.initKeyboard()
+        GM.userInput.initMouse()
+        GM.timer.running = true;
+        GM.UI.createCrossHair();
+        GM.lvl.spawnPlayers();
+        GM.clock.enableClock()
+        GM.mainLoop()
+    })
+
 }
 GM.win = function () {
 
@@ -67,7 +74,8 @@ GM.win = function () {
     this.stopLoop = true;
     if (GM.playerID == 0)
         GM.net.emmitWin((1 - GM.timer.actualNumber) * GM.timer.time * 1000);
-    alert('win')
+    GM.mainMenu.createAlert('Win')
+    GM.mainMenu.goToMenuWithDelay(3000);
 }
 GM.lose = function () {
 
@@ -75,7 +83,8 @@ GM.lose = function () {
     this.stopLoop = true;
     if (GM.playerID == 0)
         GM.net.emmitLose((1 - GM.timer.actualNumber) * GM.timer.time * 1000);
-    alert('lose')
+    GM.mainMenu.createAlert('Czas sie skończył')
+    GM.mainMenu.goToMenuWithDelay(3000);
 }
 GM.mainLoop = function () {
     if (GM.timer.complete) {
@@ -97,13 +106,13 @@ GM.mainLoop = function () {
         GM.UI.update(timer)
         GM.netHandler.sendPacket();
     }
+
+
     if (GM.characters.player2) {
         GM.characters.player2.updatePacket()
         GM.characters.player2.update(threeTimer)
 
     }
-
-
     GM.renderer.render(GM.scene, GM.camera);
     if (!GM.stopLoop)
         requestAnimationFrame(GM.mainLoop);

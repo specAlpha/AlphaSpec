@@ -1,25 +1,25 @@
 {
-  "name": "alphaspec",
-  "version": "0.0.1",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+  "name":         "alphaspec",
+  "version":      "0.9.9",
+  "description":  "",
+  "main":         "server.js",
+  "scripts":      {
+    "test":  "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": {
+  "repository":   {
     "type": "git",
-    "url": "git+https://github.com/specAlpha/AlphaSpec.git"
+    "url":  "git+https://github.com/specAlpha/AlphaSpec.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
+  "author":       "",
+  "license":      "ISC",
+  "bugs":         {
     "url": "https://github.com/specAlpha/AlphaSpec/issues"
   },
-  "homepage": "https://github.com/specAlpha/AlphaSpec#readme",
+  "homepage":     "https://github.com/specAlpha/AlphaSpec#readme",
   "dependencies": {
-    "express": "^4.16.3",
-    "nedb": "^1.8.0",
+    "express":   "^4.16.3",
+    "nedb":      "^1.8.0",
     "socket.io": "^1.7.3"
   }
 }
