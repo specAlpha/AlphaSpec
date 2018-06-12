@@ -120,7 +120,7 @@ class MainMenu {
     }
 
     setupScene() {
-        $("#root").append(GM.renderer.domElement);
+
 
         this.run = true;
         let obj = new Cube(new THREE.Vector3(0, 0, 0), new THREE.Vector3(500, 2, 500), new THREE.Euler(0, 0, 0), 'default')

@@ -21,11 +21,24 @@
     }, {
       "name": "defaultGreen",
       "path": "textures/components/defaultGreen.jpg"
+    }, {
+      "name": "window",
+      "path": "textures/components/window.jpg"
     }
   ],
   "images":   [
     {
-      "name": "test",
+      "name": "tut1",
+      "path": "textures/tut1.png"
+    }, {
+      "name": "tut2",
+      "path": "textures/tut2.png"
+    }, {
+      "name": "tut3",
+      "path": "textures/tut3.png"
+    },
+    {
+      "name": "tut4",
       "path": "textures/tut4.png"
     }, {
       "name": "crossHair",

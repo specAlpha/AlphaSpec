@@ -11,6 +11,10 @@ class Component {
         container.add(this.container)
     }
 
+    removeParentContainer(container) {
+        container.remove(this.container)
+    }
+
     addChlidContainer(child) {
         this.container.add(child)
     }

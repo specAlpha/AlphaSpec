@@ -113,6 +113,7 @@ GM.mainLoop = function () {
         GM.characters.player2.update(threeTimer)
 
     }
+    // console.log(GM.characters.player1.model.container.position)
     GM.renderer.render(GM.scene, GM.camera);
     if (!GM.stopLoop)
         requestAnimationFrame(GM.mainLoop);

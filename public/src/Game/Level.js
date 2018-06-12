@@ -102,7 +102,10 @@ class Level {
 
 
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        this.directionalLight.position.set(200, 200, 200)
+        this.directionalLight.position.set(55, 120, 0)
+        this.lightTarget = new THREE.Object3D();
+        this.lightTarget.position.set(85, 0, 10)
+        this.directionalLight.target = this.lightTarget
         this.directionalLight.castShadow = true;
         this.directionalLight.shadow.mapSize.width = shadowSize;  // default
         this.directionalLight.shadow.mapSize.height = shadowSize; // default
@@ -114,6 +117,7 @@ class Level {
         this.directionalLight.shadow.camera.top = mapSize;
         GM.scene.add(this.directionalLight)
         GM.scene.add(this.ambientLight)
+        GM.scene.add(this.lightTarget)
 
     }
 

@@ -23,6 +23,7 @@ class UI {
         this.timerHelper.running = true;
         this.canvas3d.getContext('2d').drawImage(GM.textureBank.getImage(image), 0, 0, this.canvas3d.width, this.canvas3d.height)
         this.texture.needsUpdate = true;
+        GM.UI.plane.addParentContainer(GM.characters.player1.model.container)
 
     }
 
@@ -32,7 +33,7 @@ class UI {
             this.plane.material.opacity = 15 - this.timerHelper.update(time)
             if (this.timerHelper.complete) {
                 this.timerHelper.reset();
-
+                GM.UI.plane.removeParentContainer(GM.characters.player1.model.container)
             }
         }
 
