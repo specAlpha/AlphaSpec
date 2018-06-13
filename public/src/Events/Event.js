@@ -6,6 +6,7 @@ class Event {
         this.emmiter = null;
         this.receiver = null;
         this.timerHelper = new TimerHelper(1, 1);
+
     }
 
     setEmmiter(emmiter) {
@@ -32,6 +33,8 @@ class Event {
     fullfill() {
         this.fullfilled = true;
         this.timerHelper.reset();
+
+
         for (let wire of this.wires) {
             wire.material.map = GM.textureBank.getTexture('wireEnabled', wire.size.x / 10, wire.size.y / 10)
         }

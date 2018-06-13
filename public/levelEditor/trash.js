@@ -215,3 +215,16 @@ class oShape {
 }
 
 
+   // $("#newCube").on("click", () => {
+   //    let temp = new Cube();
+   //    scene.add(temp.mesh);
+   // });
+
+   // $("#newPlane").on("click", () => {
+   //    let temp = new Plane();
+   //    scene.add(temp.mesh);
+   // })
+   // $("#newRamp").on("click", () => {
+   //    let temp = new Ramp();
+   //    scene.add(temp.mesh);
+   // })

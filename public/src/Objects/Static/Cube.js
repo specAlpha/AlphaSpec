@@ -3,8 +3,13 @@ class Cube extends Component {
         super(positionVector3, Euler);
         this.size = sizeVector3;
         this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
-
-        this.material = GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.z / 10);
+        this.materials = []
+        this.materials.push(GM.textureBank.createMaterial(textureName, this.size.z / 10, this.size.y / 10));
+        this.materials.push(GM.textureBank.createMaterial(textureName, this.size.z / 10, this.size.y / 10));
+        this.materials.push(GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.z / 10));
+        this.materials.push(GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.z / 10));
+        this.materials.push(GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.y / 10));
+        this.materials.push(GM.textureBank.createMaterial(textureName, this.size.x / 10, this.size.y / 10));
         this.rigidBody = new OIMO.RigidBody({
             type: 1,
             angularDamping: 1,
@@ -32,7 +37,7 @@ class Cube extends Component {
         GM.physics.world.addRigidBody(this.rigidBody);
 
 
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
+        this.mesh = new THREE.Mesh(this.geometry, this.materials);
 
         this.mesh.castShadow = true
         this.mesh.receiveShadow = true

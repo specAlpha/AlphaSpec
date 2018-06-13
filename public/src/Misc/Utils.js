@@ -13,3 +13,7 @@ function OIMOtoThreeQuat(quat) {
 
 }
 
+function THREEtoOimoEuler(euler) {
+    return new OIMO.Vec3(euler.x, euler.y, euler.z)
+
+}

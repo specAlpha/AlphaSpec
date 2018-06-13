@@ -2,7 +2,8 @@ class Doors extends SpecialTile {
     constructor(positionVector3, Euler, id, eventsArr) {
         super(positionVector3, Euler, id, eventsArr, false, true);
         this.position = positionVector3;
-        console.log(this.position)
+
+
         this.geometries[0] = new THREE.BoxGeometry(10, 30, 10);
         this.materials[0] = GM.textureBank.createMaterial('default', 1, 1);
         this.meshes[0] = new THREE.Mesh(this.geometries[0], this.materials[0]);
@@ -29,7 +30,7 @@ class Doors extends SpecialTile {
             position: oimoVec,
             linearVelocity: new OIMO.Vec3(),
             autoSleep: true,
-            rotation: new OIMO.Mat3(),
+            rotation: new OIMO.Mat3()
 
         })
 
@@ -113,6 +114,9 @@ class Doors extends SpecialTile {
         this.closeDoorsPosition = [this.rigidBodies[1].getPosition(), this.rigidBodies[2].getPosition()]
         this.opened = false;
         this.addMeshesToConainer()
+        this.rigidBodies[0].rotateXyz(THREEtoOimoEuler(Euler))
+        this.rigidBodies[1].rotateXyz(THREEtoOimoEuler(Euler))
+        this.rigidBodies[2].rotateXyz(THREEtoOimoEuler(Euler))
     }
 
     update() {

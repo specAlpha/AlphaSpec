@@ -23,7 +23,7 @@ class Player extends Character {
         this.inAir = false;
         this.rotation = new THREE.Vector3(0, 0, 1);
         this.bindedCube = null;
-        this.model.addChlidContainer(GM.UI.plane.container)
+
         this.bindCamera()
         this.forward = false;
         this.backward = false;

@@ -89,7 +89,7 @@ class UserInput {
 
         document.addEventListener('pointerlockchange', lockChangeAlert);
         document.addEventListener('mozpointerlockchange', lockChangeAlert);
-        let that = this;
+
 
         function lockChangeAlert() {
             if (document.pointerLockElement === canvas ||
@@ -99,7 +99,7 @@ class UserInput {
 
             } else {
                 GM.pointerLock = false;
-                if (that.enablePointerLock)
+                if (GM.userInput.enablePointerLock)
                     document.addEventListener('click', addPointerLock)
 
             }

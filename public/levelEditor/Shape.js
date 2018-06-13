@@ -33,7 +33,7 @@ class Shape {
          side: THREE.DoubleSide,
       });
       this.texture = $("#materialSelect").val() || "default";
-
+      this.dynamic = false;
       this.div = document.createElement('div');
       this.div.innerHTML = "default";
       this.div.parent = this;
@@ -94,13 +94,16 @@ class Plane extends Shape {
       this.type = "staticBlock";
       if (_size) {
          this.size = {
+            x: _size.x,
+            y: _size.y,
+            z: _size.z,
+         }
+      } else {
+         this.size = {
             x: $("#sizeX").val() || 10,
             y: $("#sizeY").val() || 10,
             z: $("#sizeZ").val() || 10
          }
-
-      } else {
-
       }
       this.props.size = this.size;
       this.geometry = new THREE.PlaneGeometry(this.size.x, this.size.y, this.size.z);
@@ -120,6 +123,7 @@ class Cube extends Shape {
          y: $("#sizeY").val() || 10,
          z: $("#sizeZ").val() || 10
       }
+      this.props.material = this.material;
       this.props.size = this.size;
       this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -156,9 +160,67 @@ class Ramp extends Shape {
 
    }
 }
-// class dynamicCube extends Shape {
-//    constructor() {
-//       super()
-//       this.type = "dynamicTile"
-//    }
-// }
+
+class ActiveShape extends Shape {
+   constructor(_pos, _rot) {
+      if (_pos && _rot)
+         super(__pos, _rot);
+      else
+         super();
+      this.id = `#${activeCount++}`;
+      this.props.id = this.id;
+      this.dynamic = true;
+   }
+}
+class PressurePlate extends ActiveShape {
+   constructor(_pos, _rot) {
+      super(_pos, _rot);
+      this.geometry = new THREE.BoxGeometry(2, 2, 2);
+      this.mesh = new THREE.Mesh(this.geometry, this.mesh);
+      this.div.innerHTML = this.constructor.name + " " + this.id;
+   }
+}
+
+class Doors extends ActiveShape {
+   constructor(_pos, _rot) {
+      super(_pos, _rot);
+      this.geometry = new THREE.BoxGeometry(2, 2, 2);
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.div.innerHTML = this.constructor.name + " " + this.id;
+   }
+}
+class Spawner extends ActiveShape {
+   constructor(_pos, _rot) {
+      super(_pos, _rot);
+      this.geometry = new THREE.BoxGeometry(5, 5, 5);
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.div.innerHTML = this.constructor.name + " " + this.id;
+   }
+}
+class DynamicCube extends ActiveShape {
+   constructor(_pos, _rot, _size) {
+      super(_pos, _rot);
+      if (_size)
+         this.size = {
+            x: _size.x,
+            y: _size.y,
+            z: _size.z,
+         }
+      else
+         this.size = {
+            x: $("#sizeX").val() || 10,
+            y: $("#sizeY").val() || 10,
+            z: $("#sizeZ").val() || 10
+         }
+
+      this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
+      while (!(this.axis == "x" || this.axis == "y" || this.axis == "z")) {
+         this.axis = window.prompt("Podaj oś (x, y, z)");
+      }
+      this.moveTo = window.prompt("Podaj moveTo (number)");
+      this.props.axis = this.axis;
+      this.props.moveTo = this.moveTo;
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.div.innerHTML = this.constructor.name + " " + this.id;
+   }
+}

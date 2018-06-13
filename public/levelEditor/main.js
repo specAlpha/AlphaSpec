@@ -8,7 +8,7 @@ let renderer, camera, scene, axes;
 let currSel, prevSel;
 let exported;
 let objects = [];
-let specialCount = 0;
+let activeCount = 0;
 Math.radians = function (degrees) {
    return degrees * Math.PI / 180;
 };
@@ -46,24 +46,47 @@ $(function () {
       axesAdded ? scene.remove(axes) : scene.add(axes);
    })
 
-   $("#newPlayer").on("click", () => {
-      let temp = new Player();
+   $("#add").on("click", () => {
+      let objType = $("#objectSelect").val();
+      let temp;
+      console.log(objType)
+      switch (objType) {
+         case ("player"):
+            temp = new Player();
+            break;
+         case ("cube"):
+            temp = new Cube();
+            break;
+         case ("ramp"):
+            temp = new Ramp();
+            break;
+         case ("plane"):
+            temp = new Plane();
+            break;
+         case ("wire"):
+            temp = new Wire();
+            break;
+         case ("dynamicCube"):
+            temp = new DynamicCube();
+            break;
+         case ("spawner"):
+            temp = new Spawner();
+            break;
+         case ("doors"):
+            temp = new Doors();
+            break;
+         case ("button"):
+            temp = new Button();
+            break;
+         case ("pressurePlate"):
+            temp = new PressurePlate();
+            break;
+      }
+      // let temp = new Player();
       scene.add(temp.mesh);
    })
 
-   $("#newCube").on("click", () => {
-      let temp = new Cube();
-      scene.add(temp.mesh);
-   });
 
-   $("#newPlane").on("click", () => {
-      let temp = new Plane();
-      scene.add(temp.mesh);
-   })
-   $("#newRamp").on("click", () => {
-      let temp = new Ramp();
-      scene.add(temp.mesh);
-   })
 
 
    $("#remove").on("click", () => {
