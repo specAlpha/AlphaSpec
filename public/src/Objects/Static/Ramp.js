@@ -4,18 +4,18 @@ class Ramp extends Component {
         this.size = sizeVector3;
 
 
-        var shape = new THREE.Shape();
+        let shape = new THREE.Shape();
         shape.moveTo(0, 0);
         shape.lineTo(this.size.x, this.size.y);
         shape.lineTo(this.size.x, 0);
         shape.lineTo(0, 0);
 
-        var extrudeSettings = {
-            steps: 1,
+        let extrudeSettings = {
+            steps: 2,
             amount: this.size.z,
             bevelEnabled: false,
-            bevelThickness: 1,
-            bevelSize: 1,
+            bevelThickness: 0.1,
+            bevelSize: 0.1,
             bevelSegments: 2
         };
 
@@ -33,19 +33,20 @@ class Ramp extends Component {
         })
         this.rigidBody.three = this.container;
 
-        let collisionRot = new OIMO.Mat3();
-        collisionRot.fromEulerXyz(new OIMO.Vec3(0, Math.PI, Math.PI / 4))
         this.rigidBody.addShape(new OIMO.Shape({
             collisionGroup: 1,
             collisionMask: 1,
             density: 1,
-            geometry: new OIMO.BoxGeometry(new OIMO.Vec3((this.size.x * Math.sqrt(2) + 1) / 2, 1, this.size.z / 2)),
+            geometry: new OIMO.BoxGeometry(new OIMO.Vec3((this.size.x * Math.sqrt(2) + 2) / 2, 1, this.size.z / 2)),
             friction: 1,
             restitution: 1,
-            rotation: collisionRot,
-            position: new OIMO.Vec3(-this.size.x / 2, this.size.x / 2 - 1, -this.size.z / 2),
+            rotation: new OIMO.Mat3().fromEulerXyz(new OIMO.Vec3(0, 0, Math.PI / 4)),
+            position: new OIMO.Vec3(this.size.x / 2 - 1, this.size.y / 2 - 1.5, this.size.z / 2),
 
         }))
+
+
+        this.rigidBody.rotateXyz(THREEtoOimoEuler(Euler))
         GM.physics.world.addRigidBody(this.rigidBody);
 
         this.debuggeometry = new THREE.BoxGeometry((this.size.x * Math.sqrt(2)), 1, this.size.z);
@@ -53,10 +54,11 @@ class Ramp extends Component {
         this.debugmaterial = new THREE.MeshNormalMaterial({opacity: 0.5, transparent: true});
 
         this.debugmesh = new THREE.Mesh(this.debuggeometry, this.debugmaterial);
-        this.debugmesh.position.add(new THREE.Vector3(this.size.x / 2, this.size.x / 2, this.size.z / 2));
-        this.debugmesh.setRotationFromEuler(new THREE.Euler(0, Math.PI, -Math.PI / 4));
+        this.debugmesh.position.copy(new THREE.Vector3(this.size.x / 2 - 40, this.size.x / 2, this.size.z / 2 - 30));
 
-        //   this.container.add(this.debugmesh)
+        this.debugmesh.setRotationFromEuler(Euler);
+
+        //  this.container.add(this.debugmesh)
 
 
         this.geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);

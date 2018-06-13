@@ -104,7 +104,7 @@ class Level {
         this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
         this.directionalLight.position.set(55, 120, 0)
         this.lightTarget = new THREE.Object3D();
-        this.lightTarget.position.set(85, 0, 10)
+        this.lightTarget.position.set(85, 0, 0)
         this.directionalLight.target = this.lightTarget
         this.directionalLight.castShadow = true;
         this.directionalLight.shadow.mapSize.width = shadowSize;  // default

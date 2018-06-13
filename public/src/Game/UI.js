@@ -14,7 +14,7 @@ class UI {
                 transparent: true
             })
         )
-        this.timerHelper = new TimerHelper(15, 15)
+        this.timerHelper = new TimerHelper(7, 15)
 
 
     }
@@ -30,7 +30,7 @@ class UI {
     update(time) {
         if (this.timerHelper.running) {
 
-            this.plane.material.opacity = 15 - this.timerHelper.update(time)
+            this.plane.material.opacity = 7 - this.timerHelper.update(time)
             if (this.timerHelper.complete) {
                 this.timerHelper.reset();
                 GM.UI.plane.removeParentContainer(GM.characters.player1.model.container)

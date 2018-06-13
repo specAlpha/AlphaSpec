@@ -7,7 +7,11 @@ const fs = require('fs');
 
 const express = require("express")
 const PORT = 3000;
-const Nedb = require('nedb')
+var mongoClient = require('mongodb').MongoClient
+var ObjectID = require('mongodb').ObjectID;
+var Operations = require("./modules/Operations.js")
+
+var opers = new Operations();
 const app = express();
 app.use(express.static('public'))
 const server = require('http').Server(app);
@@ -16,11 +20,6 @@ server.listen(PORT);
 let rooms = [];
 let id = 0;
 
-const playedGames = new Nedb({
-    filename: 'data/playedGames.db',
-    autoload: true,
-    //corruptAlertThreshold: 1
-});
 
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname + "/public/index.html"))
@@ -28,11 +27,30 @@ app.get("/", function (req, res) {
 app.get("/le", function (req, res) {
     res.sendFile(path.join(__dirname + "/public/levelEditor/levelEditor.html"))
 })
-app.get("/reset", function (req, res) {
-    rooms = {};
-    res.end()
+app.get("/scores", function (req, res) {
+    res.sendFile(path.join(__dirname + "/public/Scores/index.html"))
 })
+app.post("/refresh", function (req, res) {
+    mongoClient.connect("mongodb://localhost/AlphaSpec", function (err, db) {
+        if (err) console.log(err)
+        else {
+            if (db.collection('lastGames'))
+                opers.SelectAll(db.collection('lastGames'), function (data) {
+                    db.close();
+                    res.end(JSON.stringify(data));
 
+                });
+            else {
+                db.close();
+                res.end([])
+            }
+
+        }
+
+    })
+
+
+})
 
 app.get("/*", function (req, res) {
     res.status(404);
@@ -59,6 +77,30 @@ function findroomByClientID(id) {
     return null;
 }
 
+function addToDataBase(doc) {
+    mongoClient.connect("mongodb://localhost/AlphaSpec", function (err, db) {
+        if (err) console.log(err)
+        else {
+            if (db.collection('lastGames')) {
+                opers.Insert(db.collection('lastGames'), doc, function () {
+                    db.close();
+                })
+            }
+
+            else {
+                db.createCollection('lastGames', function (err, coll) {
+                    opers.Insert(db.collection('lastGames'), doc, function () {
+                        db.close();
+                    })
+                })
+
+
+            }
+
+        }
+
+    })
+}
 
 setInterval(function () {
 
@@ -174,11 +216,7 @@ io.on('connection', function (client) {
             players: [room.players[0].name, room.players[1].name],
             roomName: room.roomName
         }
-        playedGames.insert(obj, function (err, newDoc) {
-            console.log("Zapisano rozgrywke:")
-            console.log(newDoc)
-
-        });
+        addToDataBase(obj)
         rooms.splice(rooms.indexOf(room), 1);
     })
     client.on('win', function (data) {
@@ -191,11 +229,7 @@ io.on('connection', function (client) {
             players: [room.players[0].name, room.players[1].name],
             roomName: room.roomName
         }
-        playedGames.insert(obj, function (err, newDoc) {
-            console.log("Zapisano rozgrywke:")
-            console.log(newDoc)
-
-        });
+        addToDataBase(obj)
         rooms.splice(rooms.indexOf(room), 1);
     })
 
