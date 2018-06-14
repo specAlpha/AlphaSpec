@@ -234,7 +234,8 @@ class ActiveShape extends Shape {
 class pressurePlate extends ActiveShape {
    constructor(_pos, _rot, _id) {
       super(_pos, _rot, _id);
-      this.geometry = new THREE.BoxGeometry(2, 10, 2);
+      this.geometry = new THREE.BoxGeometry(20, 5, 20);
+      this.position.y += 2.5;
       this.material = new THREE.MeshBasicMaterial({
          color: 0xaa00aa,
          side: THREE.DoubleSide,
