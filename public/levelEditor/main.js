@@ -328,7 +328,7 @@ let testData = `{
       "position": {
         "x": 0,
         "y": 0,
-        "z": 305
+        "z": 605
       },
       "rotation": {
         "x": 0,
@@ -340,7 +340,7 @@ let testData = `{
       "position": {
         "x": 110,
         "y": 0,
-        "z": 305
+        "z": 605
       },
       "rotation": {
         "x": 0,
@@ -349,14 +349,9 @@ let testData = `{
       }
     }
   },
-  "staticBlocks": {
-    "ramp":  [
+  "staticBlocks":  {
+    "ramp": [
       {
-        "size":     {
-          "x": 30,
-          "y": 30,
-          "z": 30
-        },
         "position": {
           "x": 100,
           "y": 0,
@@ -367,13 +362,13 @@ let testData = `{
           "y": -1.57,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
           "y": 30,
           "z": 30
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 40,
           "y": 0,
@@ -384,16 +379,35 @@ let testData = `{
           "y": -1.57,
           "z": 0
         },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 80,
+          "y": 0,
+          "z": 540
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
         "texture":  "default"
       }
-    ],
-    "cube":  [
+    ]
+  },
+  "staticBlocks": {
+    "cube": [
       {
-        "size":     {
-          "x": 230,
-          "y": 10,
-          "z": 120
-        },
         "position": {
           "x": 55,
           "y": -5,
@@ -404,13 +418,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 230,
           "y": 10,
           "z": 120
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 85,
@@ -421,13 +435,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 230,
-          "y": 80,
-          "z": 10
+          "y": 10,
+          "z": 120
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 40,
@@ -438,13 +452,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 230,
+          "y": 80,
+          "z": 10
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 10,
-          "y": 80,
-          "z": 100
-        },
         "position": {
           "x": -55,
           "y": 40,
@@ -455,13 +469,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 10,
           "y": 80,
           "z": 100
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 165,
           "y": 40,
@@ -472,13 +486,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 10,
           "y": 80,
           "z": 100
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 40,
@@ -489,13 +503,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 10,
+          "y": 80,
+          "z": 100
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 50,
-          "y": 40,
-          "z": 10
-        },
         "position": {
           "x": 55,
           "y": 20,
@@ -506,13 +520,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 30,
+          "x": 50,
           "y": 40,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 155,
           "y": 20,
@@ -523,13 +537,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
           "y": 40,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -45,
           "y": 20,
@@ -540,13 +554,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 230,
+          "x": 30,
           "y": 40,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 60,
@@ -557,13 +571,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 40,
-          "y": 160,
+          "x": 230,
+          "y": 40,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -80,
           "y": 80,
@@ -574,13 +588,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 40,
           "y": 160,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 190,
           "y": 80,
@@ -591,13 +605,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 230,
-          "y": 110,
+          "x": 40,
+          "y": 160,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 145,
@@ -608,13 +622,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 230,
+          "y": 110,
+          "z": 10
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 10,
-          "y": 160,
-          "z": 170
-        },
         "position": {
           "x": 205,
           "y": 80,
@@ -625,14 +639,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
           "x": 10,
           "y": 160,
           "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -95,
           "y": 80,
@@ -643,14 +656,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
-          "x": 310,
-          "y": 10,
+          "x": 10,
+          "y": 160,
           "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": -5,
@@ -661,13 +673,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 310,
           "y": 10,
-          "z": 20
+          "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 165,
@@ -678,13 +690,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 310,
+          "y": 10,
+          "z": 20
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 20,
-          "y": 10,
-          "z": 130
-        },
         "position": {
           "x": -90,
           "y": 165,
@@ -695,13 +707,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 20,
+          "y": 10,
+          "z": 130
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 310,
-          "y": 10,
-          "z": 20
-        },
         "position": {
           "x": 55,
           "y": 165,
@@ -712,13 +724,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 310,
+          "y": 10,
+          "z": 20
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 270,
-          "y": 10,
-          "z": 130
-        },
         "position": {
           "x": 55,
           "y": 165,
@@ -729,13 +741,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "window"
-      }, {
         "size":     {
-          "x": 20,
+          "x": 270,
           "y": 10,
           "z": 130
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 200,
           "y": 165,
@@ -746,13 +758,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 20,
+          "y": 10,
+          "z": 130
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 10,
-          "y": 10,
-          "z": 170
-        },
         "position": {
           "x": 55,
           "y": 5,
@@ -763,13 +775,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 10,
           "y": 10,
           "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 25,
@@ -780,13 +792,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 10,
           "y": 10,
           "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 45,
@@ -797,14 +809,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
-          "x": 110,
-          "y": 160,
-          "z": 10
+          "x": 10,
+          "y": 10,
+          "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 80,
@@ -815,13 +826,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 40,
-          "y": 140,
+          "x": 110,
+          "y": 160,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 130,
           "y": 100,
@@ -832,13 +843,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 50,
-          "y": 160,
+          "x": 40,
+          "y": 140,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 175,
           "y": 80,
@@ -849,13 +860,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 40,
-          "y": 140,
+          "x": 50,
+          "y": 160,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -20,
           "y": 100,
@@ -866,13 +877,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 50,
-          "y": 160,
+          "x": 40,
+          "y": 140,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -65,
           "y": 80,
@@ -883,14 +894,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
-          "x": 310,
-          "y": 10,
-          "z": 220
+          "x": 50,
+          "y": 160,
+          "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": -5,
@@ -901,14 +911,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
           "x": 310,
           "y": 10,
-          "z": 20
+          "z": 220
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 165,
@@ -919,13 +928,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 310,
+          "y": 10,
+          "z": 20
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 20,
-          "y": 10,
-          "z": 170
-        },
         "position": {
           "x": -90,
           "y": 165,
@@ -936,13 +945,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 20,
+          "y": 10,
+          "z": 170
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 310,
-          "y": 10,
-          "z": 20
-        },
         "position": {
           "x": 55,
           "y": 165,
@@ -953,13 +962,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 310,
+          "y": 10,
+          "z": 20
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 270,
-          "y": 10,
-          "z": 170
-        },
         "position": {
           "x": 55,
           "y": 165,
@@ -970,13 +979,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "window"
-      }, {
         "size":     {
-          "x": 20,
+          "x": 270,
           "y": 10,
           "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 200,
           "y": 165,
@@ -987,14 +996,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
-          "x": 110,
-          "y": 160,
-          "z": 10
+          "x": 20,
+          "y": 10,
+          "z": 170
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 80,
@@ -1005,13 +1013,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 40,
-          "y": 140,
+          "x": 110,
+          "y": 160,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 130,
           "y": 100,
@@ -1022,13 +1030,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 50,
-          "y": 160,
+          "x": 40,
+          "y": 140,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 175,
           "y": 80,
@@ -1039,13 +1047,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 40,
-          "y": 140,
+          "x": 50,
+          "y": 160,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -20,
           "y": 100,
@@ -1056,13 +1064,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 50,
-          "y": 160,
+          "x": 40,
+          "y": 140,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -65,
           "y": 80,
@@ -1073,13 +1081,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 50,
+          "y": 160,
+          "z": 10
+        },
         "texture":  "default"
       }, {
-        "size":     {
-          "x": 10,
-          "y": 160,
-          "z": 210
-        },
         "position": {
           "x": 205,
           "y": 80,
@@ -1090,14 +1098,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      },
-      {
         "size":     {
           "x": 10,
           "y": 160,
           "z": 210
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": -95,
           "y": 80,
@@ -1108,13 +1115,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 30,
-          "y": 30,
+          "x": 10,
+          "y": 160,
           "z": 210
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 15,
@@ -1125,13 +1132,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
           "y": 30,
-          "z": 120
+          "z": 210
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 45,
@@ -1142,13 +1149,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
           "y": 30,
-          "z": 90
+          "z": 120
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 45,
@@ -1159,13 +1166,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
           "y": 30,
-          "z": 30
+          "z": 90
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 85,
           "y": 15,
@@ -1176,13 +1183,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
-          "y": 10,
-          "z": 10
+          "y": 30,
+          "z": 30
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 55,
@@ -1193,13 +1200,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
           "y": 10,
           "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 35,
@@ -1210,13 +1217,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
-          "y": 30,
-          "z": 30
+          "y": 10,
+          "z": 10
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 25,
           "y": 15,
@@ -1227,13 +1234,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
           "x": 30,
-          "y": 70,
-          "z": 20
+          "y": 30,
+          "z": 30
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 55,
           "y": 95,
@@ -1244,13 +1251,13 @@ let testData = `{
           "y": 0,
           "z": 0
         },
-        "texture":  "default"
-      }, {
         "size":     {
-          "x": 20,
-          "y": 20,
+          "x": 30,
+          "y": 70,
           "z": 20
         },
+        "texture":  "default"
+      }, {
         "position": {
           "x": 30,
           "y": 120,
@@ -1261,10 +1268,286 @@ let testData = `{
           "y": 0,
           "z": 0
         },
+        "size":     {
+          "x": 20,
+          "y": 20,
+          "z": 20
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 55,
+          "y": -5,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 310,
+          "y": 10,
+          "z": 220
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": -95,
+          "y": 95,
+          "z": 605
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 10,
+          "y": 130,
+          "z": 230.00000000000003
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": -95,
+          "y": 15,
+          "z": 565
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 10,
+          "y": 30,
+          "z": 150
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": -95,
+          "y": 15,
+          "z": 700
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 10,
+          "y": 30,
+          "z": 40
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 60,
+          "y": 80,
+          "z": 715
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 300,
+          "y": 160,
+          "z": 10
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 205,
+          "y": 80,
+          "z": 605
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 10,
+          "y": 160,
+          "z": 210
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 195,
+          "y": 165,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 220
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 40,
+          "y": 165,
+          "z": 705
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 280,
+          "y": 10,
+          "z": 30
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": -85,
+          "y": 165,
+          "z": 590
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 200
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 55,
+          "y": 165,
+          "z": 505
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 250,
+          "y": 10,
+          "z": 30
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 54,
+          "y": 165,
+          "z": 605
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 250,
+          "y": 10,
+          "z": 170
+        },
+        "texture":  "window"
+      }, {
+        "position": {
+          "x": 185,
+          "y": 15,
+          "z": 555
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 155,
+          "y": 15,
+          "z": 695
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 90,
+          "y": 30,
+          "z": 30
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 60,
+          "y": 125,
+          "z": 510
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 60,
+          "y": 10,
+          "z": 20
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": 50,
+          "y": 15,
+          "z": 695
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 40,
+          "y": 30,
+          "z": 30
+        },
+        "texture":  "default"
+      }, {
+        "position": {
+          "x": -80,
+          "y": 15,
+          "z": 580
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 20,
+          "y": 30,
+          "z": 20
+        },
         "texture":  "default"
       }
-    ],
-    "plane": []
+    ]
   },
   "specialTiles": {
     "button":        [
@@ -1280,6 +1563,30 @@ let testData = `{
           "z": 1.57
         },
         "id":       "#5"
+      }, {
+        "position": {
+          "x": 145,
+          "y": 45,
+          "z": 709
+        },
+        "rotation": {
+          "x": 0,
+          "y": -1.5707963267948966,
+          "z": 1.5707963267948966
+        },
+        "id":       "#8"
+      }, {
+        "position": {
+          "x": -65,
+          "y": 15,
+          "z": 501
+        },
+        "rotation": {
+          "x": 0,
+          "y": -1.5707963267948966,
+          "z": 1.5707963267948966
+        },
+        "id":       "#9"
       }
     ],
     "doors":         [
@@ -1331,13 +1638,25 @@ let testData = `{
           "z": 0
         },
         "id":       "#9"
+      }, {
+        "position": {
+          "x": -95,
+          "y": 0,
+          "z": 660
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#0"
       }
     ],
     "spawner":       [
       {
         "position": {
           "x": 30,
-          "y": 105,
+          "y": 100,
           "z": 480
         },
         "rotation": {
@@ -1346,13 +1665,37 @@ let testData = `{
           "z": 0
         },
         "id":       "#7"
+      }, {
+        "position": {
+          "x": 60,
+          "y": 110,
+          "z": 510
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#5"
+      }, {
+        "position": {
+          "x": -80,
+          "y": 150,
+          "z": 580
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#6"
       }
     ],
     "pressurePlate": [
       {
         "position": {
           "x": -80,
-          "y": 0,
+          "y": 2.5,
           "z": 230
         },
         "rotation": {
@@ -1364,7 +1707,7 @@ let testData = `{
       }, {
         "position": {
           "x": 180,
-          "y": 0,
+          "y": 2.5,
           "z": 350
         },
         "rotation": {
@@ -1373,11 +1716,10 @@ let testData = `{
           "z": 0
         },
         "id":       "#4"
-      },
-      {
+      }, {
         "position": {
           "x": 180,
-          "y": 0,
+          "y": 2.5,
           "z": 420
         },
         "rotation": {
@@ -1386,9 +1728,43 @@ let testData = `{
           "z": 0
         },
         "id":       "#6"
+      }, {
+        "position": {
+          "x": 45,
+          "y": 30,
+          "z": 695
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#7"
+      }, {
+        "position": {
+          "x": -80,
+          "y": 30,
+          "z": 580
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#10"
+      }, {
+        "position": {
+          "x": 30,
+          "y": 0,
+          "z": 630
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#11"
       }
-    ],
-    "dynamicCubes":  [
     ]
   },
   "events":       {
