@@ -186,12 +186,14 @@ $(function () {
       if (currSel) {
          let scale = $(this).val() / currSel.size.y;
          currSel.mesh.scale.y = scale;
+
       }
    })
    $('#sizeZ').on('input', function () {
       if (currSel) {
          let scale = $(this).val() / currSel.size.z;
          currSel.mesh.scale.z = scale;
+
       }
    })
 
@@ -214,6 +216,11 @@ $(function () {
             }
             if (!exported[el.type][el.constructor.name])
                exported[el.type][el.constructor.name] = []
+            if (el.props.size) {
+               el.props.size.x *= el.mesh.scale.x;
+               el.props.size.y *= el.mesh.scale.y;
+               el.props.size.z *= el.mesh.scale.z;
+            }
             exported[el.type][el.constructor.name].push(el.props)
          }
       }
