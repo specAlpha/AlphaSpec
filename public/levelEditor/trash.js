@@ -18,7 +18,57 @@
 //    $(option).appendTo($('#list'))
 // })
 
-
+class Wire {
+   constructor(_pos, _rot, _len) {
+      this.len = _len ? _len : window.prompt("Podaj dlugosc");
+      if (_pos && _rot) {
+         this.position = {
+            x: _pos.x,
+            y: _pos.y,
+            z: _pos.z,
+         };
+         this.rotation = {
+            x: _rot.x,
+            y: _rot.y,
+            z: _rot.z,
+         };
+      } else {
+         this.position = {
+            x: $("#posX").val() || 0,
+            y: $("#posX").val() || 0,
+            z: $("#posX").val() || 0
+         };
+         this.rotation = {
+            x: $("#rotX").val() || 0,
+            y: $("#rotY").val() || 0,
+            z: $("#rotZ").val() || 0
+         };
+      }
+      this.size = {
+         x: 10,
+         y: this.len,
+         z: 0
+      }
+      this.props = {
+         position: this.position,
+         rotation: this.rotation,
+         size: this.size
+      }
+      this.div = document.createElement('div');
+      this.div.innerHTML = "default";
+      this.div.parent = this;
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0xff0000,
+         opacity: 1,
+         side: THREE.DoubleSide,
+      });
+      this.geometry = new THREE.BoxGeometry(this.size.x, this.size.z, this.size.y)
+      this.mesh = new THREE.Mesh(this.geometry, this.material)
+      $(this.div).addClass('option');
+      $(this.div).appendTo($('#list'));
+      objects.push(this);
+   }
+}
 // $('#newRamp').on('click', function () {
 //    let shape = new THREE.Shape();
 //    shape.moveTo(0, 0);

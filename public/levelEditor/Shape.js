@@ -27,12 +27,6 @@ class Shape {
          position: this.position,
          rotation: this.rotation,
       }
-      this.material = new THREE.MeshBasicMaterial({
-         color: 0x123123,
-         opacity: 1,
-         side: THREE.DoubleSide,
-      });
-      this.texture = $("#materialSelect").val() || "default";
       this.dynamic = false;
       this.div = document.createElement('div');
       this.div.innerHTML = "default";
@@ -43,8 +37,9 @@ class Shape {
       objects.push(this);
    }
    applyDimensions() {
-      console.log(this.position)
+      // console.log(this.position)
       this.mesh.position.set(this.position.x, this.position.y, this.position.z)
+      this.mesh.rotation.set(this.rotation.x, this.rotation.y, this.rotation.z)
    }
    delete() {
       $(this.div).remove();
@@ -53,8 +48,16 @@ class Shape {
       objects.splice(index, index + 1);
    }
    edit() {
-      if (currSel) $(currSel.div).toggleClass("check")
+      if (currSel) {
+         console.log(currSel.div)
+         $(currSel.div).toggleClass("check")
+         if (currSel.constructor.name == "Cube")
+            currSel.mesh.material.wireframe = true;
+      }
       $(this.div).toggleClass("check");
+      if (this.constructor.name == "Cube") {
+         this.mesh.material.wireframe = false;
+      }
       currSel = this;
       $('#posX').val(this.position.x);
       $('#posY').val(this.position.y);
@@ -76,6 +79,10 @@ class Player extends Shape {
       super(_pos, _rot)
       this.type = "player";
       this.name = `player${playerNumber}`
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0x00ff00,
+         side: THREE.DoubleSide
+      });
       this.geometry = new THREE.BoxGeometry(10, 20, 10);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name;
@@ -88,8 +95,9 @@ class Player extends Shape {
    }
 }
 
+
 class Plane extends Shape {
-   constructor(_pos, _rot, _size) {
+   constructor(_pos, _rot, _size, _material) {
       super(_pos, _rot)
       this.type = "staticBlock";
       if (_size) {
@@ -105,6 +113,13 @@ class Plane extends Shape {
             z: $("#sizeZ").val() || 10
          }
       }
+      this.materialProp = _material ? _material : $("#materialSelect").val();
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0x777777,
+         side: THREE.DoubleSide,
+         wireframe: true,
+      });
+      this.props.material = this.materialProp;
       this.props.size = this.size;
       this.geometry = new THREE.PlaneGeometry(this.size.x, this.size.y, this.size.z);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -115,15 +130,29 @@ class Plane extends Shape {
    }
 }
 class Cube extends Shape {
-   constructor(_pos, _rot, _size) {
+   constructor(_pos, _rot, _size, _material) {
       super(_pos, _rot)
       this.type = "staticBlock";
-      this.size = {
-         x: $("#sizeX").val() || 10,
-         y: $("#sizeY").val() || 10,
-         z: $("#sizeZ").val() || 10
+      if (_size) {
+         this.size = {
+            x: _size.x,
+            y: _size.y,
+            z: _size.z
+         }
+      } else {
+         this.size = {
+            x: $("#sizeX").val() || 10,
+            y: $("#sizeY").val() || 10,
+            z: $("#sizeZ").val() || 10
+         }
       }
-      this.props.material = this.material;
+      this.materialProp = _material ? _material : $("#materialSelect").val();
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0x777777,
+         side: THREE.DoubleSide,
+         wireframe: true,
+      });
+      this.props.material = this.materialProp;
       this.props.size = this.size;
       this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -136,11 +165,19 @@ class Ramp extends Shape {
    constructor(_pos, _rot, _size) {
       super(_pos, _rot)
       this.type = "staticBlock";
-      this.size = {
-         x: $("#sizeX").val() || 10,
-         y: $("#sizeY").val() || 10,
-         z: $("#sizeZ").val() || 10
-      };
+      if (_size) {
+         this.size = {
+            x: _size.x,
+            y: _size.y,
+            z: _size.z
+         }
+      } else {
+         this.size = {
+            x: $("#sizeX").val() || 10,
+            y: $("#sizeY").val() || 10,
+            z: $("#sizeZ").val() || 10
+         }
+      }
       this.props.size = this.size;
       let shape = new THREE.Shape();
       shape.moveTo(0, 0);
@@ -162,19 +199,23 @@ class Ramp extends Shape {
 }
 
 class ActiveShape extends Shape {
-   constructor(_pos, _rot) {
+   constructor(_pos, _rot, _id) {
       if (_pos && _rot)
-         super(__pos, _rot);
+         super(_pos, _rot);
       else
          super();
-      this.id = `#${activeCount++}`;
+      if (_id)
+         this.id = _id
+      else
+         this.id = `#${activeCount++}`;
       this.props.id = this.id;
+      // this.props
       this.dynamic = true;
    }
 }
 class PressurePlate extends ActiveShape {
-   constructor(_pos, _rot) {
-      super(_pos, _rot);
+   constructor(_pos, _rot, _id) {
+      super(_pos, _rot, _id);
       this.geometry = new THREE.BoxGeometry(2, 2, 2);
       this.mesh = new THREE.Mesh(this.geometry, this.mesh);
       this.div.innerHTML = this.constructor.name + " " + this.id;
@@ -182,23 +223,32 @@ class PressurePlate extends ActiveShape {
 }
 
 class Doors extends ActiveShape {
-   constructor(_pos, _rot) {
-      super(_pos, _rot);
+   constructor(_pos, _rot, _id) {
+      super(_pos, _rot, _id);
       this.geometry = new THREE.BoxGeometry(2, 2, 2);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
    }
 }
 class Spawner extends ActiveShape {
-   constructor(_pos, _rot) {
-      super(_pos, _rot);
+   constructor(_pos, _rot, _id) {
+      super(_pos, _rot, _id);
       this.geometry = new THREE.BoxGeometry(5, 5, 5);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
    }
 }
+class Button extends ActiveShape {
+   constructor(_pos, _rot, _id) {
+      super(_pos, _rot, _id);
+      this.geometry = new THREE.BoxGeometry(5, 5, 5);
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.div.innerHTML = this.constructor.name + " " + this.id;
+   }
+}
+
 class DynamicCube extends ActiveShape {
-   constructor(_pos, _rot, _size) {
+   constructor(_pos, _rot, _size, _id) {
       super(_pos, _rot);
       if (_size)
          this.size = {
@@ -222,5 +272,58 @@ class DynamicCube extends ActiveShape {
       this.props.moveTo = this.moveTo;
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
+   }
+}
+
+class BlockEvent {
+   constructor(_type, _emmiter, _receiver) {
+      this.type = _type;
+      this.emmiter = _emmiter;
+      this.receiver = _receiver;
+      this.wires = [];
+      this.props = {
+         type: this.type,
+         emmiter: this.emmiter,
+         receiver: this.receiver,
+         wires: this.wires
+      }
+   }
+   addWire(_pos, _rot, _len) {
+      let geometry = new THREE.BoxGeometry(10, _len, 1);
+      let material = new THREE.MeshBasicMaterial({
+         color: 0xff0000,
+         side: THREE.DoubleSide,
+      });
+      let mesh = new THREE.Mesh(geometry, material);
+      let wire = {
+         props: {
+            position: {
+               x: _pos.x,
+               y: _pos.y,
+               z: _pos.z,
+            },
+            rotation: {
+               x: _rot.x,
+               y: _rot.y,
+               z: _rot.z,
+            },
+            size: {
+               x: 10,
+               y: _len,
+               z: 0,
+            },
+         },
+         mesh: mesh
+      };
+      wire.mesh.position.set(_pos.x, _pos.y, _pos.z)
+      wire.mesh.rotation.set(_rot.x, _rot.y, _rot.z)
+      this.wires.push(wire);
+   }
+   delete() {
+      this.wires.forEach(wire => {
+         scene.remove(wire.mesh);
+      })
+      let index = events.indexOf(this);
+      events.splice(index, index + 1);
    }
 }
