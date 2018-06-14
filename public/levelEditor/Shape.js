@@ -308,7 +308,7 @@ class button extends ActiveShape {
    }
 }
 
-class dynamicCube extends ActiveShape {
+class dynamicCubes extends ActiveShape {
    constructor(_pos, _rot, _size, _id) {
       super(_pos, _rot);
       if (_size)
