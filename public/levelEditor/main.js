@@ -11,315 +11,315 @@ let objects = [];
 let events = [];
 let activeCount = 0;
 Math.radians = function (degrees) {
-    return degrees * Math.PI / 180;
+   return degrees * Math.PI / 180;
 };
 
 Math.degrees = function (radians) {
-    return radians * 180 / Math.PI;
+   return radians * 180 / Math.PI;
 }
 
 $(function () {
-    // useless stuff
-    camera = new THREE.PerspectiveCamera(45, 1500 / 700, 1, 20000);
-    camera.position.set(400, 400, 400);
-    scene = new THREE.Scene();
-    let grid = new THREE.GridHelper(20000, 2000, 0x000000, 0x000000);
-    grid.material.opacity = 0.2;
-    grid.material.transparent = true;
-    scene.add(grid);
-    axes = new THREE.AxesHelper(10000)
-    scene.background = new THREE.Color(0xa0a0a0);
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(1299, 699)
-    var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
-    orbitControl.addEventListener('change', function () {
-        renderer.render(scene, camera)
-    });
-    $("#root").append(renderer.domElement);
+   // useless stuff
+   camera = new THREE.PerspectiveCamera(45, 1500 / 700, 1, 20000);
+   camera.position.set(400, 400, 400);
+   scene = new THREE.Scene();
+   let grid = new THREE.GridHelper(20000, 2000, 0x000000, 0x000000);
+   grid.material.opacity = 0.2;
+   grid.material.transparent = true;
+   scene.add(grid);
+   axes = new THREE.AxesHelper(10000)
+   scene.background = new THREE.Color(0xa0a0a0);
+   renderer = new THREE.WebGLRenderer();
+   renderer.setSize(1299, 699)
+   var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
+   orbitControl.addEventListener('change', function () {
+      renderer.render(scene, camera)
+   });
+   $("#root").append(renderer.domElement);
 
-    let axesAdded = true
-    $('#axes').on('click', function () {
-        $('#axes').toggleClass('check');
-        axesAdded = !axesAdded;
-        axesAdded ? scene.remove(axes) : scene.add(axes);
-    })
+   let axesAdded = true
+   $('#axes').on('click', function () {
+      $('#axes').toggleClass('check');
+      axesAdded = !axesAdded;
+      axesAdded ? scene.remove(axes) : scene.add(axes);
+   })
 
-    $("#add").on("click", () => {
-        let objType = $("#objectSelect").val();
-        let temp;
-        console.log(objType)
-        switch (objType) {
-            case ("player"):
-                temp = new Player();
-                break;
-            case ("cube"):
-                temp = new cube();
-                break;
-            case ("ramp"):
-                temp = new ramp();
-                break;
-            case ("plane"):
-                temp = new plane();
-                break;
-            case ("dynamicCube"):
-                temp = new dynamicCube();
-                break;
-            case ("spawner"):
-                temp = new spawner();
-                break;
-            case ("doors"):
-                temp = new doors();
-                break;
-            case ("button"):
-                temp = new button();
-                break;
-            case ("pressurePlate"):
-                temp = new pressurePlate();
-                break;
-        }
-        // let temp = new Player();
-        scene.add(temp.mesh);
-    })
-
-
-    $(document).on("contextMenu", (e) => {
-        e.preventDefault();
-    });
-    $("#copy").on("click", () => {
-        if (!currSel)
-            window.alert("Wybierz obiekt do skopiowania");
-        let objType = currSel.constructor.name;
-        let temp;
-        switch (objType) {
-            case ("cube"):
-                temp = new cube(currSel.position, currSel.rotation, currSel.size, rotation, currSel.material);
-                break;
-            case ("ramp"):
-                temp = new ramp();
-                break;
-            case ("plane"):
-                temp = new plane();
-                break;
-            default:
-                console.log(objType)
-                window.alert("ten obiekt nie obsluguje kopiowania ")
-                break;
-        }
-        if (temp) scene.add(temp.mesh)
-    })
-    $("#remove").on("click", () => {
-        if (!currSel) {
-            window.alert("Musisz najpierw wybrać obiekt do usunięcia!")
-            return null;
-        }
-        currSel.delete();
-        currSel = null;
-    });
-    $("#loadLevel").on("click", () => {
-        let data = window.prompt("Wklej json poziomu");
-        level(data);
-    });
-
-    $("#wiref").on("click", () => {
-        objects.filter(e => e.constructor.name == "cube").forEach(el => el.mesh.material.wireframe = el.mesh.material.wireframe == true ? false : true);
-    })
-
-    $("#events").on("click", () => {
-        let event;
-        if (!currSel) {
-            window.alert("Musisz najpierw wybrać obiekt")
-            return null;
-        }
-        if (!currSel.dynamic) {
-            window.alert("Ten element nie obsługuje eventów")
-            return null;
-        }
-        // currSel.emmiter
-    })
-    $('#posX').on('input', function () {
-        if (currSel) {
-            currSel.mesh.position.x = $(this).val();
-            currSel.position.x = $(this).val();
-        }
-    })
-    $('#posZ').on('input', function () {
-        if (currSel) {
-            currSel.mesh.position.z = $(this).val();
-            currSel.position.z = $(this).val();
-        }
-    })
-    $('#posY').on('input', function () {
-        if (currSel) {
-            currSel.mesh.position.y = $(this).val();
-            currSel.position.y = $(this).val();
-        }
-    })
+   $("#add").on("click", () => {
+      let objType = $("#objectSelect").val();
+      let temp;
+      console.log(objType)
+      switch (objType) {
+         case ("player"):
+            temp = new Player();
+            break;
+         case ("cube"):
+            temp = new cube();
+            break;
+         case ("ramp"):
+            temp = new ramp();
+            break;
+         case ("plane"):
+            temp = new plane();
+            break;
+         case ("dynamicCubes"):
+            temp = new dynamicCubes();
+            break;
+         case ("spawner"):
+            temp = new spawner();
+            break;
+         case ("doors"):
+            temp = new doors();
+            break;
+         case ("button"):
+            temp = new button();
+            break;
+         case ("pressurePlate"):
+            temp = new pressurePlate();
+            break;
+      }
+      // let temp = new Player();
+      scene.add(temp.mesh);
+   })
 
 
-    $('#rotX').on('input', function () {
-        if (currSel) {
-            currSel.mesh.rotation.x = Math.radians($(this).val());
-            currSel.rotation.x = Math.radians($(this).val());
-        }
-    })
-    $('#rotY').on('input', function () {
-        if (currSel) {
-            currSel.mesh.rotation.z = Math.radians($(this).val());
-            currSel.rotation.y = Math.radians($(this).val());
-        }
-    })
-    $('#rotZ').on('input', function () {
-        if (currSel) {
-            currSel.mesh.rotation.y = Math.radians($(this).val());
-            currSel.rotation.z = Math.radians($(this).val());
-        }
-    })
+   $(document).on("contextMenu", (e) => {
+      e.preventDefault();
+   });
+   $("#copy").on("click", () => {
+      if (!currSel)
+         window.alert("Wybierz obiekt do skopiowania");
+      let objType = currSel.constructor.name;
+      let temp;
+      switch (objType) {
+         case ("cube"):
+            temp = new cube(currSel.position, currSel.rotation, currSel.size, rotation, currSel.material);
+            break;
+         case ("ramp"):
+            temp = new ramp();
+            break;
+         case ("plane"):
+            temp = new plane();
+            break;
+         default:
+            console.log(objType)
+            window.alert("ten obiekt nie obsluguje kopiowania ")
+            break;
+      }
+      if (temp) scene.add(temp.mesh)
+   })
+   $("#remove").on("click", () => {
+      if (!currSel) {
+         window.alert("Musisz najpierw wybrać obiekt do usunięcia!")
+         return null;
+      }
+      currSel.delete();
+      currSel = null;
+   });
+   $("#loadLevel").on("click", () => {
+      let data = window.prompt("Wklej json poziomu");
+      level(data);
+   });
+
+   $("#wiref").on("click", () => {
+      objects.filter(e => e.constructor.name == "cube").forEach(el => el.mesh.material.wireframe = el.mesh.material.wireframe == true ? false : true);
+   })
+
+   $("#events").on("click", () => {
+      let event;
+      if (!currSel) {
+         window.alert("Musisz najpierw wybrać obiekt")
+         return null;
+      }
+      if (!currSel.dynamic) {
+         window.alert("Ten element nie obsługuje eventów")
+         return null;
+      }
+      // currSel.emmiter
+   })
+   $('#posX').on('input', function () {
+      if (currSel) {
+         currSel.mesh.position.x = $(this).val();
+         currSel.position.x = $(this).val();
+      }
+   })
+   $('#posZ').on('input', function () {
+      if (currSel) {
+         currSel.mesh.position.z = $(this).val();
+         currSel.position.z = $(this).val();
+      }
+   })
+   $('#posY').on('input', function () {
+      if (currSel) {
+         currSel.mesh.position.y = $(this).val();
+         currSel.position.y = $(this).val();
+      }
+   })
 
 
-    $('#sizeX').on('input', function () {
-        if (currSel) {
-            let scale = $(this).val() / currSel.size.x;
-            currSel.mesh.scale.x = scale;
-        }
-    })
-    $('#sizeY').on('input', function () {
-        if (currSel) {
-            let scale = $(this).val() / currSel.size.y;
-            currSel.mesh.scale.y = scale;
-
-        }
-    })
-    $('#sizeZ').on('input', function () {
-        if (currSel) {
-            let scale = $(this).val() / currSel.size.z;
-            currSel.mesh.scale.z = scale;
-
-        }
-    })
+   $('#rotX').on('input', function () {
+      if (currSel) {
+         currSel.mesh.rotation.x = Math.radians($(this).val());
+         currSel.rotation.x = Math.radians($(this).val());
+      }
+   })
+   $('#rotY').on('input', function () {
+      if (currSel) {
+         currSel.mesh.rotation.z = Math.radians($(this).val());
+         currSel.rotation.y = Math.radians($(this).val());
+      }
+   })
+   $('#rotZ').on('input', function () {
+      if (currSel) {
+         currSel.mesh.rotation.y = Math.radians($(this).val());
+         currSel.rotation.z = Math.radians($(this).val());
+      }
+   })
 
 
-    $("#output").on("click", () => {
-        exported = {}
-        for (let i = 0; i < objects.length; i++) {
-            let el = objects[i];
+   $('#sizeX').on('input', function () {
+      if (currSel) {
+         let scale = $(this).val() / currSel.size.x;
+         currSel.mesh.scale.x = scale;
+      }
+   })
+   $('#sizeY').on('input', function () {
+      if (currSel) {
+         let scale = $(this).val() / currSel.size.y;
+         currSel.mesh.scale.y = scale;
 
-            if (el.type == "player") {
-                if (!exported.spawn)
-                    exported.spawn = {}
-                exported.spawn[el.name] = el.props;
+      }
+   })
+   $('#sizeZ').on('input', function () {
+      if (currSel) {
+         let scale = $(this).val() / currSel.size.z;
+         currSel.mesh.scale.z = scale;
+
+      }
+   })
+
+
+   $("#output").on("click", () => {
+      exported = {}
+      for (let i = 0; i < objects.length; i++) {
+         let el = objects[i];
+
+         if (el.type == "player") {
+            if (!exported.spawn)
+               exported.spawn = {}
+            exported.spawn[el.name] = el.props;
+         }
+         else {
+            if (!exported[el.type]) {
+               exported[el.type] = {};
+               console.log(el.type)
             }
-            else {
-                if (!exported[el.type]) {
-                    exported[el.type] = {};
-                    console.log(el.type)
-                }
-                if (!exported[el.type][el.constructor.name])
-                    exported[el.type][el.constructor.name] = []
-                if (el.props.size) {
-                    el.props.size.x *= el.mesh.scale.x;
-                    el.props.size.y *= el.mesh.scale.y;
-                    el.props.size.z *= el.mesh.scale.z;
-                }
-                exported[el.type][el.constructor.name].push(el.props)
+            if (!exported[el.type][el.constructor.name])
+               exported[el.type][el.constructor.name] = []
+            if (el.props.size) {
+               el.props.size.x *= el.mesh.scale.x;
+               el.props.size.y *= el.mesh.scale.y;
+               el.props.size.z *= el.mesh.scale.z;
             }
-        }
-        copyToClipboard(JSON.stringify(exported));
-    })
+            exported[el.type][el.constructor.name].push(el.props)
+         }
+      }
+      copyToClipboard(JSON.stringify(exported));
+   })
 
-    function render() {
-        renderer.render(scene, camera);
-        requestAnimationFrame(render);
-    }
+   function render() {
+      renderer.render(scene, camera);
+      requestAnimationFrame(render);
+   }
 
 
-    render()
+   render()
 })
 
 function copyToClipboard(text) {
-    console.log(text)
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   console.log(text)
+   window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 }
 
 function level(_data) {
-    data = JSON.parse(_data ? _data : testData);
-    for (let i = objects.length - 1; i >= 0; i--) objects[i].delete();
-    for (let type in data) {
-        console.log(type)
-        switch (type) {
-            case ("spawn"):
-                for (let player in data.spawn) {
-                    let el = data.spawn[player];
-                    let temp = new Player(el.position, el.rotation, player[player.length - 1]);
-                    scene.add(temp.mesh)
-                }
-                break;
-            case ("staticBlocks"):
-                for (let subType in data.staticBlocks) {
-                    // console.log(subType)
-                    for (let obj in data.staticBlocks[subType]) {
-                        let el = data.staticBlocks[subType][obj];
-                        let temp;
-                        // console.log(el)
-                        if (subType == "ramp") {
-                            temp = new ramp(el.position, el.rotation, el.size)
-                        } else if (subType == "plane") {
-                            temp = new plane(el.position, el.rotation, el.size)
-                        } else if (subType == "cube") {
-                            temp = new cube(el.position, el.rotation, el.size)
-                        } else {
-                            // console.log(subType)
-                        }
-                        // console.log(temp)
-                        scene.add(temp.mesh);
-                    }
-                }
-                break;
-            case ("specialTiles"):
-                for (let subType in data.specialTiles) {
-                    // console.log(subType)
-                    for (let obj in data.specialTiles[subType]) {
-                        let el = data.specialTiles[subType][obj];
-                        let temp;
-                        if (subType == "button") {
-                            temp = new button(el.position, el.rotation, el.id)
-                        } else if (subType == "spawner") {
-                            temp = new spawner(el.position, el.rotation, el.id);
+   data = JSON.parse(_data ? _data : testData);
+   for (let i = objects.length - 1; i >= 0; i--) objects[i].delete();
+   for (let type in data) {
+      console.log(type)
+      switch (type) {
+         case ("spawn"):
+            for (let player in data.spawn) {
+               let el = data.spawn[player];
+               let temp = new Player(el.position, el.rotation, player[player.length - 1]);
+               scene.add(temp.mesh)
+            }
+            break;
+         case ("staticBlocks"):
+            for (let subType in data.staticBlocks) {
+               // console.log(subType)
+               for (let obj in data.staticBlocks[subType]) {
+                  let el = data.staticBlocks[subType][obj];
+                  let temp;
+                  // console.log(el)
+                  if (subType == "ramp") {
+                     temp = new ramp(el.position, el.rotation, el.size)
+                  } else if (subType == "plane") {
+                     temp = new plane(el.position, el.rotation, el.size)
+                  } else if (subType == "cube") {
+                     temp = new cube(el.position, el.rotation, el.size)
+                  } else {
+                     // console.log(subType)
+                  }
+                  // console.log(temp)
+                  scene.add(temp.mesh);
+               }
+            }
+            break;
+         case ("specialTiles"):
+            for (let subType in data.specialTiles) {
+               // console.log(subType)
+               for (let obj in data.specialTiles[subType]) {
+                  let el = data.specialTiles[subType][obj];
+                  let temp;
+                  if (subType == "button") {
+                     temp = new button(el.position, el.rotation, el.id)
+                  } else if (subType == "spawner") {
+                     temp = new spawner(el.position, el.rotation, el.id);
 
-                        } else if (subType == "pressurePlate") {
-                            temp = new pressurePlate(el.position, el.rotation, el.id)
-                            console.log(temp)
-                        } else if (subType == "dynamicCubes") {
-                            temp = new dynamicCube(el.position, el.rotation, el.size, el.id);
-                        } else if (subType == "doors") {
-                            temp = new doors(el.position, el.rotation, el.id)
-                        } else {
-                            console.warn(subType);
-                        }
-                        scene.add(temp.mesh);
-                    }
-                }
-                break;
-            case ("events"):
-                for (let subType in data.events) {
-                    if (subType == "blockEvents") {
-                        for (let obj in data.events[subType]) {
-                            let el = data.events[subType][obj];
-                            console.log(el)
-                            let temp = new blockEvents(el.type, el.emmiter, el.receiver);
-                            for (let w in el.wires) {
-                                let wire = el.wires[w];
-                                temp.addWire(wire.position, wire.rotation, wire.size);
-                                scene.add(temp.wires[temp.wires.length - 1].mesh);
-                            }
-                            if (!events[subType])
-                                events[subType] = [];
-                            events[subType].push(temp);
-                        }
-                    }
-                }
-                break;
-        }
-    }
+                  } else if (subType == "pressurePlate") {
+                     temp = new pressurePlate(el.position, el.rotation, el.id)
+                     console.log(temp)
+                  } else if (subType == "dynamicCubes") {
+                     temp = new dynamicCubes(el.position, el.rotation, el.size, el.id);
+                  } else if (subType == "doors") {
+                     temp = new doors(el.position, el.rotation, el.id)
+                  } else {
+                     console.warn(subType);
+                  }
+                  scene.add(temp.mesh);
+               }
+            }
+            break;
+         case ("events"):
+            for (let subType in data.events) {
+               if (subType == "blockEvents") {
+                  for (let obj in data.events[subType]) {
+                     let el = data.events[subType][obj];
+                     console.log(el)
+                     let temp = new blockEvents(el.type, el.emmiter, el.receiver);
+                     for (let w in el.wires) {
+                        let wire = el.wires[w];
+                        temp.addWire(wire.position, wire.rotation, wire.size);
+                        scene.add(temp.wires[temp.wires.length - 1].mesh);
+                     }
+                     if (!events[subType])
+                        events[subType] = [];
+                     events[subType].push(temp);
+                  }
+               }
+            }
+            break;
+      }
+   }
 }
 
 let testData = `{
