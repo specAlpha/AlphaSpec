@@ -1,7 +1,9 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
+      <mapping pattern="aaa" type="JSON" />
       <mapping pattern="specialTilesSettings.json" type="PLAIN_TEXT" />
+      <mapping pattern="aaa.json" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
