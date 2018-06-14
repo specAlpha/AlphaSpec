@@ -309,7 +309,7 @@ class button extends ActiveShape {
 }
 
 class dynamicCubes extends ActiveShape {
-   constructor(_pos, _rot, _size, _id) {
+   constructor(_pos, _rot, _size, _moveTo, _id) {
       super(_pos, _rot);
       if (_size)
          this.size = {
@@ -328,7 +328,7 @@ class dynamicCubes extends ActiveShape {
       while (!(this.axis == "x" || this.axis == "y" || this.axis == "z")) {
          this.axis = window.prompt("Podaj oś (x, y, z)");
       }
-      this.moveTo = window.prompt("Podaj moveTo (number)");
+      this.moveTo = _moveTo || window.prompt("Podaj moveTo (number)");
       this.props.axis = this.axis;
       this.props.moveTo = this.moveTo;
       this.mesh = new THREE.Mesh(this.geometry, this.material);
