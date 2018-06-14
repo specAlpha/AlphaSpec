@@ -115,6 +115,13 @@ $(function () {
       }
       if (temp) scene.add(temp.mesh)
    })
+   $(document).on("keypress", (e) => {
+      // console.log(e.keyCode)
+      if (e.keyCode == 122)
+         camera.position.y += 5
+      if (e.keyCode == 120)
+         camera.position.y -= 5
+   })
    $("#remove").on("click", () => {
       if (!currSel) {
          window.alert("Musisz najpierw wybrać obiekt do usunięcia!")
