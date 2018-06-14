@@ -85,7 +85,26 @@ $(function () {
    $(document).on("contextMenu", (e) => {
       e.preventDefault();
    });
-
+   $("#copy").on("click", () => {
+      if (!currSel)
+         window.alert("Wybierz obiekt do skopiowania");
+      let objType = currSel.constructor.name;
+      let temp;
+      switch (objType) {
+         case ("Cube"):
+            temp = new Cube(currSel.position, currSel.rotation, currSel, rotation, currSel.material);
+            break;
+         case ("Ramp"):
+            temp = new Ramp();
+            break;
+         case ("Plane"):
+            temp = new Plane();
+            break;
+         default:
+            window.alert("ten obiekt nie obsluguje kopiowania ")
+      }
+      if (temp) scene.add(temp.mesh)
+   })
    $("#remove").on("click", () => {
       if (!currSel) {
          window.alert("Musisz najpierw wybrać obiekt do usunięcia!")
