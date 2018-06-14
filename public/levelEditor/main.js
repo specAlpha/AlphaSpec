@@ -105,14 +105,11 @@ $(function () {
             temp = new cube(currSel.props.position, currSel.props.rotation, currSel.props.size, currSel.props.texture);
             break;
          case ("ramp"):
-            temp = new ramp();
-            break;
-         case ("plane"):
-            temp = new plane();
+            temp = new ramp(currSel.props.position, currSel.props.rotation, currSel.props.size, currSel.props.texture);
             break;
          default:
-            console.log(objType)
-            window.alert("ten obiekt nie obsluguje kopiowania ")
+            console.warn(objType)
+            window.alert("ten obiekt nie obsluguje (jeszcze) kopiowania")
             break;
       }
       if (temp) scene.add(temp.mesh)

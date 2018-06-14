@@ -171,7 +171,7 @@ class cube extends Shape {
    }
 }
 class ramp extends Shape {
-   constructor(_pos, _rot, _size) {
+   constructor(_pos, _rot, _size, _texture) {
       super(_pos, _rot)
       this.type = "staticBlock";
       if (_size) {
@@ -188,6 +188,8 @@ class ramp extends Shape {
          }
       }
       this.props.size = this.size;
+      this.texture = _texture ? _texture : $("#materialSelect").val();
+      this.props.texture = this.texture;
       let shape = new THREE.Shape();
       shape.moveTo(0, 0);
       shape.lineTo(this.size.x, this.size.y);
