@@ -1435,7 +1435,7 @@
           "y": 0,
           "z": 0
         },
-        "id":       "#7"
+        "id":       "#18"
       }, {
         "position": {
           "x": -80,
@@ -1447,19 +1447,19 @@
           "y": 0,
           "z": 0
         },
-        "id":       "#10"
+        "id":       "#16"
       }, {
         "position": {
           "x": 30,
           "y": 0,
-          "z": 630
+          "z": 600
         },
         "rotation": {
           "x": 0,
           "y": 0,
           "z": 0
         },
-        "id":       "#11"
+        "id":       "#17"
       }
     ]
   },
@@ -1809,8 +1809,32 @@
       },
       {
         "type":     1,
-        "emmiter":  "#6",
-        "receiver": "#9",
+        "emmiter":  "#10",
+        "receiver": "#14",
+        "wires":    [
+        ]
+      }, {
+        "type":     1,
+        "emmiter":  "#17",
+        "receiver": "#12",
+        "wires":    [
+        ]
+      }, {
+        "type":     1,
+        "emmiter":  "#11",
+        "receiver": "#15",
+        "wires":    [
+        ]
+      }, {
+        "type":     1,
+        "emmiter":  "#16",
+        "receiver": "#13",
+        "wires":    [
+        ]
+      }, {
+        "type":     1,
+        "emmiter":  "#18",
+        "receiver": "#13",
         "wires":    [
         ]
       }

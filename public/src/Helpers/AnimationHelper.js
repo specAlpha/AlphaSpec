@@ -24,7 +24,7 @@ class AnimationHelper {
                 a = this.actualTime / this.time
 
             this.actualNumber += this.easeInOutQuad(a) * this.value;
-            if (this.actualNumber > this.value) {
+            if (Math.abs(this.actualNumber) > Math.abs(this.value)) {
                 this.actualNumber = this.value;
                 this.complete = true;
 

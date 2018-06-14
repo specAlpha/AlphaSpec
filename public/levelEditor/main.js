@@ -285,7 +285,8 @@ function level(_data) {
                         } else if (subType == "spawner") {
                             temp = new spawner(el.position, el.rotation, el.id);
 
-<<<<<<< HEAD
+                        <<<<<<<
+                            HEAD
                         } else if (subType == "pressurePlate") {
                             temp = new pressurePlate(el.position, el.rotation, el.id)
                             console.log(temp)
@@ -321,43 +322,51 @@ function level(_data) {
                 break;
         }
     }
-=======
-                  } else if (subType == "pressurePlate") {
-                     temp = new pressurePlate(el.position, el.rotation, el.id)
-                     console.log(temp)
-                  } else if (subType == "dynamicCubes") {
-                     temp = new dynamicCubes(el.position, el.rotation, el.size, el.moveTo, el.id);
-                  } else if (subType == "doors") {
-                     temp = new doors(el.position, el.rotation, el.id)
-                  } else {
-                     console.warn(subType);
-                  }
-                  scene.add(temp.mesh);
-               }
+======
+    =
+}
+
+else
+if (subType == "pressurePlate") {
+    temp = new pressurePlate(el.position, el.rotation, el.id)
+    console.log(temp)
+} else if (subType == "dynamicCubes") {
+    temp = new dynamicCubes(el.position, el.rotation, el.size, el.moveTo, el.id);
+} else if (subType == "doors") {
+    temp = new doors(el.position, el.rotation, el.id)
+} else {
+    console.warn(subType);
+}
+scene.add(temp.mesh);
+}
+}
+break;
+case
+("events")
+:
+for (let subType in data.events) {
+    if (subType == "blockEvents") {
+        for (let obj in data.events[subType]) {
+            let el = data.events[subType][obj];
+            console.log(el)
+            let temp = new blockEvents(el.type, el.emmiter, el.receiver);
+            for (let w in el.wires) {
+                let wire = el.wires[w];
+                temp.addWire(wire.position, wire.rotation, wire.size);
+                scene.add(temp.wires[temp.wires.length - 1].mesh);
             }
-            break;
-         case ("events"):
-            for (let subType in data.events) {
-               if (subType == "blockEvents") {
-                  for (let obj in data.events[subType]) {
-                     let el = data.events[subType][obj];
-                     console.log(el)
-                     let temp = new blockEvents(el.type, el.emmiter, el.receiver);
-                     for (let w in el.wires) {
-                        let wire = el.wires[w];
-                        temp.addWire(wire.position, wire.rotation, wire.size);
-                        scene.add(temp.wires[temp.wires.length - 1].mesh);
-                     }
-                     if (!events[subType])
-                        events[subType] = [];
-                     events[subType].push(temp);
-                  }
-               }
-            }
-            break;
-      }
-   }
->>>>>>> 47673a75f06705dd24049b57b00b74f08bb3564e
+            if (!events[subType])
+                events[subType] = [];
+            events[subType].push(temp);
+        }
+    }
+}
+break;
+}
+}
+>>>>>>>
+47673
+a75f06705dd24049b57b00b74f08bb3564e
 }
 
 let testData = ` {
