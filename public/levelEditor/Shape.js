@@ -223,8 +223,12 @@ class ActiveShape extends Shape {
          super();
       if (_id)
          this.id = _id
-      else
-         this.id = `#${activeCount++}`;
+      else {
+         let idNum = activeCount++;
+         while (objects.filter(el => el.props.id).reduce((prev, curr) => curr.props.id == ("#" + idNum) ? true : prev, false))
+            idNum = activeCount++;
+         this.id = `#${idNum}`;
+      }
       this.props.id = this.id;
       this.dynamic = true;
       this.type = "specialTiles";

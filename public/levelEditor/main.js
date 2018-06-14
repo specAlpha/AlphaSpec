@@ -85,6 +85,14 @@ $(function () {
    $(document).on("contextMenu", (e) => {
       e.preventDefault();
    });
+
+   $("#wirethis").on("click", () => {
+      if (!currSel) {
+         window.alert("Wybierz obiekt do zwirethisowania");
+         return null;
+      }
+      currSel.mesh.material.wireframe = currSel.mesh.material.wireframe ? false : true;
+   })
    $("#copy").on("click", () => {
       if (!currSel)
          window.alert("Wybierz obiekt do skopiowania");
