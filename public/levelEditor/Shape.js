@@ -310,7 +310,7 @@ class button extends ActiveShape {
 
 class dynamicCubes extends ActiveShape {
    constructor(_pos, _rot, _size, _moveTo, _axis, _id) {
-      super(_pos, _rot);
+      super(_pos, _rot, _id);
       if (_size)
          this.size = {
             x: _size.x,
