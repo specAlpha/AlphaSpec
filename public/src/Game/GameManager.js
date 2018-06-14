@@ -29,7 +29,8 @@ GM.initCore = function () {
     this.modelBank = new ModelBank();
     this.stopLoop = false;
     this.timer = new TimerHelper(600, 1)
-
+    GM.userInput.initKeyboard()
+    GM.userInput.initMouse()
 
 }
 GM.initTHREE = function () {
@@ -58,8 +59,7 @@ GM.startGame = function (name) {
     GM.assetsLoader.loadLevel(name).then(function () {
 
         GM.userInput.setPointerLock(GM.renderer.domElement)
-        GM.userInput.initKeyboard()
-        GM.userInput.initMouse()
+
         GM.timer.running = true;
         GM.UI.createCrossHair();
         GM.lvl.spawnPlayers();

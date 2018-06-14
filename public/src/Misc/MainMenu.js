@@ -166,6 +166,7 @@ class MainMenu {
         GM.UI.removeCrossHair();
         GM.userInput.disablePointerLock();
         setTimeout(function () {
+            GM.camera.position.y = 10;
             GM.mainMenu.createMenu();
             GM.mainMenu.run = true
             GM.mainMenu.loop();
