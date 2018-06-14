@@ -50,7 +50,7 @@ $(function () {
       console.log(objType)
       switch (objType) {
          case ("player"):
-            temp = new player();
+            temp = new Player();
             break;
          case ("cube"):
             temp = new cube();
