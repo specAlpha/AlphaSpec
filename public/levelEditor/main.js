@@ -50,31 +50,31 @@ $(function () {
       console.log(objType)
       switch (objType) {
          case ("player"):
-            temp = new Player();
+            temp = new player();
             break;
          case ("cube"):
-            temp = new Cube();
+            temp = new cube();
             break;
          case ("ramp"):
-            temp = new Ramp();
+            temp = new ramp();
             break;
          case ("plane"):
-            temp = new Plane();
+            temp = new plane();
             break;
          case ("dynamicCube"):
-            temp = new DynamicCube();
+            temp = new dynamicCube();
             break;
          case ("spawner"):
-            temp = new Spawner();
+            temp = new spawner();
             break;
          case ("doors"):
-            temp = new Doors();
+            temp = new doors();
             break;
          case ("button"):
-            temp = new Button();
+            temp = new button();
             break;
          case ("pressurePlate"):
-            temp = new PressurePlate();
+            temp = new pressurePlate();
             break;
       }
       // let temp = new Player();
@@ -92,13 +92,13 @@ $(function () {
       let temp;
       switch (objType) {
          case ("Cube"):
-            temp = new Cube(currSel.position, currSel.rotation, currSel, rotation, currSel.material);
+            temp = new cube(currSel.position, currSel.rotation, currSel.size, rotation, currSel.material);
             break;
          case ("Ramp"):
-            temp = new Ramp();
+            temp = new ramp();
             break;
          case ("Plane"):
-            temp = new Plane();
+            temp = new plane();
             break;
          default:
             window.alert("ten obiekt nie obsluguje kopiowania ")
@@ -117,6 +117,10 @@ $(function () {
       let data = window.prompt("Wklej json poziomu");
       level(data);
    });
+
+   $("#wiref").on("click", () => {
+      objects.filter(e => e.constructor.name == "cube").forEach(el => el.mesh.material.wireframe = el.mesh.material.wireframe == true ? false : true);
+   })
 
    $("#events").on("click", () => {
       let event;
@@ -183,8 +187,10 @@ $(function () {
             exported.spawn[el.name] = el.props;
          }
          else {
-            if (!exported[el.type])
+            if (!exported[el.type]) {
                exported[el.type] = {};
+               console.log(el.type)
+            }
             if (!exported[el.type][el.constructor.name])
                exported[el.type][el.constructor.name] = []
             exported[el.type][el.constructor.name].push(el.props)
@@ -203,6 +209,7 @@ $(function () {
 })
 
 function copyToClipboard(text) {
+   console.log(text)
    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 }
 
@@ -227,11 +234,11 @@ function level(_data) {
                   let temp;
                   // console.log(el)
                   if (subType == "ramp") {
-                     temp = new Ramp(el.position, el.rotation, el.size)
+                     temp = new ramp(el.position, el.rotation, el.size)
                   } else if (subType == "plane") {
-                     temp = new Plane(el.position, el.rotation, el.size)
+                     temp = new plane(el.position, el.rotation, el.size)
                   } else if (subType == "cube") {
-                     temp = new Cube(el.position, el.rotation, el.size)
+                     temp = new cube(el.position, el.rotation, el.size)
                   } else {
                      // console.log(subType)
                   }
@@ -247,21 +254,21 @@ function level(_data) {
                   let el = data.specialTiles[subType][obj];
                   let temp;
                   if (subType == "button") {
-                     temp = new Button(el.position, el.rotation, el.id)
+                     temp = new button(el.position, el.rotation, el.id)
                   } else if (subType == "spawner") {
-                     temp = new Spawner(el.position, el.rotation, el.id);
+                     temp = new spawner(el.position, el.rotation, el.id);
 
                   } else if (subType == "pressurePlate") {
-                     temp = new PressurePlate(el.position, el.rotation, el.id)
-
+                     temp = new pressurePlate(el.position, el.rotation, el.id)
+                     console.log(temp)
                   } else if (subType == "dynamicCubes") {
-                     temp = new DynamicCube(el.position, el.rotation, el.size, el.id);
+                     temp = new dynamicCube(el.position, el.rotation, el.size, el.id);
                   } else if (subType == "doors") {
-                     temp = new Doors(el.position, el.rotation, el.id)
+                     temp = new doors(el.position, el.rotation, el.id)
                   } else {
                      console.warn(subType);
                   }
-                  if (temp) scene.add(temp.mesh);
+                  scene.add(temp.mesh);
                }
             }
             break;
@@ -271,10 +278,10 @@ function level(_data) {
                   for (let obj in data.events[subType]) {
                      let el = data.events[subType][obj];
                      console.log(el)
-                     let temp = new BlockEvent(el.type, el.emmiter, el.receiver);
+                     let temp = new blockEvents(el.type, el.emmiter, el.receiver);
                      for (let w in el.wires) {
                         let wire = el.wires[w];
-                        temp.addWire(wire.position, wire.rotation, wire.size.y);
+                        temp.addWire(wire.position, wire.rotation, wire.size);
                         scene.add(temp.wires[temp.wires.length - 1].mesh);
                      }
                      if (!events[subType])

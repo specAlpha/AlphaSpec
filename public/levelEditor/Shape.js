@@ -27,6 +27,7 @@ class Shape {
          position: this.position,
          rotation: this.rotation,
       }
+      this.color = Math.floor(Math.random() * 16777215).toString(16);
       this.dynamic = false;
       this.div = document.createElement('div');
       this.div.innerHTML = "default";
@@ -35,6 +36,8 @@ class Shape {
       $(this.div).addClass('option');
       $(this.div).appendTo($('#list'));
       objects.push(this);
+      this.type = "staticBlock";
+
    }
    applyDimensions() {
       // console.log(this.position)
@@ -77,6 +80,7 @@ class Player extends Shape {
    constructor(_pos, _rot, _nr) {
       let playerNumber = _nr || objects.filter(e => e.constructor.name == "Player").length;
       super(_pos, _rot)
+      this.position.y += 10;
       this.type = "player";
       this.name = `player${playerNumber}`
       this.material = new THREE.MeshBasicMaterial({
@@ -96,10 +100,10 @@ class Player extends Shape {
 }
 
 
-class Plane extends Shape {
+class plane extends Shape {
    constructor(_pos, _rot, _size, _material) {
       super(_pos, _rot)
-      this.type = "staticBlock";
+      this.type = "staticBlocks";
       if (_size) {
          this.size = {
             x: _size.x,
@@ -129,10 +133,9 @@ class Plane extends Shape {
 
    }
 }
-class Cube extends Shape {
+class cube extends Shape {
    constructor(_pos, _rot, _size, _material) {
       super(_pos, _rot)
-      this.type = "staticBlock";
       if (_size) {
          this.size = {
             x: _size.x,
@@ -148,9 +151,9 @@ class Cube extends Shape {
       }
       this.materialProp = _material ? _material : $("#materialSelect").val();
       this.material = new THREE.MeshBasicMaterial({
-         color: 0x777777,
+         color: parseInt(this.color, 16),
          side: THREE.DoubleSide,
-         wireframe: true,
+         wireframe: false,
       });
       this.props.material = this.materialProp;
       this.props.size = this.size;
@@ -158,10 +161,11 @@ class Cube extends Shape {
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name;
       this.applyDimensions();
+      $(this.div).css({ "background-color": "#" + this.color })
 
    }
 }
-class Ramp extends Shape {
+class ramp extends Shape {
    constructor(_pos, _rot, _size) {
       super(_pos, _rot)
       this.type = "staticBlock";
@@ -209,45 +213,71 @@ class ActiveShape extends Shape {
       else
          this.id = `#${activeCount++}`;
       this.props.id = this.id;
-      // this.props
       this.dynamic = true;
+      this.type = "specialTiles";
+
    }
 }
-class PressurePlate extends ActiveShape {
+class pressurePlate extends ActiveShape {
    constructor(_pos, _rot, _id) {
       super(_pos, _rot, _id);
-      this.geometry = new THREE.BoxGeometry(2, 2, 2);
-      this.mesh = new THREE.Mesh(this.geometry, this.mesh);
+      this.geometry = new THREE.BoxGeometry(2, 10, 2);
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0xaa00aa,
+         side: THREE.DoubleSide,
+      })
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
+      this.applyDimensions();
+
    }
 }
 
-class Doors extends ActiveShape {
+class doors extends ActiveShape {
    constructor(_pos, _rot, _id) {
       super(_pos, _rot, _id);
-      this.geometry = new THREE.BoxGeometry(2, 2, 2);
+      this.geometry = new THREE.BoxGeometry(10, 30, 40);
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0x121212,
+         side: THREE.DoubleSide
+      })
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
+      this.applyDimensions();
+
    }
 }
-class Spawner extends ActiveShape {
+class spawner extends ActiveShape {
    constructor(_pos, _rot, _id) {
       super(_pos, _rot, _id);
-      this.geometry = new THREE.BoxGeometry(5, 5, 5);
+      this.geometry = new THREE.BoxGeometry(20, -20, 20);
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0x00ff00,
+         side: THREE.DoubleSide
+      })
+      this.position.y -= 5
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
+      this.applyDimensions();
+
    }
 }
-class Button extends ActiveShape {
+class button extends ActiveShape {
    constructor(_pos, _rot, _id) {
       super(_pos, _rot, _id);
-      this.geometry = new THREE.BoxGeometry(5, 5, 5);
+      this.geometry = new THREE.BoxGeometry(5, 2, 5);
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0x1200ff,
+         side: THREE.DoubleSide
+      })
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
+      this.applyDimensions();
+
    }
 }
 
-class DynamicCube extends ActiveShape {
+class dynamicCube extends ActiveShape {
    constructor(_pos, _rot, _size, _id) {
       super(_pos, _rot);
       if (_size)
@@ -272,10 +302,12 @@ class DynamicCube extends ActiveShape {
       this.props.moveTo = this.moveTo;
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
+      this.applyDimensions();
+
    }
 }
 
-class BlockEvent {
+class blockEvents {
    constructor(_type, _emmiter, _receiver) {
       this.type = _type;
       this.emmiter = _emmiter;
@@ -288,8 +320,8 @@ class BlockEvent {
          wires: this.wires
       }
    }
-   addWire(_pos, _rot, _len) {
-      let geometry = new THREE.BoxGeometry(10, _len, 1);
+   addWire(_pos, _rot, _size) {
+      let geometry = new THREE.BoxGeometry(_size.x, _size.y, _size.z);
       let material = new THREE.MeshBasicMaterial({
          color: 0xff0000,
          side: THREE.DoubleSide,
@@ -308,9 +340,9 @@ class BlockEvent {
                z: _rot.z,
             },
             size: {
-               x: 10,
-               y: _len,
-               z: 0,
+               x: _size.x,
+               y: _size.y,
+               z: _size.z + 1,
             },
          },
          mesh: mesh
