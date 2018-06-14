@@ -91,17 +91,19 @@ $(function () {
       let objType = currSel.constructor.name;
       let temp;
       switch (objType) {
-         case ("Cube"):
+         case ("cube"):
             temp = new cube(currSel.position, currSel.rotation, currSel.size, rotation, currSel.material);
             break;
-         case ("Ramp"):
+         case ("ramp"):
             temp = new ramp();
             break;
-         case ("Plane"):
+         case ("plane"):
             temp = new plane();
             break;
          default:
+            console.log(objType)
             window.alert("ten obiekt nie obsluguje kopiowania ")
+            break;
       }
       if (temp) scene.add(temp.mesh)
    })
