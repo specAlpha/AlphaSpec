@@ -176,6 +176,25 @@ $(function () {
    })
 
 
+   $('#sizeX').on('input', function () {
+      if (currSel) {
+         let scale = $(this).val() / currSel.size.x;
+         currSel.mesh.scale.x = scale;
+      }
+   })
+   $('#sizeY').on('input', function () {
+      if (currSel) {
+         let scale = $(this).val() / currSel.size.y;
+         currSel.mesh.scale.y = scale;
+      }
+   })
+   $('#sizeZ').on('input', function () {
+      if (currSel) {
+         let scale = $(this).val() / currSel.size.z;
+         currSel.mesh.scale.z = scale;
+      }
+   })
+
 
 
    $("#output").on("click", () => {
