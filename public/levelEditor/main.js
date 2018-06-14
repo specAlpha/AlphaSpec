@@ -35,6 +35,8 @@ $(function () {
    orbitControl.addEventListener('change', function () {
       renderer.render(scene, camera)
    });
+   // console.log(orbitControl);
+   orbitControl.screenSpacePanning = true;
    $("#root").append(renderer.domElement);
 
    let axesAdded = true
@@ -47,7 +49,7 @@ $(function () {
    $("#add").on("click", () => {
       let objType = $("#objectSelect").val();
       let temp;
-      console.log(objType)
+      // console.log(objType)
       switch (objType) {
          case ("player"):
             temp = new Player();
@@ -100,7 +102,7 @@ $(function () {
       let temp;
       switch (objType) {
          case ("cube"):
-            temp = new cube(currSel.position, currSel.rotation, currSel.size, rotation, currSel.material);
+            temp = new cube(currSel.props.position, currSel.props.rotation, currSel.props.size, currSel.props.texture);
             break;
          case ("ramp"):
             temp = new ramp();
@@ -116,7 +118,7 @@ $(function () {
       if (temp) scene.add(temp.mesh)
    })
    $(document).on("keypress", (e) => {
-      // console.log(e.keyCode)
+      // console.log(e.keyCode
       if (e.keyCode == 122)
          camera.position.y += 5
       if (e.keyCode == 120)
@@ -153,60 +155,60 @@ $(function () {
    })
    $('#posX').on('input', function () {
       if (currSel) {
-         currSel.mesh.position.x = $(this).val();
-         currSel.position.x = $(this).val();
+         currSel.mesh.position.x = Number($(this).val());
+         currSel.position.x = Number($(this).val());
       }
    })
    $('#posZ').on('input', function () {
       if (currSel) {
-         currSel.mesh.position.z = $(this).val();
-         currSel.position.z = $(this).val();
+         currSel.mesh.position.z = Number($(this).val());
+         currSel.position.z = Number($(this).val());
       }
    })
    $('#posY').on('input', function () {
       if (currSel) {
-         currSel.mesh.position.y = $(this).val();
-         currSel.position.y = $(this).val();
+         currSel.mesh.position.y = Number($(this).val());
+         currSel.position.y = Number($(this).val());
       }
    })
 
 
    $('#rotX').on('input', function () {
       if (currSel) {
-         currSel.mesh.rotation.x = Math.radians($(this).val());
-         currSel.rotation.x = Math.radians($(this).val());
+         currSel.mesh.rotation.x = Math.radians(Number($(this).val()));
+         currSel.rotation.x = Math.radians(Number($(this).val()));
       }
    })
    $('#rotY').on('input', function () {
       if (currSel) {
-         currSel.mesh.rotation.z = Math.radians($(this).val());
-         currSel.rotation.y = Math.radians($(this).val());
+         currSel.mesh.rotation.z = Math.radians(Number($(this).val()));
+         currSel.rotation.y = Math.radians(Number($(this).val()));
       }
    })
    $('#rotZ').on('input', function () {
       if (currSel) {
-         currSel.mesh.rotation.y = Math.radians($(this).val());
-         currSel.rotation.z = Math.radians($(this).val());
+         currSel.mesh.rotation.y = Math.radians(Number($(this).val()));
+         currSel.rotation.z = Math.radians(Number($(this).val()));
       }
    })
 
 
    $('#sizeX').on('input', function () {
       if (currSel) {
-         let scale = $(this).val() / currSel.size.x;
+         let scale = Number($(this).val()) / currSel.size.x;
          currSel.mesh.scale.x = scale;
       }
    })
    $('#sizeY').on('input', function () {
       if (currSel) {
-         let scale = $(this).val() / currSel.size.y;
+         let scale = Number($(this).val()) / currSel.size.y;
          currSel.mesh.scale.y = scale;
 
       }
    })
    $('#sizeZ').on('input', function () {
       if (currSel) {
-         let scale = $(this).val() / currSel.size.z;
+         let scale = Number($(this).val()) / currSel.size.z;
          currSel.mesh.scale.z = scale;
 
       }
@@ -252,8 +254,8 @@ $(function () {
 })
 
 function copyToClipboard(text) {
-   console.log(text)
-   window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   console.log(text);
+   // window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
 }
 
 function level(_data) {
@@ -303,7 +305,6 @@ function level(_data) {
 
                   } else if (subType == "pressurePlate") {
                      temp = new pressurePlate(el.position, el.rotation, el.id)
-                     console.log(temp)
                   } else if (subType == "dynamicCubes") {
                      temp = new dynamicCube(el.position, el.rotation, el.size, el.id);
                   } else if (subType == "doors") {
@@ -320,7 +321,6 @@ function level(_data) {
                if (subType == "blockEvents") {
                   for (let obj in data.events[subType]) {
                      let el = data.events[subType][obj];
-                     console.log(el)
                      let temp = new blockEvents(el.type, el.emmiter, el.receiver);
                      for (let w in el.wires) {
                         let wire = el.wires[w];

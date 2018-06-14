@@ -136,7 +136,7 @@ class plane extends Shape {
    }
 }
 class cube extends Shape {
-   constructor(_pos, _rot, _size, _material) {
+   constructor(_pos, _rot, _size, _texture) {
       super(_pos, _rot)
       if (_size) {
          this.size = {
@@ -151,7 +151,7 @@ class cube extends Shape {
             z: $("#sizeZ").val() || 10
          }
       }
-      this.materialProp = _material ? _material : $("#materialSelect").val();
+      this.texture = _texture ? _texture : $("#materialSelect").val();
       this.material = new THREE.MeshBasicMaterial({
          color: parseInt(this.color, 16),
          side: THREE.DoubleSide,
@@ -161,7 +161,7 @@ class cube extends Shape {
 
       });
       this.props.size = this.size;
-      this.props.material = this.materialProp;
+      this.props.texture = this.texture;
       this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name;
