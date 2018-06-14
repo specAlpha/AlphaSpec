@@ -5,7 +5,7 @@ class DynamicCube extends Cube {
         this.axis = axis;
         this.moveTo = moveTo
         this.startPos = this.container.position[this.axis];
-        console.log(this.moveTo - this.container.position[this.axis])
+      
         this.needsToGoBack = false;
         this.animation = new AnimationHelper(this.moveTo - this.container.position[this.axis], 3);
         this.events = eventsArr;
