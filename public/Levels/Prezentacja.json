@@ -2,9 +2,9 @@
   "spawn":        {
     "player0": {
       "position": {
-        "x": -120,
+        "x": 0,
         "y": 0,
-        "z": 605
+        "z": 10
       },
       "rotation": {
         "x": 0,
@@ -16,7 +16,7 @@
       "position": {
         "x": 110,
         "y": 0,
-        "z": 605
+        "z": 10
       },
       "rotation": {
         "x": 0,

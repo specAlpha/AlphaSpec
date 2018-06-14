@@ -230,6 +230,7 @@ io.on('connection', function (client) {
             roomName: room.roomName
         }
         addToDataBase(obj)
+        console.log('win')
         rooms.splice(rooms.indexOf(room), 1);
     })
 

@@ -11,7 +11,7 @@ $(function () {
         GM.mainMenu.createMenu();
         GM.mainMenu.setupScene()
 
-        GM.startGame('testlevel1.json')
+        // GM.startGame('testlevel1.json')
     })
 
 

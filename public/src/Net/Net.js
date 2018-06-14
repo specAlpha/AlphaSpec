@@ -68,6 +68,7 @@ class Net {
 
     emmitWin(time) {
         this.client.emit('win', {timeLeft: time, roomID: this.roomID})
+        console.log('win')
 
     }
 
