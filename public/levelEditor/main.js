@@ -322,7 +322,7 @@ function level(_data) {
    }
 }
 
-let testData = `{
+let testData = ` {
   "spawn":        {
     "player0": {
       "position": {
@@ -349,7 +349,7 @@ let testData = `{
       }
     }
   },
-  "staticBlocks":  {
+  "staticBlocks": {
     "ramp": [
       {
         "position": {
@@ -387,7 +387,7 @@ let testData = `{
         "texture":  "default"
       }, {
         "position": {
-          "x": 80,
+          "x": 140,
           "y": 0,
           "z": 540
         },
@@ -403,9 +403,7 @@ let testData = `{
         },
         "texture":  "default"
       }
-    ]
-  },
-  "staticBlocks": {
+    ],
     "cube": [
       {
         "position": {
@@ -1572,7 +1570,7 @@ let testData = `{
         "rotation": {
           "x": 0,
           "y": -1.5707963267948966,
-          "z": 1.5707963267948966
+          "z": -1.5707963267948966
         },
         "id":       "#8"
       }, {
@@ -1587,6 +1585,28 @@ let testData = `{
           "z": 1.5707963267948966
         },
         "id":       "#9"
+      }
+    ],
+    "dynamicCubes":  [
+      {
+        "position": {
+          "x": 214,
+          "y": 15,
+          "z": 625
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 30,
+          "z": 30
+        },
+        "id":       "#6",
+        "axis":     "x",
+        "moveTo":   185
       }
     ],
     "doors":         [
@@ -1743,7 +1763,7 @@ let testData = `{
       }, {
         "position": {
           "x": -80,
-          "y": 30,
+          "y": 32.5,
           "z": 580
         },
         "rotation": {
