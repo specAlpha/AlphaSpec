@@ -85,7 +85,9 @@ class Player extends Shape {
       this.name = `player${playerNumber}`
       this.material = new THREE.MeshBasicMaterial({
          color: 0x00ff00,
-         side: THREE.DoubleSide
+         side: THREE.DoubleSide,
+         opacity: 0.9,
+         transparent: true
       });
       this.geometry = new THREE.BoxGeometry(10, 20, 10);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -154,6 +156,9 @@ class cube extends Shape {
          color: parseInt(this.color, 16),
          side: THREE.DoubleSide,
          wireframe: false,
+         opacity: 0.9,
+         transparent: true
+
       });
       this.props.material = this.materialProp;
       this.props.size = this.size;
@@ -196,7 +201,15 @@ class ramp extends Shape {
          bevelSize: 1,
          bevelSegments: 2
       });
-      this.mesh = new THREE.Mesh(this.geometry, this.material); this.div.innerHTML = this.constructor.name;
+      this.material = new THREE.MeshBasicMaterial({
+         color: 0xff00e1,
+         side: THREE.DoubleSide,
+         opacity: 0.9,
+         transparent: true
+
+      });
+      this.mesh = new THREE.Mesh(this.geometry, this.material);
+      this.div.innerHTML = this.constructor.name;
       this.applyDimensions();
 
    }
@@ -225,6 +238,9 @@ class pressurePlate extends ActiveShape {
       this.material = new THREE.MeshBasicMaterial({
          color: 0xaa00aa,
          side: THREE.DoubleSide,
+         opacity: 0.9,
+         transparent: true
+
       })
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
@@ -237,9 +253,13 @@ class doors extends ActiveShape {
    constructor(_pos, _rot, _id) {
       super(_pos, _rot, _id);
       this.geometry = new THREE.BoxGeometry(10, 30, 40);
+      this.position.y += 15;
       this.material = new THREE.MeshBasicMaterial({
          color: 0x121212,
-         side: THREE.DoubleSide
+         side: THREE.DoubleSide,
+         opacity: 0.9,
+         transparent: true
+
       })
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
@@ -253,7 +273,10 @@ class spawner extends ActiveShape {
       this.geometry = new THREE.BoxGeometry(20, -20, 20);
       this.material = new THREE.MeshBasicMaterial({
          color: 0x00ff00,
-         side: THREE.DoubleSide
+         side: THREE.DoubleSide,
+         opacity: 0.9,
+         transparent: true
+
       })
       this.position.y -= 5
       this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -268,7 +291,10 @@ class button extends ActiveShape {
       this.geometry = new THREE.BoxGeometry(5, 2, 5);
       this.material = new THREE.MeshBasicMaterial({
          color: 0x1200ff,
-         side: THREE.DoubleSide
+         side: THREE.DoubleSide,
+         opacity: 0.9,
+         transparent: true
+
       })
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name + " " + this.id;
@@ -325,6 +351,8 @@ class blockEvents {
       let material = new THREE.MeshBasicMaterial({
          color: 0xff0000,
          side: THREE.DoubleSide,
+         opacity: 0.6,
+         transparent: true
       });
       let mesh = new THREE.Mesh(geometry, material);
       let wire = {
