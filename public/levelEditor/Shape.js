@@ -36,7 +36,7 @@ class Shape {
       $(this.div).addClass('option');
       $(this.div).appendTo($('#list'));
       objects.push(this);
-      this.type = "staticBlock";
+      this.type = "staticBlocks";
 
    }
    applyDimensions() {
@@ -160,8 +160,8 @@ class cube extends Shape {
          transparent: true
 
       });
-      this.props.material = this.materialProp;
       this.props.size = this.size;
+      this.props.material = this.materialProp;
       this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name;
