@@ -112,6 +112,10 @@ class Doors extends SpecialTile {
         GM.physics.world.addRigidBody(this.rigidBodies[1]);
         GM.physics.world.addRigidBody(this.rigidBodies[2]);
         this.closeDoorsPosition = [this.rigidBodies[1].getPosition(), this.rigidBodies[2].getPosition()]
+
+        let vec = new THREE.Vector3(0, 15, -14.9).applyEuler(Euler)
+
+        this.openedDoorsPosition = [THREEtoOimoVec(vec.add(this.container.position.clone())), THREEtoOimoVec(this.container.position.clone()).add(vec.negate())]
         this.opened = false;
         this.addMeshesToConainer()
         this.rigidBodies[0].rotateXyz(THREEtoOimoEuler(Euler))
@@ -137,8 +141,9 @@ class Doors extends SpecialTile {
 
         this.meshes[2].position.z = -14.9;
         this.meshes[3].position.z = 14.9;
-        this.rigidBodies[1].setPosition(THREEtoOimoVec(this.meshes[2].position.clone().add(this.container.position.clone())));
-        this.rigidBodies[2].setPosition(THREEtoOimoVec(this.meshes[3].position.clone().add(this.container.position.clone())));
+
+        this.rigidBodies[1].setPosition(this.openedDoorsPosition[0]);
+        this.rigidBodies[2].setPosition(this.openedDoorsPosition[1]);
         this.opened = true;
     }
 
