@@ -105,7 +105,6 @@ class Player extends Shape {
 class plane extends Shape {
    constructor(_pos, _rot, _size, _material) {
       super(_pos, _rot)
-      this.type = "staticBlocks";
       if (_size) {
          this.size = {
             x: _size.x,
@@ -173,7 +172,6 @@ class cube extends Shape {
 class ramp extends Shape {
    constructor(_pos, _rot, _size, _texture) {
       super(_pos, _rot)
-      this.type = "staticBlock";
       if (_size) {
          this.size = {
             x: _size.x,
