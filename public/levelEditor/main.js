@@ -241,7 +241,7 @@ function copyToClipboard(text) {
 }
 
 function level(_data) {
-   data = JSON.parse(_data ? _data : testData);
+   data = JSON.parse(_data ? _data : testData2);
    for (let i = objects.length - 1; i >= 0; i--) objects[i].delete();
    for (let type in data) {
       console.log(type)
@@ -289,7 +289,7 @@ function level(_data) {
                      temp = new pressurePlate(el.position, el.rotation, el.id)
                      console.log(temp)
                   } else if (subType == "dynamicCubes") {
-                     temp = new dynamicCubes(el.position, el.rotation, el.size, el.moveTo, el.id);
+                     temp = new dynamicCubes(el.position, el.rotation, el.size, el.moveTo, el.axis, el.id);
                   } else if (subType == "doors") {
                      temp = new doors(el.position, el.rotation, el.id)
                   } else {
