@@ -4,7 +4,7 @@ function OIMOtoThreeVec3(OimoVec) {
 }
 
 function THREEtoOimoVec(vec) {
-    return new OIMO.Vec3(vec.x, vec.y, vec.z)
+    return new OIMO.Vec3(parseFloat(vec.x), parseFloat(vec.y), parseFloat(vec.z))
 
 }
 
@@ -14,6 +14,6 @@ function OIMOtoThreeQuat(quat) {
 }
 
 function THREEtoOimoEuler(euler) {
-    return new OIMO.Vec3(euler.x, euler.y, euler.z)
+    return new OIMO.Vec3(parseFloat(euler.x), parseFloat(euler.y), parseFloat(euler.z))
 
 }
