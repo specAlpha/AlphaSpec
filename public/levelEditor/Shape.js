@@ -105,7 +105,6 @@ class Player extends Shape {
 class plane extends Shape {
    constructor(_pos, _rot, _size, _material) {
       super(_pos, _rot)
-      this.type = "staticBlocks";
       if (_size) {
          this.size = {
             x: _size.x,
@@ -136,7 +135,7 @@ class plane extends Shape {
    }
 }
 class cube extends Shape {
-   constructor(_pos, _rot, _size, _material) {
+   constructor(_pos, _rot, _size, _texture) {
       super(_pos, _rot)
       if (_size) {
          this.size = {
@@ -151,7 +150,7 @@ class cube extends Shape {
             z: $("#sizeZ").val() || 10
          }
       }
-      this.materialProp = _material ? _material : $("#materialSelect").val();
+      this.texture = _texture ? _texture : $("#materialSelect").val();
       this.material = new THREE.MeshBasicMaterial({
          color: parseInt(this.color, 16),
          side: THREE.DoubleSide,
@@ -161,7 +160,7 @@ class cube extends Shape {
 
       });
       this.props.size = this.size;
-      this.props.material = this.materialProp;
+      this.props.texture = this.texture;
       this.geometry = new THREE.BoxGeometry(this.size.x, this.size.y, this.size.z);
       this.mesh = new THREE.Mesh(this.geometry, this.material);
       this.div.innerHTML = this.constructor.name;
@@ -171,9 +170,8 @@ class cube extends Shape {
    }
 }
 class ramp extends Shape {
-   constructor(_pos, _rot, _size) {
+   constructor(_pos, _rot, _size, _texture) {
       super(_pos, _rot)
-      this.type = "staticBlock";
       if (_size) {
          this.size = {
             x: _size.x,
@@ -188,6 +186,8 @@ class ramp extends Shape {
          }
       }
       this.props.size = this.size;
+      this.texture = _texture ? _texture : $("#materialSelect").val();
+      this.props.texture = this.texture;
       let shape = new THREE.Shape();
       shape.moveTo(0, 0);
       shape.lineTo(this.size.x, this.size.y);
@@ -223,8 +223,12 @@ class ActiveShape extends Shape {
          super();
       if (_id)
          this.id = _id
-      else
-         this.id = `#${activeCount++}`;
+      else {
+         let idNum = activeCount++;
+         while (objects.filter(el => el.props.id).reduce((prev, curr) => curr.props.id == ("#" + idNum) ? true : prev, false))
+            idNum = activeCount++;
+         this.id = `#${idNum}`;
+      }
       this.props.id = this.id;
       this.dynamic = true;
       this.type = "specialTiles";
