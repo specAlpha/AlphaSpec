@@ -2,7 +2,7 @@
   "spawn":        {
     "player0": {
       "position": {
-        "x": 0,
+        "x": -120,
         "y": 0,
         "z": 605
       },
@@ -420,7 +420,7 @@
           "y": 10,
           "z": 130
         },
-        "texture":  "default"
+        "texture":  "window"
       }, {
         "position": {
           "x": 200,
@@ -658,7 +658,7 @@
           "y": 10,
           "z": 170
         },
-        "texture":  "default"
+        "texture":  "window"
       }, {
         "position": {
           "x": 200,
@@ -1220,6 +1220,59 @@
           "z": 20
         },
         "texture":  "default"
+      },
+      {
+        "position": {
+          "x": -55,
+          "y": -5,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 310,
+          "y": 10,
+          "z": 220
+        },
+        "texture":  "default"
+      },
+      {
+        "position": {
+          "x": -125,
+          "y": 5,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 30
+        },
+        "texture":  "defaultGreen"
+      }, {
+        "position": {
+          "x": -175,
+          "y": 5,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size":     {
+          "x": 30,
+          "y": 10,
+          "z": 30
+        },
+        "texture":  "defaultGreen"
       }
     ]
   },
@@ -1460,6 +1513,30 @@
           "z": 0
         },
         "id":       "#17"
+      }, {
+        "position": {
+          "x": -125,
+          "y": 10,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#30"
+      }, {
+        "position": {
+          "x": -175,
+          "y": 10,
+          "z": 610
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "id":       "#31"
       }
     ]
   },
@@ -2092,6 +2169,17 @@
             }
           }
         ]
+      },
+      {
+        "type":     1,
+        "emmiter":  "#30",
+        "receiver": "win",
+        "wires":    []
+      }, {
+        "type":     1,
+        "emmiter":  "#31",
+        "receiver": "win",
+        "wires":    []
       }
     ]
   }
