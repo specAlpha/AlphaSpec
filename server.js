@@ -6,7 +6,7 @@ const levelFolder = './public/Levels/';
 const fs = require('fs');
 
 const express = require("express")
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 var mongoClient = require('mongodb').MongoClient
 var ObjectID = require('mongodb').ObjectID;
 var Operations = require("./modules/Operations.js")
@@ -16,7 +16,9 @@ const app = express();
 app.use(express.static('public'))
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-server.listen(PORT);
+server.listen(PORT, function () {
+    console.log('Our app is running');
+});
 let rooms = [];
 let id = 0;
 
@@ -125,7 +127,7 @@ io.on('connection', function (client) {
         let room = {
             roomID: id,
             roomName: data.roomName,
-            players: [{client: client, name: data.name}],
+            players: [{ client: client, name: data.name }],
             start: false,
             map: data.map,
             packet1: {
@@ -140,7 +142,7 @@ io.on('connection', function (client) {
             },
 
         }
-        io.sockets.to(client.id).emit("createRoom", {id: 0, roomID: room.roomID});
+        io.sockets.to(client.id).emit("createRoom", { id: 0, roomID: room.roomID });
         rooms.push(room);
 
 
@@ -152,7 +154,7 @@ io.on('connection', function (client) {
         }
         for (let room of rooms) {
             if (!room.start) {
-                let a = {roomID: room.roomID, roomName: room.roomName}
+                let a = { roomID: room.roomID, roomName: room.roomName }
                 obj.rooms.push(a);
             }
         }
@@ -180,11 +182,11 @@ io.on('connection', function (client) {
         console.log('joining')
 
         if (room && !room.start) {
-            room.players.push({client: client, name: data.name})
+            room.players.push({ client: client, name: data.name })
             room.start = true;
-            io.sockets.to(client.id).emit("joinRoom", {id: 1, roomID: room.roomID});
-            io.sockets.to(room.players[0].client.id).emit("gameStart", {map: room.map});
-            io.sockets.to(room.players[1].client.id).emit("gameStart", {map: room.map});
+            io.sockets.to(client.id).emit("joinRoom", { id: 1, roomID: room.roomID });
+            io.sockets.to(room.players[0].client.id).emit("gameStart", { map: room.map });
+            io.sockets.to(room.players[1].client.id).emit("gameStart", { map: room.map });
         }
         else
             io.sockets.to(client.id).emit("error", {});
@@ -251,4 +253,4 @@ io.on('connection', function (client) {
 
 })
 
-;
+    ;
